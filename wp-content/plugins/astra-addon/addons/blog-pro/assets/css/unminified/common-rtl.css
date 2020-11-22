@@ -1,10 +1,10 @@
-/*
- *  Blog Common
- *
- *  => Content
- *  Normal Grid - 2 - Blog
- *  Normal Grid - 3 - Blog
- *  Normal Grid - 4 - Blog
+/*
+ *  Blog Common
+ *
+ *  => Content
+ *  Normal Grid - 2 - Blog
+ *  Normal Grid - 3 - Blog
+ *  Normal Grid - 4 - Blog
  */
 /*----------  Media Query min-width Structure   ----------*/
 /*----------  Media Query max-width Structure   ----------*/
@@ -22,8 +22,8 @@
   margin-bottom: 2em;
 }
 
-/**
- * Normal Blog
+/**
+ * Normal Blog
  */
 .ast-animate-hidden {
   visibility: hidden;

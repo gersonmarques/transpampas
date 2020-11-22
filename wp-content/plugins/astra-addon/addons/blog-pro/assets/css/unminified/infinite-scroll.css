@@ -1,5 +1,5 @@
-/**
- * Infinite Scroll
+/**
+ * Infinite Scroll
  */
 .ast-pagination-infinite {
   text-align: center;
@@ -29,8 +29,8 @@
   color: #000;
 }
 
-/**
- * Globally hidden elements when Infinite Scroll is supported and in use.
+/**
+ * Globally hidden elements when Infinite Scroll is supported and in use.
  */
 .infinite-scroll .posts-navigation,
 .infinite-scroll.neverending .site-footer {
@@ -38,8 +38,8 @@
   display: none;
 }
 
-/**
- * When Infinite Scroll has reached its end we need to re-display elements that were hidden (via .neverending) before.
+/**
+ * When Infinite Scroll has reached its end we need to re-display elements that were hidden (via .neverending) before.
  */
 .infinity-end.neverending .site-footer {
   display: block;
