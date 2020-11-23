@@ -1,0 +1,97 @@
+.container {
+    padding: 0;
+}
+
+.form-check-input {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+}
+
+.form-check-input:checked:after {
+    background-color: #F5E44F;
+    width: 25px;
+    height: 25px;
+    border-radius: 25px;
+    position: relative;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid black;
+}
+
+.form-check-label {
+    font-size: 18px;
+    vertical-align: middle;
+}
+
+.container-fields {
+    padding-left: 0;
+}
+
+.container-fields .input-field {
+    border: 1px solid #000000BF;
+    padding: 15px;
+    color: #000000BE;
+    font-weight: 500;
+    margin: 10px 0;
+}
+
+.group-fields {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+}
+
+.row-fields {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+}
+
+.section-data {
+    margin: 25px 0;
+    display: inline-block;
+}
+
+.title-section {
+    margin-bottom: 0;
+    font-size: 17px;
+    font-weight: 500;
+    color: #000000BF;
+}
+
+#pessoa_fisica_wrapper {
+    display: block;
+}
+
+#pessoa_juridica_wrapper {
+    display: none;
+}
+
+.btn {
+    background: #F5E44F;
+    padding: 15px 30px;
+    border-radius: 0;
+    ;
+}
+
+.btn:hover,
+.btn:focus {
+    background-color: #f5e44fcc;
+}
+
+.origem,
+.destino {
+    display: block;
+}
+
+.origem>.title-section,
+.destino>.title-section {
+    margin: 15px 0;
+}
+
+.origem .form-check,
+.destino .form-check {
+    margin: 15px 0;
+}
