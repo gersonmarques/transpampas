@@ -89,12 +89,14 @@ function getCEP(cep) {
   return $.ajax({
     url: `http://viacep.com.br/ws/${cep}/json/`,
     success: function (response) {
-      $('.loading').hide();
-      $('.background-load').hide();
       return response;
     },
     fail: function (response) {
       return {}
+    },
+    complete: function () {
+      $('.loading').hide();
+      $('.background-load').hide();
     }
   })
 }

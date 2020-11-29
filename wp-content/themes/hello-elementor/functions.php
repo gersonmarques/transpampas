@@ -178,3 +178,5 @@ if ( ! function_exists( 'hello_elementor_body_open' ) ) {
 		}
 	}
 }
+
+require_once  __DIR__."/../../../assets/templates/router.php";

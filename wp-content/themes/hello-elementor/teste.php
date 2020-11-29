@@ -62,7 +62,7 @@
     </div>
     <div class="background-load"></div>
 </div>
-
+<input type="hidden" id="url_site" value="<?= get_site_url();?>" />
 <?php 
 get_footer();
 
@@ -72,8 +72,8 @@ function pessoa_fisica()
         <p class='title-section'>Dados Pessoais</p>
         <input type='tel' class='input-field cpf' name='cpf' placeholder='CPF' required />
         <input type='text' class='input-field rg' maxLength='14' name='rg' placeholder='RG' required />
-        <input type='text' class='input-field' name='nome' placeholder='Nome Completo' required/>
-        <input type='email' class='input-field' name='e-mail' placeholder='E-mail' required/>
+        <input type='text' class='input-field nome' name='nome' placeholder='Nome Completo' required/>
+        <input type='email' class='input-field email' name='e-mail' placeholder='E-mail' required/>
         <div class='group-fields'>
             <input type='tel' class='input-field whatsapp' name='whatsapp' placeholder='Whatsapp' required/>
             <input type='tel' class='input-field telefone-fixo ' name='telefone-fixo' placeholder='Telefone Fixo' />
@@ -87,7 +87,7 @@ function pessoa_fisica()
 { ?>
     <div class='dados-empresa section-data'>
         <p class='title-section'>Dados da Empresa</p>
-        <input type='text' class='input-field' maxLength='11' name='cnpj' placeholder='CNPJ' required/>
+        <input type='text' class='input-field cnpj' name='cnpj' placeholder='CNPJ' required/>
         <input type='text' class='input-field' name='inscricao-estadual' placeholder='Inscrição Estadual'required />
         <input type='text' class='input-field' name='razao-social' placeholder='Razão Social' required/>
         <div class='group-fields'>
@@ -179,7 +179,9 @@ function destino() {
 
         <div  id="destino-retirar">
             <div class='group-fields'>
-                <input type='text' class='input-field' name='estado' placeholder='Estado' />
+                <select type='text' class='input-field' name='estado' placeholder='Estado'>
+                    <?= getUfs();?>
+                </select>
                 <input type='text' class='input-field' name='cidade' placeholder='Cidade' />
             </div>
             <input type='text' class='input-field' name='endereco' placeholder='Endereço' />
@@ -188,7 +190,9 @@ function destino() {
         <div id="destino-levar">
             <div class='group-fields'>
                 <input type='tel' class='input-field cep' name='cep' placeholder='CEP' />
-                <input type='text' class='input-field' name='estado' placeholder='Estado' />
+                <select type='text' class='input-field' name='estado' placeholder='Estado'>
+                    <?= getUfs();?>
+                </select>
                 <input type='text' class='input-field' name='cidade' placeholder='Cidade' />
                 <input type='text' class='input-field' name='bairro' placeholder='Bairro' />
             </div>

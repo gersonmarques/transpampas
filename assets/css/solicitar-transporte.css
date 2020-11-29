@@ -92,6 +92,7 @@
 .btn:hover,
 .btn:focus {
   background-color: #f5e44fcc;
+  color: #212529;
 }
 
 .origem,

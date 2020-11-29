@@ -8,7 +8,6 @@ $(document).ready(function () {
   masks();
 
   $(document).on('change', '.tipo_dados_pessoais', function () {
-
     if (PESSOA_FISICA === $(this).val() && $(this).is(':checked')) {
       $('#pessoa_fisica_wrapper').show();
       $('#pessoa_juridica_wrapper').hide();
@@ -50,8 +49,6 @@ $(document).ready(function () {
     }
   })
 
-
-
   $(document).on('click', '.btn-next', function (e) {
     e.preventDefault();
     if (!validate()) return false;
@@ -73,7 +70,6 @@ $(document).ready(function () {
 
   $(document).on('blur', '.cep', function () {
     const CEP_LENGTH = 8;
-
     if ($(this).cleanVal().length < CEP_LENGTH) return;
 
     $('.loading').show();
@@ -88,6 +84,24 @@ $(document).ready(function () {
     })
   })
 
+  $(document).on('blur', '.cpf', function () {
+    const CPF_LENGTH = 11;
+    if ($(this).cleanVal().length < CPF_LENGTH) return;
+
+    $('.loading').show();
+    $('.background-load').show();
+    getUserInfo($(this).cleanVal(), true)
+  });
+
+  $(document).on('blur', '.cnpj', function () {
+    const CNPJ_LENGTH = 14;
+
+    if ($(this).cleanVal().length < CNPJ_LENGTH) return;
+
+    $('.loading').show();
+    $('.background-load').show();
+    getUserInfo($(this).cleanVal(), false)
+  })
 })
 
 function masks() {
@@ -106,7 +120,7 @@ function masks() {
 
 function validate() {
   const fields = $('input,select').filter('[required]:visible').serializeArray();
-  console.log(fields)
+
   for (let field of fields) {
     if (field.name === "cpf") {
       field.value = $(`input[name='${field.name}']`).cleanVal();
@@ -134,7 +148,6 @@ function validate() {
       $(`input[name='${field.name}']`).removeClass('error')
     }
 
-
     if (!field.value) {
       if (field.name == "rg") {
         $(`input[name='${field.name}']`).addClass('error').focus();
@@ -151,7 +164,6 @@ function validate() {
       $(`input[name='${field.name}']`).removeClass('error')
     }
   }
-
   return true;
 }
 
@@ -203,4 +215,46 @@ function steps(type) {
   if (type = "send") {
 
   }
+}
+
+function getUserInfo(field, iscpf) {
+  const URL_SITE = $('#url_site').val();
+  const data = iscpf ? { cpf: field } : { cnpj: field };
+
+  $.ajax({
+    url: `${URL_SITE}/wp-json/user/get/info`,
+    method: "post",
+    data: data,
+    success: function (response) {
+
+      if (!response.erro_code) {
+
+        response.forEach(item => {
+          if (item.meta_key == "user_dados_pessoais_rg") {
+            $('.rg').val(item.meta_value);
+          }
+
+          if (item.meta_key == "user_contato_whatsapp") {
+            $('.whatsapp').val(item.meta_value);
+          }
+
+          if (item.meta_key == "user_contato_telefone_fixo") {
+            $('.telefone-fixo').val(item.meta_value);
+          }
+
+          if (item.meta_key == "user_contato_email") {
+            $('.nome').val(item.display_name);
+            $('.email').val(item.meta_value);
+          }
+        });
+      }
+    },
+    fail: function (response) {
+      return {}
+    },
+    complete: function (response) {
+      $('.loading').hide();
+      $('.background-load').hide();
+    }
+  })
 }
