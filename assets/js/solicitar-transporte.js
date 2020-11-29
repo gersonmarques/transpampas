@@ -228,7 +228,11 @@ function getUserInfo(field, iscpf) {
     success: function (response) {
 
       if (!response.erro_code) {
-
+        if (iscpf && response.length > 0) {
+          $('.exists_user_cpf').show();
+        } else {
+          $('.exists_user_cnpj').show();
+        }
         response.forEach(item => {
           if (item.meta_key == "user_dados_pessoais_rg") {
             $('.rg').val(item.meta_value);

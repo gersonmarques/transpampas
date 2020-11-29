@@ -70,7 +70,12 @@ function pessoa_fisica()
 { ?>
     <div class='dados-pessoais section-data'>
         <p class='title-section'>Dados Pessoais</p>
-        <input type='tel' class='input-field cpf' name='cpf' placeholder='CPF' required />
+        <div>
+            <input type='tel' class='input-field cpf' name='cpf' placeholder='CPF' required /> 
+            <p class="exists_user_cpf">Já existe um cadastro com o CPF informado. Continue sua solicitação. Caso alguma informação esteja desatualizada, 
+                <strong>acesse a Área do Cliente e atualize os dados.</strong>
+            </p>
+        </div>
         <input type='text' class='input-field rg' maxLength='14' name='rg' placeholder='RG' required />
         <input type='text' class='input-field nome' name='nome' placeholder='Nome Completo' required/>
         <input type='email' class='input-field email' name='e-mail' placeholder='E-mail' required/>
@@ -87,7 +92,12 @@ function pessoa_fisica()
 { ?>
     <div class='dados-empresa section-data'>
         <p class='title-section'>Dados da Empresa</p>
-        <input type='text' class='input-field cnpj' name='cnpj' placeholder='CNPJ' required/>
+        <div>
+            <input type='text' class='input-field cnpj' name='cnpj' placeholder='CNPJ' required/>
+            <p class="exists_user_cnpj">Já existe um cadastro com o CNPF informado. Continue sua solicitação. Caso alguma informação esteja desatualizada, 
+                <strong>acesse a Área do Cliente e atualize os dados.</strong>
+            </p>
+        </div>    
         <input type='text' class='input-field' name='inscricao-estadual' placeholder='Inscrição Estadual'required />
         <input type='text' class='input-field' name='razao-social' placeholder='Razão Social' required/>
         <div class='group-fields'>
