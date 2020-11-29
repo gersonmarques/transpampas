@@ -1,7 +1,7 @@
 <?php
     function getInfo(WP_REST_Request $request) 
     {
-        if( (!isset($request['cpf']) || empty($request['cpf'])) && !isset($request['cnpj']) || empty($request['cnpj'])) {
+        if( (!isset($request['cpf']) || empty($request['cpf'])) && (!isset($request['cnpj']) || empty($request['cnpj'])) ) {
             return array(
                 "erro_code" => "400",
                 "message" => "Parâmetros obrigatório não enviado"
