@@ -49,3 +49,75 @@
         
     }
 
+    function saveInfo(WP_REST_Request $request)
+    {
+        $data = $_POST;
+        $files = $_FILES;
+        $source = [];
+        $target = [];
+
+
+        foreach ($data as $key => $value) {
+            if(empty($value)) return false;
+
+            if(is_object($value) || is_array($value)){
+                foreach ($value as $k => $v) {
+                    if(empty($value)) return false;
+                } 
+            }
+
+            $posOrigem = strpos($key, "origem");
+            if($posOrigem !== false){
+                $name = str_replace("origem-","",$key);
+                $source[$name] = $value;
+            }
+
+            $posDestino = strpos($key, "destino");
+            if($posDestino !== false){
+                $name = str_replace("destino-","",$key);
+                $target[$name] = $value;
+            }
+        }
+
+        var_dump('<pre>', $data, $source, '</pre>');die;
+    }
+
+    function saveSource($data){
+        global $wpdb;
+        try {
+            $wpdb->insert( 
+                'wpuv_request_transport_source', 
+                array( 
+                    'cep' => 'value1', 
+                    'estado' => 123, 
+                    'cidade' => 123, 
+                    'bairro' => 123, 
+                    'endereco' => 123, 
+                    'numero' => 123, 
+                )
+            );
+            return $wpdb->insert_id;
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+    function saveTarget($data){
+        global $wpdb;
+        try {
+            $wpdb->insert( 
+                'wpuv_request_transport_target', 
+                array( 
+                    'cep' => 'value1', 
+                    'estado' => 123, 
+                    'cidade' => 123, 
+                    'bairro' => 123, 
+                    'endereco' => 123, 
+                    'numero' => 123, 
+                )
+            );
+            return $wpdb->insert_id;
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+

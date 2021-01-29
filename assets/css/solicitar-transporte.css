@@ -63,6 +63,7 @@
 .section-data {
   margin: 25px 0;
   display: inline-block;
+  width: 100%;
 }
 
 .title-section {
@@ -86,7 +87,10 @@
   background: #F5E44F;
   padding: 15px 30px;
   border-radius: 0;
-  ;
+}
+
+.btn-prev {
+  background: #FFF;
 }
 
 .btn:hover,
