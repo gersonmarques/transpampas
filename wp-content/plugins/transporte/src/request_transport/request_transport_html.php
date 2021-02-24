@@ -82,7 +82,7 @@ class Request_transport_html{
         $result = $request_transport->query_request_transport(true, $id);
         $result = (array) $result[0];
         if( !empty($result['id_user']) ) {
-            $dataUsers = $request_transport->getUserMeta($result[0]->id_user);
+            $dataUsers = $request_transport->getUserMeta($result['id_user']);
             $result = array_merge($result, $dataUsers);
            
         }
