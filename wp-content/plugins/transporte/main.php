@@ -39,6 +39,15 @@ function  transporte_item_menu(){
         'courtyards_settings_page'
     );
 
+    add_submenu_page(
+        'transporte',
+        'Solicitações de Transporte',
+        'Solicitações de Transporte',
+        'manage_options',
+        'list_requests',
+        'request_transport_settings_page'
+    );
+
     // $page_hook_id = question_setings_page_id();
     // add_action('admin_enqueue_scripts', 'question_enqueue_scripts');
 
@@ -50,7 +59,17 @@ function courtyards_settings_page(){
     require_once dirname( __FILE__ ) . '/src/courtyards/courtyards_html.php';
     global $db;
     $courtyards = new Courtyards_html();
-    $courtyards->html_add_area();
+    $courtyards->html_add_courtyards();
+}
+
+
+function request_transport_settings_page(){
+    $path = plugin_dir_url( __FILE__ );
+    wp_enqueue_script( 'validation_js', $path . 'src/js/validation.js',array( 'jquery' ),'1.0.0', true );
+    require_once dirname( __FILE__ ) . '/src/request_transport/request_transport_html.php';
+    global $db;
+    $courtyards = new Request_transport_html();
+    $courtyards->html_list_requests_transport();
 }
 
 function question_list_page(){

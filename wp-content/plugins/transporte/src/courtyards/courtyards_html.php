@@ -6,7 +6,7 @@ class Courtyards_html{
     /**
      * Page of add events
      */
-     public function html_add_area(){
+     public function html_add_courtyards(){
         require_once TRANSPORTE_PLUGIN_PATH . '/src/courtyards/courtyards.php';
         $title   = "Pátios";
         ?>
@@ -20,7 +20,7 @@ class Courtyards_html{
             </div>
             <?php 
             if(isset($_GET['id']) && !empty($_GET['id'])){
-                    echo $this->html_update_area();
+                    echo $this->html_update_courtyards();
             }else{?>
                 <div id="add-courtyards">
                     <form method="post">
@@ -115,7 +115,7 @@ class Courtyards_html{
         <?php
     }
     
-    function html_update_area(){
+    function html_update_courtyards(){
         $id = $_GET['id'];
         require_once TRANSPORTE_PLUGIN_PATH . '/src/courtyards/courtyards.php';
         $courtyards = new Courtyards();

@@ -6,6 +6,7 @@ const STEP3 = '3'
 let dataFields = {}
 let hasUser = false
 let dataCourtyards = []
+let pessoaFisica = true;
 
 $(document).ready(function () {
   masks();
@@ -14,11 +15,13 @@ $(document).ready(function () {
     if (PESSOA_FISICA === $(this).val() && $(this).is(':checked')) {
       $('#pessoa_fisica_wrapper').show();
       $('#pessoa_juridica_wrapper').hide();
+      pessoaFisica = true;
     }
 
     if (PESSOA_JURIDICA === $(this).val() && $(this).is(':checked')) {
       $('#pessoa_juridica_wrapper').show();
       $('#pessoa_fisica_wrapper').hide();
+      pessoaFisica = false;
     }
   });
 
@@ -63,7 +66,6 @@ $(document).ready(function () {
 
       if (step === STEP3) {
         steps("send");
-        console.log("==>", dataFields)
         saveData(dataFields)
       }
     })
@@ -92,7 +94,7 @@ $(document).ready(function () {
 
   $(document).on('blur', '.cpf', function () {
     const CPF_LENGTH = 11;
-    if ($(this).cleanVal().length < CPF_LENGTH) return;
+    if ($(this).cleanVal().length < CPF_LENGTH || !$(this).cleanVal()) return;
 
     $('.loading').show();
     $('.background-load').show();
@@ -102,7 +104,7 @@ $(document).ready(function () {
   $(document).on('blur', '.cnpj', function () {
     const CNPJ_LENGTH = 14;
 
-    if ($(this).cleanVal().length < CNPJ_LENGTH) return;
+    if ($(this).cleanVal().length < CNPJ_LENGTH || !$(this).cleanVal()) return;
 
     $('.loading').show();
     $('.background-load').show();
@@ -189,9 +191,7 @@ function masks() {
 function validate() {
   const fields = $('input, select').filter('[required]:visible').serializeArray();
   let aux = {}
-  console.log("STEP", $('.active').attr('data-step'))
   for (let field of fields) {
-    console.log(field)
     if (field.name === "cpf") {
       field.value = $(`input[name='${field.name}']`).cleanVal();
       if (!validateCPF(field.value)) {
@@ -242,23 +242,12 @@ function validate() {
   }
 
   if (Object.keys(aux).length) {
-    console.log(dataFields)
     dataFields = {
       ...dataFields,
       ...aux,
       hasUser,
     }
-    console.log(dataFields)
   }
-
-  // console.log("===============================")
-  // console.log(dataFields)
-  // console.log("===============================")
-  // console.log(aux)
-
-  // console.log("===============================")
-  // console.log(dataFields)
-  // console.log("===============================")
   return true;
 }
 
@@ -329,10 +318,15 @@ function getUserInfo(field, iscpf) {
           $('.exists_user_cpf').hide();
           $('.exists_user_cnpj').hide();
           $('.rg').val("");
+          $('.rg').prop('disabled', false);
           $('.whatsapp').val("");
+          $('.whatsapp').prop('disabled', false);
           $('.telefone-fixo').val("");
+          $('.telefone-fixo').prop('disabled', false);
           $('.nome').val("");
+          $('.nome').prop('disabled', false);
           $('.email').val("");
+          $('.email').prop('disabled', false);
 
           if (iscpf) {
             $('.cnpj').val("");
@@ -352,21 +346,11 @@ function getUserInfo(field, iscpf) {
           if (iscpf) {
             if (item.meta_key == "user_dados_pessoais_rg") {
               $('.rg').val(item.meta_value);
+              $('.rg').prop('disabled', true);
             }
 
-            if (item.meta_key == "user_contato_whatsapp") {
-              $('.whatsapp').val(item.meta_value);
-            }
-
-            if (item.meta_key == "user_contato_telefone_fixo") {
-              $('.telefone-fixo').val(item.meta_value);
-            }
-
-            if (item.meta_key == "user_contato_email") {
-              $('.nome').val(item.display_name);
-              $('.email').val(item.meta_value);
-            }
-            $('.inscricao-estadual').val("");
+            $('.inscricao-estadual').val("")
+            $('.inscricao-estadual').prop('disabled', false);
             $('input[name="razao-social"]').val("");
             $('input[name="nome-responsavel"]').val("");
             $('.dtnasc-responsavel').val("");
@@ -374,16 +358,26 @@ function getUserInfo(field, iscpf) {
           } else {
             if (item.meta_key == "user_dados_pessoais_ie") {
               $('.inscricao-estadual').val(item.meta_value);
+              $('.inscricao-estadual').prop('disabled', true);
             }
-            $('.cpf').val("");
-            $('.rg').val("");
-            $('.whatsapp').val("");
-            $('.telefone-fixo').val("");
-            $('.nome').val("");
-            $('.email').val("");
-            $('.cpf').val("");
           }
 
+          if (item.meta_key == "user_contato_email") {
+            $('.nome').val(item.display_name);
+            $('.email').val(item.meta_value);
+            $('.nome').prop('disabled', true);
+            $('.email').prop('disabled', true);
+          }
+
+          if (item.meta_key == "user_contato_whatsapp") {
+            $('.whatsapp').val(item.meta_value);
+            $('.whatsapp').prop('disabled', true);
+          }
+
+          if (item.meta_key == "user_contato_telefone_fixo") {
+            $('.telefone-fixo').val(item.meta_value);
+            $('.telefone-fixo').prop('disabled', true);
+          }
         });
       }
     },
@@ -441,6 +435,8 @@ function getState(el, data) {
 }
 
 function saveData(data) {
+  $('.loading').show();
+  $('.background-load').show();
   const URL_SITE = $('#url_site').val();
   var crlv_file = $('#crlv').prop('files')[0];
   var cnh_file = $('#rg_cnh').prop('files')[0];
@@ -448,6 +444,7 @@ function saveData(data) {
 
   form_data.append('cnh_rg', cnh_file);
   form_data.append('crlv', crlv_file);
+  form_data.append('type_account', pessoaFisica ? "pessoa_fisica" : "pessoa_juridica");
 
   for (var key in data) {
     form_data.append(key, data[key]);
@@ -460,8 +457,9 @@ function saveData(data) {
     contentType: false,
     processData: false,
     success: function (response) {
-      console.log(response)
-
+      if (response.status) {
+        alert('Solicitação de transporte realizado com sucesso!');
+      }
     },
     fail: function (response) {
       return []

@@ -180,3 +180,17 @@ if ( ! function_exists( 'hello_elementor_body_open' ) ) {
 }
 
 require_once  __DIR__."/../../../assets/templates/router.php";
+
+
+//Exemplo de uso na página [transporte]
+function transporte_func() {
+	require_once  __DIR__."/../../../assets/templates/solicitar-transporte.php";
+	return solicitar_transporte();
+}
+function orcamento_func() {
+	require_once  __DIR__."/../../../assets/templates/solicitar-orcamento.php";
+	return solicitar_orcamento();
+}
+
+add_shortcode( 'transporte', 'transporte_func' );
+add_shortcode( 'orcamento', 'orcamento_func' );

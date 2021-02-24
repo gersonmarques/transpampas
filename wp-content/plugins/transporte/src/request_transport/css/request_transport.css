@@ -1,0 +1,140 @@
+#add-request-transport,
+#update-request-transport {
+  display: inline-block;
+  float: left;
+  width: 30%;
+}
+
+#update-request-transport {
+  width: 60%;
+}
+
+.group-add-request-transport {
+  display: inline-block;
+  width: 100%;
+  margin: 5px 0;
+}
+
+.group-add-request-transport>label {
+  color: #23282d;
+  font-weight: 400;
+  text-shadow: none;
+  display: block;
+  padding: 2px 0;
+}
+
+.group-add-request-transport>input,
+.group-add-request-transport>textarea,
+.group-add-request-transport>select {
+  display: inline-block;
+  width: 100%;
+  max-width: 100%;
+}
+
+.group-add-request-transport>p {
+  display: inline-block;
+  width: 100%;
+  margin: 2px 0 5px;
+  color: #666;
+  font-size: 13px;
+  font-style: italic;
+}
+
+#input_save {
+  margin: 15px 0;
+}
+
+.table-request-transport {
+  display: inline-block;
+  width: 65%;
+  margin: 40px 0 0 50px;
+}
+
+.notice {
+  display: none;
+}
+
+.actions-table {
+  display: inline-block;
+  width: 100%;
+  margin: 3px auto;
+}
+
+.query-table {
+  display: inline-block;
+}
+
+#param-request-transport {
+  vertical-align: baseline;
+}
+
+.section-data {
+  display: grid;
+  margin: 5px 0;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+}
+
+.section-data>h3 {
+  display: grid;
+  grid-column: 1 / 3;
+  background: #007cba;
+  padding: 15px;
+  color: #FFF;
+  border-radius: 2px;
+  text-align: center;
+}
+
+
+/***********************/
+
+
+/*       Loader        */
+
+
+/***********************/
+
+.loader,
+.loader-search {
+  display: none;
+  z-index: 1;
+  vertical-align: middle;
+  height: 150px;
+  border: 5px solid #ddd;
+  border-radius: 50%;
+  border-top: 5px solid #3498db;
+  width: 10px;
+  height: 10px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  margin-left: 10px;
+  margin-top: 20px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader_list {
+  position: absolute;
+  vertical-align: middle;
+  margin-top: 5px;
+}
+
+.loader-search {
+  margin-top: 0px;
+}
+
+
+/***********************/
+
+
+/*     End Loader      */
+
+
+/***********************/

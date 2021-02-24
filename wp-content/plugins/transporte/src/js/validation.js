@@ -14,20 +14,15 @@ var Validation = function () {
     var validation = new Validation();
 
     if (typeof arrayFields != 'object') {
-      console.log(typeof arrayFields);
       return false;
     }
 
     jQuery.each(arrayFields, function (index, value) {
       result = true;
-      if (value === undefined)
+      if (!value) {
+        console.log(index);
         result = false;
-
-      if (value.trim() === null)
-        result = false;
-
-      if (value.trim() === "")
-        result = false;
+      }
 
       if (!result) {
         if (!validation.border(index, '#d43f3a')) {

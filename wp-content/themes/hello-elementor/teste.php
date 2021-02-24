@@ -98,7 +98,7 @@ function pessoa_fisica()
                 <strong>acesse a Área do Cliente e atualize os dados.</strong>
             </p>
         </div>    
-        <input type='text' class='input-field' name='inscricao-estadual' placeholder='Inscrição Estadual'required />
+        <input type='text' class='input-field inscricao-estadual' name='inscricao-estadual' placeholder='Inscrição Estadual'required />
         <input type='text' class='input-field' name='razao-social' placeholder='Razão Social' required/>
         <div class='group-fields'>
             <input type='text' class='input-field' name='nome-responsavel' placeholder='Nome do responsável' required/>
@@ -148,26 +148,30 @@ function origem() {
 
             <div id="origem-levar">
                 <div class='group-fields'>
-                    <select type='text' class='input-field' name='estado' placeholder='Estado'>
+                    <select type='text' class='input-field estado' name='origem-estado' placeholder='Estado' required>
                         <?= getUfs();?>
                     </select>
-                    <input type='text' class='input-field' name='cidade' placeholder='Cidade' />
+                    <select type='text' class='input-field cidade' name='origem-cidade' placeholder='Cidade' required disabled>
+                        <option value="">Cidade</option>
+                    </select>
                 </div>
-                <input type='text' class='input-field' name='endereco' placeholder='Endereço' />
+                <select type='text' class='input-field endereco' name='origem-endereco' placeholder='Endereço' required disabled>
+                    <option value="">Endereço</option>
+                </select>
             </div>
 
             <div id="origem-buscar">
                 <div class='group-fields'>
-                    <input type='tel' class='input-field cep' name='cep' placeholder='CEP' />
-                    <select type='text' class='input-field' name='estado' placeholder='Estado'>
+                    <input type='tel' class='input-field cep' name='origem-cep' placeholder='CEP' required />
+                    <select type='text' class='input-field estado' name='origem-estado' placeholder='Estado' required>
                         <?= getUfs();?>
                     </select>
-                    <input type='text' class='input-field' name='cidade' placeholder='Cidade' />
-                    <input type='text' class='input-field' name='bairro' placeholder='Bairro' />
+                    <input type='text' class='input-field cidade' name='origem-cidade' placeholder='Cidade' required />
+                    <input type='text' class='input-field bairro' name='origem-bairro' placeholder='Bairro' required/>
                 </div>
                 <div class='group-fields-1-3'>
-                    <input type='text' class='input-field field-major' name='endereco' placeholder='Digite o endereço' />
-                    <input type='tel' class='input-field' name='numero' placeholder='Número' />
+                    <input type='text' class='input-field field-major endereco' name='origem-endereco' placeholder='Digite o endereço' />
+                    <input type='tel' class='input-field numero' name='origem-numero' placeholder='Número' required/>
                 </div>
             </div>
         </div>
@@ -189,26 +193,30 @@ function destino() {
 
         <div  id="destino-retirar">
             <div class='group-fields'>
-                <select type='text' class='input-field' name='estado' placeholder='Estado'>
+                <select type='text' class='input-field estado' name='destino-estado' placeholder='Estado' required>
                     <?= getUfs();?>
                 </select>
-                <input type='text' class='input-field' name='cidade' placeholder='Cidade' />
+                <select type='text' class='input-field cidade' name='destino-cidade' placeholder='Cidade' required disabled>
+                    <option value="">Cidade</option>
+                </select>
             </div>
-            <input type='text' class='input-field' name='endereco' placeholder='Endereço' />
+            <select type='text' class='input-field endereco' name='destino-endereco' placeholder='Endereço' required disabled>
+                <option value="">Endereço</option>
+            </select>
         </div>
 
         <div id="destino-levar">
             <div class='group-fields'>
-                <input type='tel' class='input-field cep' name='cep' placeholder='CEP' />
-                <select type='text' class='input-field' name='estado' placeholder='Estado'>
+                <input type='tel' class='input-field cep' name='destino-cep' placeholder='CEP' required/>
+                <select type='text' class='input-field estado' name='destino-estado' placeholder='Estado' required>
                     <?= getUfs();?>
                 </select>
-                <input type='text' class='input-field' name='cidade' placeholder='Cidade' />
-                <input type='text' class='input-field' name='bairro' placeholder='Bairro' />
+                <input type='text' class='input-field cidade' name='destino-cidade' placeholder='Cidade' required />
+                <input type='text' class='input-field bairro' name='destino-bairro' placeholder='Bairro' required />
             </div>
             <div class='group-fields-1-3'>
-                <input type='text' class='input-field field-major' name='endereco' placeholder='Digite o endereço' />
-                <input type='tel' class='input-field' name='numero' placeholder='Número' />
+                <input type='text' class='input-field field-major endereco' name='destino-endereco' placeholder='Digite o endereço' />
+                <input type='tel' class='input-field numero' name='destino-numero' placeholder='Número' required />
             </div>
         </div>
     </div>
@@ -221,9 +229,9 @@ function documentos()
     <div class='documentos section-data'>
         <p class='title-section'>Documentação</p>
         <div class='group-fields'>
-            <input class="rg_cnh" type="file" id="rg_cnh" name="rg_cnh" style="display:none">
+            <input class="rg_cnh" accept=".pdf, .jpg, .png" type="file" id="rg_cnh" name="rg_cnh" style="display:none">
             <label class="rg_cnh_label label_input">Cópia/Foto legível de RG OU CNH (.pdf .jpg .png)</label>
-            <input class="crlv" type="file" id="crlv" name="crlv" style="display:none">
+            <input class="crlv" accept=".pdf, .jpg, .png" type="file" id="crlv" name="crlv" style="display:none">
             <label class="crlv_label label_input">Cópia/Foto legível de CRLV (.pdf .jpg .png)</label>
         </div>
     </div>
