@@ -157,6 +157,7 @@ class RequestTransport {
         $rg_cnh_veiculo  = empty($_POST['rg_cnh_veiculo']) ? ''  : $_POST['rg_cnh_veiculo'];
         $crlv_veiculo  = empty($_POST['crlv_veiculo']) ? ''  : $_POST['crlv_veiculo'];
         $observacao  = empty($_POST['observacao']) ? ''  : $_POST['observacao'];
+        $status  = empty($_POST['status']) ? ''  : $_POST['status'];
 
         try{
             $sql = array(
@@ -174,6 +175,7 @@ class RequestTransport {
             $sql['rg_cnh']      = $rg_cnh_veiculo;
             $sql['crlv']        = $crlv_veiculo;
             $sql['observacao']  = $observacao;  
+            $sql['status']      = $status;  
             echo  json_encode($wpdb->update($wpdb->prefix . $this->table, $sql, $where));
         }catch(Exception $e){
             echo json_encode($e->getMessage());

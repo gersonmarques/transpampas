@@ -1,7 +1,12 @@
 <?php 
 
 class Request_transport_html{
-    
+    protected $status = [
+        'Aguardando',
+        'Em andamento',
+        'Concluído',
+        'Fechado'
+    ];
 
     /**
      * Page of list transport
@@ -47,6 +52,7 @@ class Request_transport_html{
                             <th style="width:30%;">Nome</th>
                             <th>E-mail</th>
                             <th>CPF/CNPJ</th>
+                            <th>Status</th>
                             <th>Criado em </th>
                             <th>Modificado em </th>
                         </tr>
@@ -63,6 +69,7 @@ class Request_transport_html{
                                 <td><?php echo $val->nome?></td>
                                 <td><?php echo $val->email?></td>
                                 <td><?php echo empty($val->cpf) ? $val->cnpj : $val->cpf ?></td>
+                                <td><?php echo $this->status[$val->status]?></td>
                                 <td><?php echo date("d/m/Y", strtotime($val->criado))?></td>
                                 <td><?php echo date("d/m/Y", strtotime($val->modificado))?></td>                                
                             </tr>
@@ -84,17 +91,23 @@ class Request_transport_html{
         if( !empty($result['id_user']) ) {
             $dataUsers = $request_transport->getUserMeta($result['id_user']);
             $result = array_merge($result, $dataUsers);
-           
         }
     ?>
-        <script type="text/javascript" src="../wp-content/plugins/transporte/src/request_transport/js/request_transport.js"></script>
-        <script type="text/javascript" src="../wp-content/plugins/transporte/src/request_transport/js/request_transport_actions.js"></script>
         <div id="update-request-transport">
             <form method="post">
                 <h3>Atualizar Solicitação de Transporte </h3>
                 <div class="group-add-request-transport">
                     <label for="id-request-transport">Código</label>
                     <input type="text" id="id-request-transport" name="id" value="<?php echo $result['id'];?>" disabled/>
+                </div>
+                <div class="group-add-request-transport">
+                    <label for="status-request-transport">Status</label>
+                    <select id="status" name="status">
+                       <option value="0">Aguardando</option>
+                       <option value="1">Em andamento</option>
+                       <option value="2">Concluído</option>
+                       <option value="3">Fechado</option>
+                    </select>
                 </div>
 
                 <div class="section-data">

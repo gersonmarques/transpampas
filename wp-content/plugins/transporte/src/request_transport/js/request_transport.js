@@ -46,8 +46,6 @@ var RequestTransport = function () {
       async: false,
       data: arrayFields,
       success: function (result) {
-        console.log('success');
-        console.log(result);
         if (jQuery(".notice").hasClass("notice-error")) {
           jQuery('.notice').removeClass('notice-error');
           if (!jQuery(".notice").hasClass("notice-success")) {
@@ -93,7 +91,6 @@ var RequestTransport = function () {
         }
       },
       error: function (result) {
-        console.log(result);
         var text = courtyards.textReturn(tasks);
         jQuery('.notice').removeClass('notice-success');
         jQuery('.notice').addClass('notice-error');
@@ -189,6 +186,7 @@ var RequestTransport = function () {
     arrayFields['rg_cnh_veiculo'] = jQuery('#rg_cnh-veiculo-request-transport').val()
     arrayFields['crlv_veiculo'] = jQuery('#crlv-veiculo-request-transport').val()
     arrayFields['observacao'] = jQuery('#observacao').val()
+    arrayFields['status'] = jQuery('#status').val()
     var url = '../wp-content/plugins/transporte/src/request_transport/request_transport.php';
     var task = 'task=updateRequest';
     return this.send(arrayFields, url + "?" + task);
