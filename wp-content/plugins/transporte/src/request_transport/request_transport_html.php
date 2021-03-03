@@ -60,15 +60,24 @@ class Request_transport_html{
                         <tbody>
                             <?php
                             $request_transport = new RequestTransport();
-                            $result =  $request_transport->query_request_transport(true);
+                            $result = $request_transport->query_request_transport(true);
                             foreach($result as $key => $val):
+                                if(!empty($val->id_user) ) {
+                                    $dataUsers = $request_transport->getUserMeta($val->id_user);
+                                }
+                                $colCPFOrCNPJ = "";
+                                if(!empty($val->cpf) || !empty($val->cnpj) ){
+                                    $colCPFOrCNPJ = empty($val->cpf) ? $val->cnpj : $val->cpf;
+                                } else{
+                                    $colCPFOrCNPJ = empty($dataUsers['cpf']) ? $dataUsers['cnpj'] : $dataUsers['cpf'];
+                                }
                             ?>
                             </tr>
                                 <td><input type="checkbox" name="checkbox-actions" class="checkbox-actions" value="<?php echo $val->id?>"></td>
                                 <td style="text-align: center;"><?php echo $val->id?></td>
-                                <td><?php echo $val->nome?></td>
-                                <td><?php echo $val->email?></td>
-                                <td><?php echo empty($val->cpf) ? $val->cnpj : $val->cpf ?></td>
+                                <td><?php echo $val->nome ? $val->nome : $dataUsers['nome'] ?></td>
+                                <td><?php echo $val->email ? $val->email : $dataUsers['email'] ?></td>
+                                <td><?php echo $colCPFOrCNPJ ?></td>
                                 <td><?php echo $this->status[$val->status]?></td>
                                 <td><?php echo date("d/m/Y", strtotime($val->criado))?></td>
                                 <td><?php echo date("d/m/Y", strtotime($val->modificado))?></td>                                
@@ -92,6 +101,11 @@ class Request_transport_html{
             $dataUsers = $request_transport->getUserMeta($result['id_user']);
             $result = array_merge($result, $dataUsers);
         }
+        $cnh = !empty($result['rg_cnh']) ? explode("/", $result['rg_cnh']) : [];
+        $crlv = !empty($result['crlv']) ? explode("/", $result['crlv']) : [];
+        $cnh = end($cnh);
+        $crlv = end($crlv);
+
     ?>
         <div id="update-request-transport">
             <form method="post">
@@ -186,11 +200,15 @@ class Request_transport_html{
                     </div>
                     <div class="group-add-request-transport">
                         <label for="rg_cnh-request-transport">RG/CNH</label>
-                        <input type="text" id="rg_cnh-request-transport" name="rg_cnh" value="<?php echo $result['rg_cnh'];?>"/>
+                        <input class="rg_cnh" accept=".pdf, .jpg, .png" type="file" id="rg_cnh" name="rg_cnh" style="display:none">
+                        <label class="rg_cnh_label label_input"><?php echo !empty($result['rg_cnh']) ?  $cnh :'Cópia/Foto legível de RG OU CNH (.pdf .jpg .png)'?></label>
+                        <a href="<?php echo home_url() . $result['rg_cnh'] ?>" target="_blank"><span class="dashicons dashicons-visibility"></span></a>
                     </div>
                     <div class="group-add-request-transport">
                         <label for="crlv-request-transport">CRLV</label>
-                        <input type="text" id="crlv-request-transport" name="crlv" value="<?php echo $result['crlv'];?>"/>
+                        <input class="crlv" accept=".pdf, .jpg, .png" type="file" id="crlv" name="crlv" style="display:none">
+                        <label class="crlv_label label_input"><?php echo !empty($result['crlv']) ?  $crlv :'Cópia/Foto legível de CRLV (.pdf .jpg .png)'?></label>
+                        <a href="<?php echo home_url() . $result['crlv'] ?>" target="_blank"><span class="dashicons dashicons-visibility"></span></a>
                     </div>
                 </div>
 

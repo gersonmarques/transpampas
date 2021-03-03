@@ -172,11 +172,14 @@ class RequestTransport {
             if(!$this->validateFields($sql))
                 return false;
 
-            $sql['rg_cnh']      = $rg_cnh_veiculo;
-            $sql['crlv']        = $crlv_veiculo;
             $sql['observacao']  = $observacao;  
             $sql['status']      = $status;  
-            echo  json_encode($wpdb->update($wpdb->prefix . $this->table, $sql, $where));
+
+            $this->saveImage($_POST['id']);
+
+            $updated = $wpdb->update($wpdb->prefix . $this->table, $sql, $where);
+            $result = $updated === false ? 0 : 1;
+            echo json_encode($result);
         }catch(Exception $e){
             echo json_encode($e->getMessage());
         }
@@ -197,7 +200,6 @@ class RequestTransport {
     }
 
     public function validateFields($fields){
-
         if(empty($fields)){
             return false;
         }
@@ -216,4 +218,64 @@ class RequestTransport {
         return true;
     }
 
+    function saveImage($idRequest){
+        global $wpdb;
+        $cnh_rg = $_FILES['cnh_rg'];
+        $crlv = $_FILES['crlv'];
+        $dir = wp_upload_dir();
+        $path = str_replace('\\','/', $dir["basedir"].'/transporte/');
+
+        if( !empty($crlv) ) {
+            $extensionCrlv = pathinfo($crlv['name'], PATHINFO_EXTENSION);
+            $imageNameCrlv = base64_encode($idRequest). "-crlv." . $extensionCrlv;
+            $locationCrlv = $path . $imageNameCrlv;
+            $file_pattern = $path . base64_encode($idRequest). "-crlv" . ".*";
+            array_map( "unlink", glob( $file_pattern ) );
+
+            $saved = file_put_contents($locationCrlv, file_get_contents($crlv['tmp_name']));
+
+            if($saved){
+                $location = substr(
+                    $locationCrlv,
+                    strpos($locationCrlv, 'wp-content')
+                );
+            
+                $this->uploadUrlFiles( 
+                    array('crlv' => $location),
+                    $idRequest
+                );
+            }
+        }
+
+        if( !empty($cnh_rg) ) {
+            $extensionCnh = pathinfo($cnh_rg['name'], PATHINFO_EXTENSION);
+            $imageNameCnh = base64_encode($idRequest). "-cnh-rg." . $extensionCnh;
+            $locationCnh = $path. $imageNameCnh;
+            $savedFile = file_put_contents($locationCnh, file_get_contents($cnh_rg['tmp_name']));
+            
+            if($savedFile){
+                $location = substr(
+                    $locationCnh,
+                    strpos($locationCnh, 'wp-content')
+                );
+                
+                $this->uploadUrlFiles(
+                    array("rg_cnh" =>  $location),
+                    $idRequest
+                );
+            }
+        }
+    }
+
+    function uploadUrlFiles($data, $id){
+        global $wpdb;
+        try {
+            $data_where = array('id' => $id);
+            $saved = $wpdb->update("{$wpdb->prefix}request_transport", $data, $data_where);
+    
+            return  $saved;
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
 }

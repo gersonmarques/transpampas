@@ -43,6 +43,8 @@ var RequestTransport = function () {
       url: url,
       type: "POST",
       dataType: "JSON",
+      contentType: false,
+      processData: false,
       async: false,
       data: arrayFields,
       success: function (result) {
@@ -183,13 +185,23 @@ var RequestTransport = function () {
       jQuery('.notice').show();
       return false;
     }
-    arrayFields['rg_cnh_veiculo'] = jQuery('#rg_cnh-veiculo-request-transport').val()
-    arrayFields['crlv_veiculo'] = jQuery('#crlv-veiculo-request-transport').val()
     arrayFields['observacao'] = jQuery('#observacao').val()
     arrayFields['status'] = jQuery('#status').val()
+
+    var crlv_file = jQuery('#crlv').prop('files')[0];
+    var cnh_file = jQuery('#rg_cnh').prop('files')[0];
+    var form_data = new FormData();
+
+    form_data.append('cnh_rg', cnh_file);
+    form_data.append('crlv', crlv_file);
+
+    for (var key in arrayFields) {
+      form_data.append(key, arrayFields[key]);
+    }
+
     var url = '../wp-content/plugins/transporte/src/request_transport/request_transport.php';
     var task = 'task=updateRequest';
-    return this.send(arrayFields, url + "?" + task);
+    return this.send(form_data, url + "?" + task);
   }
 
   RequestTransport.prototype.delete = function () {

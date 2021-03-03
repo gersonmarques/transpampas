@@ -53,4 +53,26 @@ jQuery(document).ready(function (jQuery) {
       request.query(search, filter);
     }, 1000);
   });
+
+  jQuery(document).on('click', '.rg_cnh_label', function () {
+    jQuery('.rg_cnh').click()
+  });
+
+  jQuery(document).on('click', '.crlv_label', function () {
+    jQuery('.crlv').click()
+  });
+
+  jQuery(document).on('change', '.rg_cnh', function () {
+    if (!this.files[0]) {
+      jQuery(this).text('Cópia/Foto legível de RG OU CNH (.pdf .jpg .png)')
+    }
+    jQuery('.rg_cnh_label').text(this.files[0].name)
+  });
+
+  jQuery(document).on('change', '.crlv', function () {
+    if (!this.files[0]) {
+      jQuery(this).text('Cópia/Foto legível de CRLV (.pdf .jpg .png)')
+    }
+    jQuery('.crlv_label').text(this.files[0].name)
+  });
 });
