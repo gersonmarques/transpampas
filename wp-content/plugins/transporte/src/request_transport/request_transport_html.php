@@ -202,13 +202,13 @@ class Request_transport_html{
                         <label for="rg_cnh-request-transport">RG/CNH</label>
                         <input class="rg_cnh" accept=".pdf, .jpg, .png" type="file" id="rg_cnh" name="rg_cnh" style="display:none">
                         <label class="rg_cnh_label label_input"><?php echo !empty($result['rg_cnh']) ?  $cnh :'Cópia/Foto legível de RG OU CNH (.pdf .jpg .png)'?></label>
-                        <a href="<?php echo home_url() . $result['rg_cnh'] ?>" target="_blank"><span class="dashicons dashicons-visibility"></span></a>
+                        <a href="<?php echo home_url() . '/' . $result['rg_cnh'] ?>" target="_blank"><span class="dashicons dashicons-visibility"></span></a>
                     </div>
                     <div class="group-add-request-transport">
                         <label for="crlv-request-transport">CRLV</label>
                         <input class="crlv" accept=".pdf, .jpg, .png" type="file" id="crlv" name="crlv" style="display:none">
                         <label class="crlv_label label_input"><?php echo !empty($result['crlv']) ?  $crlv :'Cópia/Foto legível de CRLV (.pdf .jpg .png)'?></label>
-                        <a href="<?php echo home_url() . $result['crlv'] ?>" target="_blank"><span class="dashicons dashicons-visibility"></span></a>
+                        <a href="<?php echo home_url() . '/' . $result['crlv'] ?>" target="_blank"><span class="dashicons dashicons-visibility"></span></a>
                     </div>
                 </div>
 

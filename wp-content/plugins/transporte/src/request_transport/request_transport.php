@@ -75,6 +75,10 @@ class RequestTransport {
                 $sql = "SELECT * FROM  {$table} WHERE id = {$id}";
             }
             if($params){
+                $params[0] = ( $params[1] === "criado" || $params[1] === "modificado" ) 
+                ? implode('-', array_reverse(explode('/', $params[0])))
+                : $params[0];
+
                 $sql = "SELECT * FROM  {$table} WHERE {$params[1]} like '%{$params[0]}%'";
             }
 
@@ -82,6 +86,17 @@ class RequestTransport {
             if($phpBool){
                return $wpdb->get_results($query);
             }else{
+                if($params) {
+                    $result = $wpdb->get_results($query);
+                    foreach ($result as $key => $value) {   
+                      if($value->id_user){
+                        $resultUserMeta = $this->getUserMeta($value->id_user);
+                        $result[$key] = array_merge( (array) $value, (array) $resultUserMeta);
+                      }
+                    }
+                    echo json_encode($result);
+                    return; 
+                }
                 echo json_encode($wpdb->get_results($query));
             }
         }catch(Exception $e){
@@ -185,15 +200,28 @@ class RequestTransport {
         }
     }
 
-    public function deletePatio(){
+    public function deleteRequest(){
         global $wpdb;
         date_default_timezone_set("America/Sao_Paulo");
-
+        $dir = wp_upload_dir();
+        $path = str_replace('\\','/', $dir["basedir"].'/transporte/');
         $id = empty($_POST['id']) ? '' : $_POST['id'];
-       
+        $file_pattern = $path . base64_encode($id). "-crlv" . ".*";
+        array_map( "unlink", glob( $file_pattern ) );
+
+        $sql = "SELECT * FROM  {$wpdb->prefix}request_transport WHERE id = {$id}";
+
         try{
-            $where = array('id'=>$_POST['id']);
-            echo json_encode($wpdb->delete($wpdb->prefix . $this->table, $where));
+            $query = $wpdb->prepare($sql, '');
+            $data = $wpdb->get_results($query);
+
+            $where = array('id'=> $_POST['id']);
+            $result =  $wpdb->delete($wpdb->prefix . $this->table, $where);
+            if($result) {
+                $target =  $wpdb->delete("{$wpdb->prefix}request_transport_source",array('origem_id'=> $data[0]->origem_id));
+                $source =  $wpdb->delete("{$wpdb->prefix}request_transport_target", array('destino_id'=> $data[0]->destino_id));
+            }
+            echo json_encode('');
         }catch(Exception $e){
             echo $e->getMessage();
         }

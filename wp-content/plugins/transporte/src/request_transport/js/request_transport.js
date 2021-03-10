@@ -32,20 +32,23 @@ var RequestTransport = function () {
     return this.send(arrayFields, url + "?" + task);
   }
 
-  RequestTransport.prototype.send = function (arrayFields, url) {
-    var courtyards = new RequestTransport();
+  RequestTransport.prototype.send = function (arrayFields, url, hasHeaders = false) {
+    var requestTransport = new RequestTransport();
     var params = url.split('?');
     params = params[params.length - 1].split('&')
     var tasks = params[0].split('=');
     tasks = tasks[tasks.length - 1];
+    headers = hasHeaders ? {
+      contentType: false,
+      processData: false,
+    } : {}
 
     var post = jQuery.ajax({
       url: url,
       type: "POST",
       dataType: "JSON",
-      contentType: false,
-      processData: false,
       async: false,
+      ...headers,
       data: arrayFields,
       success: function (result) {
         if (jQuery(".notice").hasClass("notice-error")) {
@@ -60,24 +63,30 @@ var RequestTransport = function () {
         }
 
         switch (tasks) {
-        case 'query_patios':
-          jQuery('.list-courtyards > tbody').html(courtyards.html_list(result));
+        case 'query_request_transport':
+          jQuery('.list-request-transport > tbody').html(requestTransport.html_list(result));
           jQuery('.loader-search').css('display', 'none');
           return result;
           break;
-        case 'deletePatio':
-          courtyards.query();
+        case 'deleteRequest':
+          requestTransport.query();
           break;
         case 'addPatio':
-          courtyards.query();
-          jQuery('#name-courtyards').val("");
-          jQuery('#description-courtyards').val("");
+          requestTransport.query();
+          jQuery('#name-requestTransport').val("");
+          jQuery('#description-requestTransport').val("");
           break;
         case 'updatePatio':
           break;
         }
+
+        if (tasks === "query_request_transport") {
+          return;
+        }
+
+
         if (!result) {
-          var text = courtyards.textReturn(tasks);
+          var text = requestTransport.textReturn(tasks);
           jQuery('.notice').removeClass('notice-success');
           jQuery('.notice').addClass('notice-error');
           jQuery('.notice > p > strong').text(text['error']);
@@ -85,7 +94,7 @@ var RequestTransport = function () {
           jQuery(".notice").attr("tabindex", -1).focus();
           jQuery('.loader').hide();
         } else {
-          var success = courtyards.textReturn(tasks);
+          var success = requestTransport.textReturn(tasks);
           jQuery('.notice > p > strong').text(success['success']);
           jQuery('.notice').show();
           jQuery(".notice").attr("tabindex", -1).focus();
@@ -121,10 +130,10 @@ var RequestTransport = function () {
       }
       return arrayReturn;
       break;
-    case 'deletePatio':
+    case 'deleteRequest':
       var arrayReturn = {
-        "success": "Pátio excluído com sucesso !",
-        "error": "Erro ao excluir a pátio, tente novamente."
+        "success": "Solicitação excluída com sucesso !",
+        "error": "Erro ao excluir a solicitação, tente novamente."
       }
       return arrayReturn;
       break;
@@ -132,8 +141,8 @@ var RequestTransport = function () {
   }
 
   RequestTransport.prototype.query = function (search, filter) {
-    var url = '../wp-content/plugins/transporte/src/courtyards/courtyards.php';
-    var task = 'task=query_patios';
+    var url = '../wp-content/plugins/transporte/src/request_transport/request_transport.php';
+    var task = 'task=query_request_transport';
 
     if (typeof (search) === "undefined") {
       return this.send('', url + "?" + task);
@@ -150,13 +159,26 @@ var RequestTransport = function () {
     var html = "";
 
     jQuery.each(data, function (index, value) {
+      const cpfOrCnpj = (value.cpf) ? value.cpf : value.cnpj
+      const criado = new Date(value.criado);
+      const modificado = new Date(value.modificado);
+
+      const status = [
+        'Aguardando',
+        'Em andamento',
+        'Concluído',
+        'Fechado'
+      ]
+
       html += '<tr>';
       html += '<td><input type="checkbox" name="checkbox-actions" class="checkbox-actions" value="' + value.id + '"></td>';
-      html += '<td>' + value.title + '</td>';
-      html += '<td>' + value.state + '</td>';
-      html += '<td>' + value.city + '</td>';
-      html += '<td>' + value.cep + '</td>';
       html += '<td style="text-align: center;">' + value.id + '</td>';
+      html += '<td>' + value.nome + '</td>';
+      html += '<td>' + value.email + '</td>';
+      html += '<td>' + cpfOrCnpj + '</td>';
+      html += '<td>' + status[value.status] + '</td>';
+      html += '<td>' + criado.toLocaleDateString("pt-BR") + '</td>';
+      html += '<td>' + modificado.toLocaleDateString("pt-BR") + '</td>';
       html += '</tr>';
     });
     return html;
@@ -208,9 +230,8 @@ var RequestTransport = function () {
     var arrayFields = {
       id: jQuery('.checkbox-actions:checked').val(),
     };
-
-    var url = '../wp-content/plugins/transporte/src/courtyards/courtyards.php';
-    var task = 'task=deletePatio';
+    var url = '../wp-content/plugins/transporte/src/request_transport/request_transport.php';
+    var task = 'task=deleteRequest';
     return this.send(arrayFields, url + "?" + task);
   }
 }

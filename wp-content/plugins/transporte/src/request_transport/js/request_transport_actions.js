@@ -26,7 +26,7 @@ jQuery(document).ready(function (jQuery) {
   });
 
   jQuery(document).on('click', '#input_change', function () {
-    location.href = "?page=list_requests&id=" + jQuery('.checkbox-actions:checked').val();
+    location.href = "?page=transporte&id=" + jQuery('.checkbox-actions:checked').val();
   });
 
   jQuery(document).on('click', '#input_update', function () {
