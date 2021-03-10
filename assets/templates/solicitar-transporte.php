@@ -1,11 +1,7 @@
 <?php 
 function solicitar_transporte(){
 ?>
-    <link rel="stylesheet" type="text/css" href="<?= get_site_url()."/assets/vendor/bootstrap/css/bootstrap.min.css" ?>" />
     <link rel="stylesheet" type="text/css" href="<?= get_site_url()."/assets/css/solicitar-transporte.css" ?>" />
-    <script src="<?= get_site_url()."/assets/vendor/jquery/jquery-3.5.1.min.js"?>"></script>
-    <script src="<?= get_site_url()."/assets/vendor/jquery/jquery.mask.js"?>"></script>
-    <script src="<?= get_site_url()."/assets/vendor/bootstrap/js/bootstrap.min.js"?>"></script>
     <script src="<?= get_site_url()."/assets/js/solicitar-transporte.js"?>"></script>
     <script src="<?= get_site_url()."/assets/js/utils.js"?>"></script>
 
