@@ -25,7 +25,7 @@ function  transporte_item_menu(){
         'Transporte',
         'manage_options', 
         'transporte',
-        'question_list_page',
+        'request_transport_settings_page',
         'dashicons-car',
         6
     );
@@ -41,8 +41,8 @@ function  transporte_item_menu(){
 
     add_submenu_page(
         'transporte',
-        'Solicitações de Transporte',
-        'Solicitações de Transporte',
+        'Orçamentos',
+        'Orçamentos',
         'manage_options',
         'list_requests',
         'request_transport_settings_page'
