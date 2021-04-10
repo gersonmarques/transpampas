@@ -119,8 +119,10 @@ if ( ! class_exists( 'Astra_Ext_Adv_Footer_Loader' ) ) {
 			/**
 			 * Sections
 			 */
-			require_once ASTRA_EXT_ADVANCED_FOOTER_DIR . 'classes/sections/class-astra-advanced-footer-configs.php';
-			require_once ASTRA_EXT_ADVANCED_FOOTER_DIR . 'classes/sections/class-astra-advanced-footer-typo-configs.php';
+			if ( astra_addon_existing_header_footer_configs() ) {
+				require_once ASTRA_EXT_ADVANCED_FOOTER_DIR . 'classes/sections/class-astra-advanced-footer-configs.php';
+				require_once ASTRA_EXT_ADVANCED_FOOTER_DIR . 'classes/sections/class-astra-advanced-footer-typo-configs.php';
+			}
 		}
 
 		/**

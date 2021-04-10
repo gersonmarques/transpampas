@@ -39,6 +39,10 @@ if ( ! class_exists( 'Astra_Ext_Header_Sections' ) ) {
 		 */
 		public function __construct() {
 
+			if ( Astra_Addon_Builder_Helper::$is_header_footer_builder_active ) {
+				return;
+			}
+
 			require_once ASTRA_EXT_HEADER_SECTIONS_DIR . 'classes/class-astra-ext-header-sections-loader.php';
 			require_once ASTRA_EXT_HEADER_SECTIONS_DIR . 'classes/class-astra-ext-header-sections-markup.php';
 

@@ -46,10 +46,6 @@ if ( ! class_exists( 'ASTRA_Ext_Edd_Markup' ) ) {
 			add_filter( 'post_class', array( $this, 'post_class' ) );
 			add_filter( 'edd_download_class', array( $this, 'shortcode_download_class' ), 10, 4 );
 
-			// Header Cart Icon.
-			add_action( 'astra_edd_header_cart_icons_before', array( $this, 'header_cart_icon_markup' ) );
-			add_filter( 'astra_edd_cart_in_menu_class', array( $this, 'header_cart_icon_class' ) );
-
 			add_shortcode( 'astra_edd_mini_cart', array( $this, 'astra_edd_mini_cart_markup' ) );
 
 			// Load Google fonts.
@@ -218,92 +214,6 @@ if ( ! class_exists( 'ASTRA_Ext_Edd_Markup' ) ) {
 			return $class;
 		}
 
-
-		/**
-		 * Header Cart Icon Class
-		 *
-		 * @param array $classes Default argument array.
-		 *
-		 * @return array;
-		 */
-		public function header_cart_icon_class( $classes ) {
-
-			$header_cart_icon_style = astra_get_option( 'edd-header-cart-icon-style' );
-
-			$classes[]                  = 'ast-edd-menu-cart-' . $header_cart_icon_style;
-			$header_cart_icon_has_color = astra_get_option( 'edd-header-cart-icon-color' );
-			if ( ! empty( $header_cart_icon_has_color ) && ( 'none' !== $header_cart_icon_style ) ) {
-				$classes[] = 'ast-menu-cart-has-color';
-			}
-
-			return $classes;
-		}
-
-		/**
-		 * Header Cart Extra Icons markup
-		 *
-		 * @return void;
-		 */
-		public function header_cart_icon_markup() {
-
-			$icon               = astra_get_option( 'edd-header-cart-icon' );
-			$cart_total_display = astra_get_option( 'edd-header-cart-total-display' );
-			$cart_count_display = apply_filters( 'astra_edd_header_cart_count', true );
-			$cart_title_display = astra_get_option( 'edd-header-cart-title-display' );
-			$cart_title         = apply_filters( 'astra_header_cart_title', __( 'Cart', 'astra-addon' ) );
-
-			$cart_title_markup = '<span class="ast-edd-header-cart-title">' . esc_html( $cart_title ) . '</span>';
-
-			$cart_total_markup = '<span class="ast-edd-header-cart-total">' . esc_html( edd_currency_filter( edd_format_amount( edd_get_cart_total() ) ) ) . '</span>';
-
-			// Cart Title & Cart Cart total markup.
-			$cart_info_markup = sprintf(
-				'<span class="ast-edd-header-cart-info-wrap">
-						%1$s
-						%2$s
-						%3$s
-					</span>',
-				( $cart_title_display ) ? $cart_title_markup : '',
-				( $cart_total_display && $cart_title_display ) ? '/' : '',
-				( $cart_total_display ) ? $cart_total_markup : ''
-			);
-
-			$cart_items          = count( edd_get_cart_contents() );
-			$cart_contents_count = $cart_items;
-
-			// Cart Icon markup with total number of items.
-			$cart_icon = sprintf(
-				'<span class="astra-icon ast-icon-shopping-%1$s %2$s"	
-							%3$s
-						></span>',
-				( $icon ) ? $icon : '',
-				( $cart_count_display ) ? '' : 'no-cart-total',
-				( $cart_count_display ) ? 'data-cart-total="' . $cart_contents_count . '"' : ''
-			);
-
-			// Theme's default icon with cart title and cart total.
-			if ( 'default' == $icon ) {
-				// Cart Total or Cart Title enable then only add markup.
-				if ( $cart_title_display || $cart_total_display ) {
-					echo $cart_info_markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				}
-			} else {
-
-				// Remove Default cart icon added by theme.
-				add_filter( 'astra_edd_default_header_cart_icon', '__return_false' );
-
-				/* translators: 1: Cart Title Markup, 2: Cart Icon Markup */
-				printf(
-					'<div class="ast-addon-cart-wrap">
-							%1$s
-							%2$s
-					</div>',
-					( $cart_title_display || $cart_total_display ) ? $cart_info_markup : '', // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					( $cart_icon ) ? $cart_icon : '' // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				);
-			}
-		}
-
 		/**
 		 * Checkout page markup update using actions & filters only
 		 */
@@ -321,6 +231,12 @@ if ( ! class_exists( 'ASTRA_Ext_Edd_Markup' ) ) {
 
 			// Distraction Free Checkout.
 			if ( astra_get_option( 'edd-distraction-free-checkout' ) ) {
+
+				// HFB Support for distration free checkout.
+				if ( Astra_Addon_Builder_Helper::$is_header_footer_builder_active ) {
+					remove_action( 'astra_header', array( Astra_Builder_Header::get_instance(), 'prepare_header_builder_markup' ) );
+					remove_action( 'astra_footer', array( Astra_Builder_Footer::get_instance(), 'footer_markup' ), 10 );
+				}
 
 				remove_action( 'astra_header', 'astra_header_markup' );
 				remove_action( 'astra_footer', 'astra_footer_markup' );

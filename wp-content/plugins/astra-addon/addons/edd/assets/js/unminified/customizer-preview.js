@@ -120,13 +120,11 @@
 					var dynamicStyle = '.ast-edd-menu-cart-outline .ast-addon-cart-wrap { border: 1px solid ' + cart_icon_color + '; color: ' + cart_icon_color + '; background: #ffffff;}';
 				}
 				else {	
-					var dynamicStyle = '.ast-edd-site-header-cart.ast-edd-menu-cart-fill .ast-edd-cart-menu-wrap .count, .ast-edd-menu-cart-fill .ast-addon-cart-wrap { background-color: ' + cart_icon_color + '; color: #ffffff }';
+					var dynamicStyle = '.ast-edd-site-header-cart.ast-edd-menu-cart-fill .ast-edd-cart-menu-wrap .count, .ast-edd-menu-cart-fill .ast-addon-cart-wrap, .ast-edd-menu-cart-fill .ast-addon-cart-wrap .ast-edd-header-cart-info-wrap, .ast-edd-menu-cart-fill .ast-addon-cart-wrap .ast-icon-shopping-cart { background-color: ' + cart_icon_color + '; color: #ffffff }';
 				}
 				astra_add_dynamic_css( 'primary-toggle-button-color', dynamicStyle );
 			}
-			else{
-				wp.customize.preview.send( 'refresh' );
-			}
+			wp.customize.preview.send( 'refresh' );
 		});
 	});
 
@@ -138,6 +136,54 @@
 
 			var dynamicStyle = '.ast-edd-site-header-cart.ast-edd-menu-cart-outline .ast-addon-cart-wrap, .ast-edd-site-header-cart.ast-edd-menu-cart-fill .ast-addon-cart-wrap{ border-radius: ' + ( parseInt( border ) ) + 'px } ';
 			astra_add_dynamic_css( 'edd-header-cart-icon-radius', dynamicStyle );
+
+		} );
+	} );
+
+	/**
+	 * EDD Checkout Form Width
+	 */
+	wp.customize( 'astra-settings[edd-checkout-content-width]', function( setting ) {
+		setting.bind( function( value ) {
+
+			var dynamicStyle = '';
+
+			var edd_checkout_content_max_width = wp.customize('astra-settings[edd-checkout-content-max-width]').get();
+
+			if ( 'custom' === value  && undefined !== astAddonTabletBreakpoint.value ) {
+				
+				dynamicStyle += '@media (min-width: ' + astAddonTabletBreakpoint.value + 'px) {'
+				dynamicStyle += '.edd-checkout #edd_checkout_wrap {';
+				dynamicStyle += 'max-width: ' + edd_checkout_content_max_width + 'px;';
+				dynamicStyle += 'margin: 0 auto;';
+				dynamicStyle += '} ';
+				dynamicStyle += '} ';
+			}
+			astra_add_dynamic_css( 'edd-checkout-content-width', dynamicStyle );
+
+		} );
+	} );
+
+	/**
+	 * Woo Checkout Form Width
+	 */
+	wp.customize( 'astra-settings[checkout-content-width]', function( setting ) {
+		setting.bind( function( value ) {
+
+			var dynamicStyle = '';
+
+			var woo_checkout_content_max_width = wp.customize('astra-settings[checkout-content-max-width]').get();
+
+			if ( 'custom' === value  && undefined !== astAddonTabletBreakpoint.value ) {
+				
+				dynamicStyle += '@media (min-width: ' + astAddonTabletBreakpoint.value + 'px) {'
+				dynamicStyle += '.woocommerce-checkout form.checkout {';
+				dynamicStyle += 'max-width: ' + woo_checkout_content_max_width + 'px;';
+				dynamicStyle += 'margin: 0 auto;';
+				dynamicStyle += '} ';
+				dynamicStyle += '} ';
+			}
+			astra_add_dynamic_css( 'checkout-content-width', dynamicStyle );
 
 		} );
 	} );

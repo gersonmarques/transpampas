@@ -41,6 +41,10 @@ if ( ! class_exists( 'Astra_Ext_Advanced_Footer' ) ) {
 		 */
 		public function __construct() {
 
+			if ( Astra_Addon_Builder_Helper::$is_header_footer_builder_active ) {
+				return;
+			}
+
 			require_once ASTRA_EXT_ADVANCED_FOOTER_DIR . 'classes/class-astra-ext-adv-footer-loader.php';
 			require_once ASTRA_EXT_ADVANCED_FOOTER_DIR . 'classes/class-astra-ext-adv-footer-markup.php';
 

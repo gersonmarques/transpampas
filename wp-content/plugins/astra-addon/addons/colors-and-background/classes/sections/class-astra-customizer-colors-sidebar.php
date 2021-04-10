@@ -52,22 +52,26 @@ if ( ! class_exists( 'Astra_Customizer_Colors_Sidebar' ) ) {
 					'control'  => 'ast-heading',
 					'section'  => 'section-sidebars',
 					'title'    => __( 'Colors & Background', 'astra-addon' ),
-					'priority' => 23,
+					'priority' => Astra_Addon_Builder_Helper::$is_header_footer_builder_active ?
+					1 : 23,
 					'settings' => array(),
+					'context'  => Astra_Addon_Builder_Helper::$is_header_footer_builder_active ?
+						Astra_Addon_Builder_Helper::$design_tab : Astra_Addon_Builder_Helper::$general_tab,
 				),
 
-				/**
-				 * Option: SideBar Background Group
-				 */
+				// Option: Sidebar Background.
 				array(
-					'name'      => ASTRA_THEME_SETTINGS . '[sidebar-background-group]',
-					'default'   => astra_get_option( 'sidebar-background-group' ),
+					'name'      => ASTRA_THEME_SETTINGS . '[sidebar-bg-obj]',
 					'type'      => 'control',
-					'control'   => 'ast-settings-group',
-					'title'     => __( 'Background', 'astra-addon' ),
+					'control'   => 'ast-background',
+					'priority'  => 23,
 					'section'   => 'section-sidebars',
 					'transport' => 'postMessage',
-					'priority'  => 23,
+					'default'   => astra_get_option( 'sidebar-bg-obj' ),
+					'label'     => __( 'Background', 'astra-addon' ),
+					'title'     => __( 'Background', 'astra-addon' ),
+					'context'   => Astra_Addon_Builder_Helper::$is_header_footer_builder_active ?
+						Astra_Addon_Builder_Helper::$design_tab : Astra_Addon_Builder_Helper::$general_tab,
 				),
 
 				/**
@@ -82,18 +86,8 @@ if ( ! class_exists( 'Astra_Customizer_Colors_Sidebar' ) ) {
 					'section'   => 'section-sidebars',
 					'transport' => 'postMessage',
 					'priority'  => 23,
-				),
-
-				// Option: Sidebar Background.
-				array(
-					'control'  => 'ast-background',
-					'name'     => 'sidebar-bg-obj',
-					'type'     => 'sub-control',
-					'priority' => 7,
-					'parent'   => ASTRA_THEME_SETTINGS . '[sidebar-background-group]',
-					'section'  => 'section-sidebars',
-					'default'  => astra_get_option( 'sidebar-bg-obj' ),
-					'label'    => __( 'Background', 'astra-addon' ),
+					'context'   => Astra_Addon_Builder_Helper::$is_header_footer_builder_active ?
+						Astra_Addon_Builder_Helper::$design_tab : Astra_Addon_Builder_Helper::$general_tab,
 				),
 
 				// Option: Widget Title Color.
@@ -152,6 +146,24 @@ if ( ! class_exists( 'Astra_Customizer_Colors_Sidebar' ) ) {
 				),
 
 			);
+
+			if ( Astra_Addon_Builder_Helper::$is_header_footer_builder_active ) {
+
+				array_push(
+					$_configs,
+					/**
+					 * Option: Sidebar Tabs
+					 */
+					array(
+						'name'        => 'section-sidebars-ast-context-tabs',
+						'section'     => 'section-sidebars',
+						'type'        => 'control',
+						'control'     => 'ast-builder-header-control',
+						'priority'    => 0,
+						'description' => '',
+					)
+				);
+			}
 
 			return array_merge( $configurations, $_configs );
 		}

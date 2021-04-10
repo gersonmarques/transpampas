@@ -54,6 +54,8 @@ if ( ! class_exists( 'Astra_Customizer_Colors_Archive' ) ) {
 					'title'    => __( 'Colors and Background', 'astra-addon' ),
 					'priority' => 125,
 					'settings' => array(),
+					'context'  => Astra_Addon_Builder_Helper::$is_header_footer_builder_active ?
+						Astra_Addon_Builder_Helper::$design_tab : Astra_Addon_Builder_Helper::$general_tab,
 				),
 
 				/**
@@ -68,21 +70,24 @@ if ( ! class_exists( 'Astra_Customizer_Colors_Archive' ) ) {
 					'section'   => 'section-blog',
 					'transport' => 'postMessage',
 					'priority'  => 130,
+					'context'   => Astra_Addon_Builder_Helper::$is_header_footer_builder_active ?
+						Astra_Addon_Builder_Helper::$design_tab : Astra_Addon_Builder_Helper::$general_tab,
 				),
 
 				// Option: Divider.
 				array(
+					'name'     => 'divider-blog-archive',
 					'control'  => 'ast-divider',
 					'default'  => '',
-					'name'     => 'divider-blog-archive',
 					'type'     => 'sub-control',
 					'parent'   => ASTRA_THEME_SETTINGS . '[blog-content-color-group]',
 					'section'  => 'section-blog',
 					'title'    => __( 'Archive Summary Box', 'astra-addon' ),
 					'tab'      => __( 'Normal', 'astra-addon' ),
-					'section'  => 'section-blog',
 					'priority' => 11,
 					'settings' => array(),
+					'context'  => Astra_Addon_Builder_Helper::$is_header_footer_builder_active ?
+						Astra_Addon_Builder_Helper::$design_tab : Astra_Addon_Builder_Helper::$general_tab,
 				),
 
 				// Option: Archive Summary Box Background Color.
@@ -98,6 +103,8 @@ if ( ! class_exists( 'Astra_Customizer_Colors_Archive' ) ) {
 					'control'     => 'ast-color',
 					'title'       => __( 'Background Color', 'astra-addon' ),
 					'description' => __( 'This background color will not work on full-width layout.', 'astra-addon' ),
+					'context'     => Astra_Addon_Builder_Helper::$is_header_footer_builder_active ?
+						Astra_Addon_Builder_Helper::$design_tab : Astra_Addon_Builder_Helper::$general_tab,
 				),
 
 				// Option: Archive Summary Box Title Color.

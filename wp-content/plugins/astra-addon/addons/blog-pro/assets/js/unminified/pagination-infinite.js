@@ -9,7 +9,8 @@
 		masonryEnabled  = astra.masonryEnabled || false,
 		loadStatus 		= true,
 		infinite_event 	= astra.infinite_scroll_event || '',
-		loader 			= jQuery('.ast-pagination-infinite .ast-loader');
+		loader 			= jQuery('.ast-pagination-infinite .ast-loader'),
+		ast_post_type   = astra.astinfiniteposttype
 
 	//	Is 'infinite' pagination?
 	if( typeof pagination != '' && pagination == 'infinite' ) {
@@ -82,6 +83,7 @@
 			var data = {
 				action : 'astra_pagination_infinite',
 				page_no	: pageNumber,
+				post_type : ast_post_type,
 				nonce: infinite_nonce,
 				query_vars: astra.query_vars,
 				astra_infinite: 'astra_pagination_ajax',

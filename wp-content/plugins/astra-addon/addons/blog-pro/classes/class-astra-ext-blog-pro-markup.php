@@ -86,6 +86,7 @@ if ( ! class_exists( 'Astra_Ext_Blog_Pro_Markup' ) ) {
 			$localize['edit_post_url']         = admin_url( 'post.php?post={{id}}&action=edit' );
 			$localize['ajax_url']              = admin_url( 'admin-ajax.php' );
 			$localize['infinite_count']        = 2;
+			$localize['astinfiniteposttype']   = get_post_type();
 			$localize['infinite_total']        = $wp_query->max_num_pages;
 			$localize['pagination']            = $blog_pagination;
 			$localize['infinite_scroll_event'] = $blog_infinite_scroll_event;
@@ -158,8 +159,10 @@ if ( ! class_exists( 'Astra_Ext_Blog_Pro_Markup' ) ) {
 
 			do_action( 'astra_pagination_infinite' );
 
+			// get post type and fetch the posts for the same posttype.
+			$ast_post_type             = isset( $_POST['post_type'] ) && ! empty( $_POST['post_type'] ) ? sanitize_text_field( $_POST['post_type'] ) : 'any';
 			$query_vars                = json_decode( stripslashes( $_POST['query_vars'] ), true );
-			$query_vars['post_type']   = apply_filters( 'astra_infinite_pagination_post_type', 'any' );
+			$query_vars['post_type']   = apply_filters( 'astra_infinite_pagination_post_type', $ast_post_type );
 			$query_vars['paged']       = ( isset( $_POST['page_no'] ) ) ? stripslashes( $_POST['page_no'] ) : 1;
 			$query_vars['post_status'] = 'publish';
 			$posts                     = new WP_Query( $query_vars );
@@ -392,7 +395,9 @@ if ( ! class_exists( 'Astra_Ext_Blog_Pro_Markup' ) ) {
 						$classes[] = 'ast-col-md-' . ( 12 / $blog_grid_layout );
 					}
 				}
-
+				if ( Astra_Addon_Builder_Helper::$is_header_footer_builder_active ) {
+					$classes[] = 'ast-archive-post';
+				}
 				if ( $blog_space_bet_posts ) {
 					$classes[] = 'ast-separate-posts';
 				}
@@ -566,6 +571,8 @@ if ( ! class_exists( 'Astra_Ext_Blog_Pro_Markup' ) ) {
 		 */
 		public function enqueue_frontend_scripts() {
 
+			$blog_pagination = astra_get_option( 'blog-pagination' );
+
 			/* Directory and Extension */
 			$file_prefix = '.min';
 			$dir_name    = 'minified';
@@ -588,9 +595,11 @@ if ( ! class_exists( 'Astra_Ext_Blog_Pro_Markup' ) ) {
 					wp_enqueue_script( 'astra-single-infinite', $js_gen_path . 'single-autopost-infinite.min.js', array( 'jquery' ), ASTRA_EXT_VER, true );
 				}
 			}
+			// Load infinite js only if option is used.
+			if ( ( is_home() || is_archive() || is_search() ) && 'infinite' === $blog_pagination ) {
 
-			if ( is_home() || is_archive() || is_search() ) {
 				wp_enqueue_script( 'astra-pagination-infinite', $js_gen_path . 'pagination-infinite' . $file_prefix . '.js', array( 'jquery', 'astra-addon-js' ), ASTRA_EXT_VER, true );
+
 			}
 
 		}

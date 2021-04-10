@@ -54,7 +54,14 @@ if ( ! class_exists( 'Astra_Customizer_Blog_Pro_Image_Resizer_Configs' ) ) {
 					'title'    => __( 'Featured Images Size', 'astra-addon' ),
 					'priority' => 100,
 					'settings' => array(),
-					'required' => array( ASTRA_THEME_SETTINGS . '[blog-post-structure]', 'contains', 'image' ),
+					'context'  => array(
+						Astra_Addon_Builder_Helper::$general_tab_config,
+						array(
+							'setting'  => ASTRA_THEME_SETTINGS . '[blog-post-structure]',
+							'operator' => 'contains',
+							'value'    => 'image',
+						),
+					),
 				),
 
 				/**
@@ -76,7 +83,14 @@ if ( ! class_exists( 'Astra_Customizer_Blog_Pro_Image_Resizer_Configs' ) ) {
 						'max'         => 1920,
 					),
 					'sanitize_callback' => array( 'Astra_Customizer_Sanitizes', 'sanitize_number_n_blank' ),
-					'required'          => array( ASTRA_THEME_SETTINGS . '[blog-post-structure]', 'contains', 'image' ),
+					'context'           => array(
+						Astra_Addon_Builder_Helper::$general_tab_config,
+						array(
+							'setting'  => ASTRA_THEME_SETTINGS . '[blog-post-structure]',
+							'operator' => 'contains',
+							'value'    => 'image',
+						),
+					),
 				),
 
 				/**
@@ -98,7 +112,14 @@ if ( ! class_exists( 'Astra_Customizer_Blog_Pro_Image_Resizer_Configs' ) ) {
 						'max'         => 1920,
 					),
 					'sanitize_callback' => array( 'Astra_Customizer_Sanitizes', 'sanitize_number_n_blank' ),
-					'required'          => array( ASTRA_THEME_SETTINGS . '[blog-post-structure]', 'contains', 'image' ),
+					'context'           => array(
+						Astra_Addon_Builder_Helper::$general_tab_config,
+						array(
+							'setting'  => ASTRA_THEME_SETTINGS . '[blog-post-structure]',
+							'operator' => 'contains',
+							'value'    => 'image',
+						),
+					),
 				),
 
 				/**
@@ -112,7 +133,14 @@ if ( ! class_exists( 'Astra_Customizer_Blog_Pro_Image_Resizer_Configs' ) ) {
 					'default'  => '',
 					'priority' => 107,
 					'title'    => __( 'Apply Size', 'astra-addon' ),
-					'required' => array( ASTRA_THEME_SETTINGS . '[blog-post-structure]', 'contains', 'image' ),
+					'context'  => array(
+						Astra_Addon_Builder_Helper::$general_tab_config,
+						array(
+							'setting'  => ASTRA_THEME_SETTINGS . '[blog-post-structure]',
+							'operator' => 'contains',
+							'value'    => 'image',
+						),
+					),
 				),
 
 				/**
@@ -126,7 +154,14 @@ if ( ! class_exists( 'Astra_Customizer_Blog_Pro_Image_Resizer_Configs' ) ) {
 					'title'    => __( 'Featured Images Size', 'astra-addon' ),
 					'priority' => 10,
 					'settings' => array(),
-					'required' => array( ASTRA_THEME_SETTINGS . '[blog-single-post-structure]', 'contains', 'single-image' ),
+					'context'  => array(
+						Astra_Addon_Builder_Helper::$general_tab_config,
+						array(
+							'setting'  => ASTRA_THEME_SETTINGS . '[blog-single-post-structure]',
+							'operator' => 'contains',
+							'value'    => 'single-image',
+						),
+					),
 				),
 
 				/**
@@ -148,7 +183,14 @@ if ( ! class_exists( 'Astra_Customizer_Blog_Pro_Image_Resizer_Configs' ) ) {
 						'max'         => 1920,
 					),
 					'sanitize_callback' => array( 'Astra_Customizer_Sanitizes', 'sanitize_number_n_blank' ),
-					'required'          => array( ASTRA_THEME_SETTINGS . '[blog-single-post-structure]', 'contains', 'single-image' ),
+					'context'           => array(
+						Astra_Addon_Builder_Helper::$general_tab_config,
+						array(
+							'setting'  => ASTRA_THEME_SETTINGS . '[blog-single-post-structure]',
+							'operator' => 'contains',
+							'value'    => 'single-image',
+						),
+					),
 				),
 
 				/**
@@ -170,7 +212,14 @@ if ( ! class_exists( 'Astra_Customizer_Blog_Pro_Image_Resizer_Configs' ) ) {
 						'max'         => 1920,
 					),
 					'sanitize_callback' => array( 'Astra_Customizer_Sanitizes', 'sanitize_number_n_blank' ),
-					'required'          => array( ASTRA_THEME_SETTINGS . '[blog-single-post-structure]', 'contains', 'single-image' ),
+					'context'           => array(
+						Astra_Addon_Builder_Helper::$general_tab_config,
+						array(
+							'setting'  => ASTRA_THEME_SETTINGS . '[blog-single-post-structure]',
+							'operator' => 'contains',
+							'value'    => 'single-image',
+						),
+					),
 				),
 
 				/**
@@ -184,7 +233,14 @@ if ( ! class_exists( 'Astra_Customizer_Blog_Pro_Image_Resizer_Configs' ) ) {
 					'default'  => '',
 					'priority' => 10,
 					'title'    => __( 'Apply Size', 'astra-addon' ),
-					'required' => array( ASTRA_THEME_SETTINGS . '[blog-single-post-structure]', 'contains', 'single-image' ),
+					'context'  => array(
+						Astra_Addon_Builder_Helper::$general_tab_config,
+						array(
+							'setting'  => ASTRA_THEME_SETTINGS . '[blog-single-post-structure]',
+							'operator' => 'contains',
+							'value'    => 'single-image',
+						),
+					),
 				),
 
 			);

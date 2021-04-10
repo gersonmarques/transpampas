@@ -52,36 +52,18 @@ if ( ! class_exists( 'Astra_Customizer_Colors_Content' ) ) {
 					'type'     => 'control',
 					'control'  => 'ast-heading',
 					'section'  => 'section-colors-content',
-					'required' => array(
-						'conditions' => array(
-							array( ASTRA_THEME_SETTINGS . '[site-content-layout]', '==', array( 'boxed-container', 'content-boxed-container', 'plain-container' ) ),
-							array( ASTRA_THEME_SETTINGS . '[single-page-content-layout]', '==', array( 'boxed-container', 'content-boxed-container', 'plain-container' ) ),
-							array( ASTRA_THEME_SETTINGS . '[single-post-content-layout]', '==', array( 'boxed-container', 'content-boxed-container', 'plain-container' ) ),
-							array( ASTRA_THEME_SETTINGS . '[archive-post-content-layout]', '==', array( 'boxed-container', 'content-boxed-container', 'plain-container' ) ),
-						),
-						'operator'   => 'OR',
-					),
 					'settings' => array(),
 				),
 
 				// Option: Content Background Color.
 				array(
+					'name'      => ASTRA_THEME_SETTINGS . '[content-bg-obj-responsive]',
 					'default'   => astra_get_option( 'content-bg-obj-responsive' ),
 					'type'      => 'control',
 					'control'   => 'ast-responsive-background',
-					'name'      => ASTRA_THEME_SETTINGS . '[content-bg-obj-responsive]',
 					'label'     => __( 'Background', 'astra-addon' ),
 					'section'   => 'section-colors-content',
 					'transport' => 'postMessage',
-					'required'  => array(
-						'conditions' => array(
-							array( ASTRA_THEME_SETTINGS . '[site-content-layout]', '==', array( 'boxed-container', 'content-boxed-container', 'plain-container' ) ),
-							array( ASTRA_THEME_SETTINGS . '[single-page-content-layout]', '==', array( 'boxed-container', 'content-boxed-container', 'plain-container' ) ),
-							array( ASTRA_THEME_SETTINGS . '[single-post-content-layout]', '==', array( 'boxed-container', 'content-boxed-container', 'plain-container' ) ),
-							array( ASTRA_THEME_SETTINGS . '[archive-post-content-layout]', '==', array( 'boxed-container', 'content-boxed-container', 'plain-container' ) ),
-						),
-						'operator'   => 'OR',
-					),
 				),
 
 				/**

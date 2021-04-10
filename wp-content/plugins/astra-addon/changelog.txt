@@ -1,3 +1,93 @@
+v3.0.0
+- New: Account element for Header Builder. ( https://wpastra.com/astra-3-0/ )
+- New: Divider element for Header & Footer Builder. ( https://wpastra.com/astra-3-0/ )
+- New: Mega Menu container custom width option.
+- New: Mega Menu container margin & padding options.
+- Improvement: Added customizer partial refresh support in a few options.
+- Fix: Sticky Header background color not working in some cases.
+- Fix: Page Header - Display Below Header option not working.
+
+v3.0.0-beta.3
+- Fix: Fatal error `Uncaught Error: Class 'Astra_Builder_Helper' not found` with Astra theme version 3.0.0-beta.2.
+
+v3.0.0-beta.2
+- New: Visibility options - Now user can hide few options as per devices.
+- New: Divider Element - Horizontal & Vertical Divider for both Header and Footer
+- New: WooCommerce Cart and EDD Cart Element for Header
+- Improvement: Faster Customizer experience with respect to Design/General Tab change.
+- Improvement: Ability to add any number Elements in Header and Footer using a filter from child theme.
+- Improvement: Loaded animation CSS only when needed.
+- Improvement: Improved the UI in customizer for Footer Builder.
+- Improvement: Custom Layouts - Added compatibility to new Custom Layouts Hooks with respect to the new Header/Footer.
+- Improvement: Page Header - Added compatibility to Page Headers with respect to the new Header/Footer.
+- Improvement: Responsive - Added responsive compatibility to Footer Inner Column Spacing.
+- Improvement: Responsive - Added responsive compatibility to Social Icon Size and Social Icon Spacing.
+- Improvement: Responsive - Added responsive compatibility to Search Icon Color.
+- Improvement: Responsive - Added responsive compatibility to HTML Element related Colors.
+- Improvement: Responsive - Added responsive compatibility to Widget Element related Colors.
+- Improvement: Responsive - Added responsive compatibility to Above, Below and Primary Header height.
+- Improvement: Responsive - Added responsive compatibility to Footer Menu layout.
+- Improvement: Responsive - Added responsive compatibility to Footer Column Layout.
+- Fix: Allowed negative margin values
+- Fix: Fixed the issue with Global Button hover color not being applied to Header/Footer Buttons.
+- Fix: Sticky Header - Shrink option issue with alignment.
+- Fix: Primary Menu - Font Weight not being applied in frontend.
+- Fix: Off Canvas - Fixed issue with Sub Menu colors, typography and other inheriting properties.
+- Fix: Primary Menu - Fixed an issue with Stack on Mobile option not in action in some rare scenario.
+- Fix: Footer - Added default Stack layout for Footer Columns.
+- Fix: Toggle Button - Fixed an issue Toggle Button SVG looking odd.
+- Fix: Button - Fixed an issue with mismatched EM/PX with respect to Margin.
+- Fix: AMP Compatibility - Fixed an issue with Menu animation JS for AMP pages.
+- Fix: Slider Control - Fixed an issue with zero value not being accepted by the Slider Control.
+
+v3.0.0-beta.1
+- New: Header Builder
+- Introducing a new visual Header Builder that gives a flexible and advanced header designing experience.
+- It offers different layers for header - Above Header, Primary Header, and Below Header.
+- You can drag-n-drop elements in different sections of the header. It gives you the freedom to place elements at any location in the header quickly.
+- It offers different essential header elements like Button, HTML, Widget, Social Icon, Search, Menu, etc. So that you can add all the required information easily with few clicks.
+- Get background and height options for Above, Below, and Primary header.
+- Spacing options for each element in the header.
+- You can design a completely different header for responsive devices with handy mobile header options.
+- Refer to a detailed comparison of features available with Astra free and Pro. ( https://wpastra.com/astra-free-vs-pro/ )
+
+- New: Footer Builder
+- Introducing a new visual Footer Builder that gives the ability to design unique footers for your website.
+- It offers different layers for the footer - Above Footer, Primary Footer, and Below Footer.
+- You can drag-n-drop elements in different sections of the footer. It gives you the freedom to place elements at any location in the footer quickly.
+-  It offers different essential footer elements like Copyright, Button, HTML, Widget, Social Icon, Search, Footer Menu, etc. So that you can add all the required information easily with few clicks.
+- It provides a flexible columns-based structure where you can select column count and column layouts. This lets you manage the footer look easily.
+- Create responsive layouts for the footer.
+- Spacing and alignment options for each element in the footer.
+- Refer to a detailed comparison of features available with Astra free and Pro. ( https://wpastra.com/astra-free-vs-pro/ )
+
+- Improvement: Improved Customizer
+- Experience faster loading customizer. Astra customizer is now upgraded with ReactJS that gives a quick and swift customizer experience.
+- For quick access and faster editing, customization options are segregated and served with two different tabs - General and Design.
+- Now get a faster customizer preview than before. Header and Footer sections will be partially refreshed on any change in the customizer.
+
+v2.7.2
+- Improvement: Frontend optimization by loading WooCommerce 'Shop Page' pagination JS file conditionally.
+- Improvement: Frontend optimization by loading 'Blog Page' infinite pagination JS conditionally.
+- Fix: Fatal error on changing the value of some controls in Customizer - compatibility with PHP 8.0.
+
+v2.7.1
+- Fix: 'Display on Mobile Devices' option dependency added with all the options in Section 1 & 2 of Above and Below headers.
+- Fix: Submenu icons having wrong position in RTL view on responsive devices.
+- Fix: MegaMenu background image option not working.
+- Fix: PHP fatal error while previewing themes other than Astra in customizer when Astra Pro is activated.
+
+v2.7.0
+- New: Gradient color option for background control in customizer. ( https://wpastra.com/docs/new-color-controls-in-astra/ )
+- Improvement: Color, Responsive Color, Background & Responsive Background control now uses Gutenberg's control in customizer. ( https://wpastra.com/docs/new-color-controls-in-astra/ )
+- Improvement: All custom controls HTML markup was loading from PHP, which is now moved to React JS for better and optimized customizer performance. ( https://wpastra.com/astra-2-6/ )
+- Fix: Infinite scroll was loading all types of posts on the blog page.
+- Fix: PHP fatal error while previewing other themes in customizer when Astra Pro is activated.
+
+v2.6.4
+- Improvement: File Generation code improvements.
+- Fix: Custom Layouts translations not working with Polylang plugin.
+
 v2.6.3
 - Fix: WordPress 5.5 Customizer JS error related to addons.
 - Fix: Mega Menu and Page Header - Color picker compatibility with WordPress 5.5.

@@ -22,7 +22,19 @@
 			AstraAdvancedHooks.action_description();
 			AstraAdvancedHooks.bind_tooltip();
 			AstraAdvancedHooks.initLayoutSettings();
+
+			setTimeout( function () {
+				AstraAdvancedHooks.code_editor_switcher();
+			}, 1 );
 		},
+
+		code_editor_switcher: function()
+		{
+			var editor = $('#editor'),
+				switchMode = $($('#astra-editor-button-switch-mode').html());
+			editor.find('.edit-post-header-toolbar').after( switchMode );
+		},
+
 		bind: function()
 		{
 			$( 'input[name="ast-advanced-hook-header[sticky]"]' ).on( 'change', AstraAdvancedHooks.stickyHeaderChanged );
@@ -237,10 +249,6 @@
 	/* Initializes the Advanced Hooks. */
 	$(function(){
 		AstraAdvancedHooks.init();
-	});
-
-	$(window).on("load", function() {
-		$('.edit-post-header-toolbar').append( $('#astra-editor-button-switch-mode').html() );
 	});
 
 })(jQuery);

@@ -51,7 +51,14 @@ if ( ! class_exists( 'Astra_Customizer_Blog_Pro_Single_Configs' ) ) {
 					'type'     => 'control',
 					'control'  => 'ast-sortable',
 					'default'  => astra_get_option( 'blog-single-meta' ),
-					'required' => array( ASTRA_THEME_SETTINGS . '[blog-single-post-structure]', 'contains', 'single-title-meta' ),
+					'context'  => array(
+						Astra_Addon_Builder_Helper::$general_tab_config,
+						array(
+							'setting'  => ASTRA_THEME_SETTINGS . '[blog-single-post-structure]',
+							'operator' => 'contains',
+							'value'    => 'single-title-meta',
+						),
+					),
 					'section'  => 'section-blog-single',
 					'priority' => 5,
 					'title'    => __( 'Meta', 'astra-addon' ),
@@ -63,18 +70,6 @@ if ( ! class_exists( 'Astra_Customizer_Blog_Pro_Single_Configs' ) ) {
 						'tag'       => __( 'Tag', 'astra-addon' ),
 						'read-time' => __( 'Read Time', 'astra-addon' ),
 					),
-				),
-
-				/**
-				 * Option: Divider
-				 */
-				array(
-					'name'     => ASTRA_THEME_SETTINGS . '[ast-styling-section-blog-single-width]',
-					'type'     => 'control',
-					'control'  => 'ast-divider',
-					'section'  => 'section-blog-single',
-					'priority' => 5,
-					'settings' => array(),
 				),
 
 				/**
@@ -142,6 +137,8 @@ if ( ! class_exists( 'Astra_Customizer_Blog_Pro_Single_Configs' ) ) {
 					'title'    => __( 'Spacing', 'astra-addon' ),
 					'settings' => array(),
 					'priority' => 15,
+					'context'  => Astra_Addon_Builder_Helper::$is_header_footer_builder_active ?
+						Astra_Addon_Builder_Helper::$design_tab : Astra_Addon_Builder_Helper::$general_tab,
 				),
 
 				/**
@@ -164,6 +161,8 @@ if ( ! class_exists( 'Astra_Customizer_Blog_Pro_Single_Configs' ) ) {
 						'left'   => __( 'Left', 'astra-addon' ),
 					),
 					'priority'       => 15,
+					'context'        => Astra_Addon_Builder_Helper::$is_header_footer_builder_active ?
+						Astra_Addon_Builder_Helper::$design_tab : Astra_Addon_Builder_Helper::$general_tab,
 				),
 
 				/**
@@ -186,6 +185,8 @@ if ( ! class_exists( 'Astra_Customizer_Blog_Pro_Single_Configs' ) ) {
 						'left'   => __( 'Left', 'astra-addon' ),
 					),
 					'priority'       => 15,
+					'context'        => Astra_Addon_Builder_Helper::$is_header_footer_builder_active ?
+						Astra_Addon_Builder_Helper::$design_tab : Astra_Addon_Builder_Helper::$general_tab,
 				),
 			);
 

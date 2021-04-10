@@ -51,9 +51,10 @@ if ( ! class_exists( 'Astra_Customizer_Colors_Single' ) ) {
 					'type'     => 'control',
 					'control'  => 'ast-heading',
 					'section'  => 'section-blog-single',
-					'priority' => 12,
+					'priority' => 11,
 					'title'    => __( 'Color', 'astra-addon' ),
-					'settings' => array(),
+					'context'  => Astra_Addon_Builder_Helper::$is_header_footer_builder_active ?
+						Astra_Addon_Builder_Helper::$design_tab : Astra_Addon_Builder_Helper::$general_tab,
 				),
 
 				// Option: Single Post / Page Title Color.
@@ -66,6 +67,8 @@ if ( ! class_exists( 'Astra_Customizer_Colors_Single' ) ) {
 					'title'     => __( 'Post/Page Title Color', 'astra-addon' ),
 					'section'   => 'section-blog-single',
 					'priority'  => 12,
+					'context'   => Astra_Addon_Builder_Helper::$is_header_footer_builder_active ?
+						Astra_Addon_Builder_Helper::$design_tab : Astra_Addon_Builder_Helper::$general_tab,
 				),
 
 			);

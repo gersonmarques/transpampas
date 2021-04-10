@@ -58,8 +58,13 @@ if ( ! class_exists( 'Astra_Customizer_Adv_Search_Header' ) ) {
 						'header-cover' => __( 'Header Cover Search', 'astra-addon' ),
 						'search-box'   => __( 'Search Box', 'astra-addon' ),
 					),
-					'required' => array(
-						array( ASTRA_THEME_SETTINGS . '[header-main-rt-section]', '==', 'search' ),
+					'context'  => array(
+						Astra_Addon_Builder_Helper::$general_tab_config,
+						array(
+							'setting'  => ASTRA_THEME_SETTINGS . '[header-main-rt-section]',
+							'operator' => '==',
+							'value'    => 'search',
+						),
 					),
 				),
 

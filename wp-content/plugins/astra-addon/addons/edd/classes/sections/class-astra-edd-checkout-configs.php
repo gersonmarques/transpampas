@@ -66,13 +66,14 @@ if ( ! class_exists( 'Astra_Edd_Checkout_Configs' ) ) {
 				 * Option: Checkout Content Width
 				 */
 				array(
-					'name'    => ASTRA_THEME_SETTINGS . '[edd-checkout-content-width]',
-					'default' => astra_get_option( 'edd-checkout-content-width' ),
-					'type'    => 'control',
-					'control' => 'select',
-					'section' => 'section-edd-checkout-page',
-					'title'   => __( 'Checkout Form Width', 'astra-addon' ),
-					'choices' => array(
+					'name'      => ASTRA_THEME_SETTINGS . '[edd-checkout-content-width]',
+					'default'   => astra_get_option( 'edd-checkout-content-width' ),
+					'type'      => 'control',
+					'control'   => 'select',
+					'section'   => 'section-edd-checkout-page',
+					'transport' => 'postMessage',
+					'title'     => __( 'Checkout Form Width', 'astra-addon' ),
+					'choices'   => array(
 						'default' => __( 'Default', 'astra-addon' ),
 						'custom'  => __( 'Custom', 'astra-addon' ),
 					),
@@ -87,7 +88,14 @@ if ( ! class_exists( 'Astra_Edd_Checkout_Configs' ) ) {
 					'type'        => 'control',
 					'transport'   => 'postMessage',
 					'control'     => 'ast-slider',
-					'required'    => array( ASTRA_THEME_SETTINGS . '[edd-checkout-content-width]', '==', 'custom' ),
+					'context'     => array(
+						Astra_Addon_Builder_Helper::$general_tab_config,
+						array(
+							'setting'  => ASTRA_THEME_SETTINGS . '[edd-checkout-content-width]',
+							'operator' => '==',
+							'value'    => 'custom',
+						),
+					),
 					'section'     => 'section-edd-checkout-page',
 					'title'       => __( 'Custom Width', 'astra-addon' ),
 					'suffix'      => '',

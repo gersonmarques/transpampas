@@ -422,10 +422,16 @@ if ( ! class_exists( 'Astra_Ext_Advanced_Hooks_Markup' ) ) {
 						$layout_404_settings = get_post_meta( $post_id, 'ast-404-page', true );
 						if ( isset( $layout_404_settings['disable_header'] ) && 'enabled' == $layout_404_settings['disable_header'] ) {
 							remove_action( 'astra_header', 'astra_header_markup' );
+							if ( Astra_Addon_Builder_Helper::$is_header_footer_builder_active ) {
+								remove_action( 'astra_header', array( Astra_Builder_Header::get_instance(), 'prepare_header_builder_markup' ) );
+							}
 						}
 
 						if ( isset( $layout_404_settings['disable_footer'] ) && 'enabled' == $layout_404_settings['disable_footer'] ) {
 							remove_action( 'astra_footer', 'astra_footer_markup' );
+							if ( Astra_Addon_Builder_Helper::$is_header_footer_builder_active ) {
+								remove_action( 'astra_footer', array( Astra_Builder_Footer::get_instance(), 'footer_markup' ) );
+							}
 						}
 
 						add_action(
@@ -438,8 +444,12 @@ if ( ! class_exists( 'Astra_Ext_Advanced_Hooks_Markup' ) ) {
 
 						$layout_404_counter ++;
 					} elseif ( isset( $layout[0] ) && 'header' == $layout[0] && 0 == $header_counter ) {
-						// remove default site's header.
+						// Remove default site's header.
+
 						remove_action( 'astra_header', 'astra_header_markup' );
+						if ( Astra_Addon_Builder_Helper::$is_header_footer_builder_active ) {
+							remove_action( 'astra_header', array( Astra_Builder_Header::get_instance(), 'prepare_header_builder_markup' ) );
+						}
 						// remove default site's fixed header if sticky header is activated.
 						add_filter( 'astra_fixed_header_markup_enabled', '__return_false' );
 
@@ -459,8 +469,12 @@ if ( ! class_exists( 'Astra_Ext_Advanced_Hooks_Markup' ) ) {
 						);
 						$header_counter++;
 					} elseif ( isset( $layout[0] ) && 'footer' == $layout[0] && 0 == $footer_counter ) {
-						// remove default site's footer.
+						// Remove default site's footer.
 						remove_action( 'astra_footer', 'astra_footer_markup' );
+
+						if ( Astra_Addon_Builder_Helper::$is_header_footer_builder_active ) {
+							remove_action( 'astra_footer', array( Astra_Builder_Footer::get_instance(), 'footer_markup' ) );
+						}
 
 						$action = 'astra_custom_footer';
 						// if astra_custom_footer not exist then call astra_footer.

@@ -58,9 +58,20 @@ if ( ! class_exists( 'Astra_Customizer_Adv_Search_Below_Header' ) ) {
 						'header-cover' => __( 'Header Cover', 'astra-addon' ),
 						'search-box'   => __( 'Search Box', 'astra-addon' ),
 					),
-					'required' => array(
-						array( ASTRA_THEME_SETTINGS . '[below-header-layout]', '!=', 'disabled' ),
-						array( ASTRA_THEME_SETTINGS . '[below-header-section-1]', '==', 'search' ),
+					'context'  => array(
+						Astra_Addon_Builder_Helper::$is_header_footer_builder_active ?
+						Astra_Addon_Builder_Helper::$design_tab_config : Astra_Addon_Builder_Helper::$general_tab_config,
+						'relation' => 'AND',
+						array(
+							'setting'  => ASTRA_THEME_SETTINGS . '[below-header-layout]',
+							'operator' => '!=',
+							'value'    => 'disabled',
+						),
+						array(
+							'setting'  => ASTRA_THEME_SETTINGS . '[below-header-section-1]',
+							'operator' => '==',
+							'value'    => 'search',
+						),
 					),
 				),
 
@@ -79,9 +90,19 @@ if ( ! class_exists( 'Astra_Customizer_Adv_Search_Below_Header' ) ) {
 						'header-cover' => __( 'Header Cover', 'astra-addon' ),
 						'search-box'   => __( 'Search Box', 'astra-addon' ),
 					),
-					'required' => array(
-						array( ASTRA_THEME_SETTINGS . '[below-header-layout]', '!=', 'disabled' ),
-						array( ASTRA_THEME_SETTINGS . '[below-header-section-2]', '==', 'search' ),
+					'context'  => array(
+						Astra_Addon_Builder_Helper::$general_tab_config,
+						array(
+							'setting'  => ASTRA_THEME_SETTINGS . '[below-header-layout]',
+							'operator' => '==',
+							'value'    => 'below-header-layout-1',
+						),
+						array(
+							'setting'  => ASTRA_THEME_SETTINGS . '[below-header-section-2]',
+							'operator' => '==',
+							'value'    => 'search',
+						),
+
 					),
 				),
 			);

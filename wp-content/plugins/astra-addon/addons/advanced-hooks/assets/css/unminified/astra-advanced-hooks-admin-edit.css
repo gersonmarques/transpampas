@@ -307,5 +307,6 @@
 }
 
 .ast-advanced-hook-enable-php-wrapper {
-    margin: 15px auto;
+	margin: 0;
+	order: 2;
 }

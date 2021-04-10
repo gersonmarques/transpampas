@@ -176,7 +176,7 @@
 	/**
 	 * Header
 	 */
-	astra_css( 'astra-settings[header-color-site-title]', 'color', '.site-title a, .site-title a:focus, .site-title a:hover, .site-title a:visited' );
+	astra_css( 'astra-settings[header-color-site-title]', 'color', '.site-title *, .site-title a, .site-title a:focus, .site-title a:hover, .site-title a:visited' );
 	astra_css( 'astra-settings[header-color-h-site-title]', 'color', '.site-header .site-title a:hover' );
 	astra_css( 'astra-settings[header-color-site-tagline]',	'color', '.site-header .site-description' );
 
@@ -238,5 +238,324 @@
 	astra_css( 'astra-settings[footer-color]', 'color', '.ast-small-footer' );
 	astra_css( 'astra-settings[footer-link-color]', 'color', '.ast-small-footer a' );
 	astra_css( 'astra-settings[footer-link-h-color]', 'color', '.ast-small-footer a:hover' );
+
+	/**
+	 * Footer - Copyright
+	 */
+
+	// Link color.
+	 astra_css(
+        'astra-settings[footer-copyright-link-color]',
+        'color',
+        '.ast-footer-copyright .ast-footer-html-inner a'
+	);
+	
+	// Link Hover color.
+	astra_css(
+        'astra-settings[footer-copyright-link-h-color]',
+        'color',
+        '.ast-footer-copyright .ast-footer-html-inner a:hover'
+	);
+	
+	/**
+	 * Header - Account - Colors.
+	 */
+
+	var account_selector = '.ast-header-account-wrap';
+	var adv_account_selector = '.ast-advanced-headers .ast-header-account-wrap';
+
+	// Menu - Normal Color
+	astra_color_responsive_css(
+		'astra-account-menu-color-preview',
+		'astra-settings[header-account-menu-color-responsive]',
+		'color',
+		account_selector + ' .main-header-menu.ast-account-nav-menu .menu-item > .menu-link, ' + adv_account_selector + ' .main-header-menu.ast-account-nav-menu .menu-item > .menu-link'
+	);
+
+	// Menu - Hover Color
+	astra_color_responsive_css(
+		'astra-account-menu-h-color-preview',
+		'astra-settings[header-account-menu-h-color-responsive]',
+		'color',
+		account_selector + ' .main-header-menu.ast-account-nav-menu .menu-item:hover > .menu-link, ' + account_selector + ' .main-header-menu.ast-account-nav-menu .menu-item > .menu-link:hover, ' + account_selector + ' .main-header-menu.ast-account-nav-menu .woocommerce-MyAccount-navigation-link.is-active:hover > .menu-link, ' + account_selector + ' .main-header-menu.ast-account-nav-menu .woocommerce-MyAccount-navigation-link.is-active > .menu-link:hover, ' + adv_account_selector + ' .main-header-menu.ast-account-nav-menu .menu-item:hover > .menu-link, ' + adv_account_selector + ' .main-header-menu.ast-account-nav-menu .menu-item > .menu-link:hover, ' + adv_account_selector + ' .main-header-menu.ast-account-nav-menu .woocommerce-MyAccount-navigation-link.is-active:hover > .menu-link, ' + adv_account_selector + ' .main-header-menu.ast-account-nav-menu .woocommerce-MyAccount-navigation-link.is-active > .menu-link:hover'
+	);
+
+	// Menu - Active Color
+	astra_color_responsive_css(
+		'astra-account-menu-active-color-preview',
+		'astra-settings[header-account-menu-a-color-responsive]',
+		'color',
+		account_selector + ' .main-header-menu.ast-account-nav-menu .menu-item.current-menu-item > .menu-link, ' + account_selector + ' .main-header-menu.ast-account-nav-menu .woocommerce-MyAccount-navigation-link.is-active > .menu-link, ' + adv_account_selector + ' .main-header-menu.ast-account-nav-menu .menu-item.current-menu-item > .menu-link, ' + adv_account_selector + ' .main-header-menu.ast-account-nav-menu .woocommerce-MyAccount-navigation-link.is-active > .menu-link'
+	);
+
+	// Menu - Background
+	astra_color_responsive_css(
+		'astra-account-menu-bg-obj-preview',
+		'astra-settings[header-account-menu-bg-obj-responsive]',
+		'background',
+		account_selector + ' .account-main-navigation ul, ' + account_selector + ' .account-woo-navigation ul,' + account_selector + ' .main-header-menu.ast-account-nav-menu .menu-item > .menu-link, ' + account_selector + ' .main-header-menu.ast-account-nav-menu .woocommerce-MyAccount-navigation-link .menu-link, ' + adv_account_selector + ' .account-main-navigation ul, ' + adv_account_selector + ' .account-woo-navigation ul,' + adv_account_selector + ' .main-header-menu.ast-account-nav-menu .menu-item > .menu-link, ' + adv_account_selector + ' .main-header-menu.ast-account-nav-menu .woocommerce-MyAccount-navigation-link .menu-link'
+	);
+
+	// Menu - Hover Background
+	astra_color_responsive_css(
+		'astra-account-menu-bg-preview',
+		'astra-settings[header-account-menu-h-bg-color-responsive]',
+		'background',
+		account_selector + ' .main-header-menu.ast-account-nav-menu .menu-item:hover > .menu-link, ' + account_selector + ' .main-header-menu.ast-account-nav-menu .woocommerce-MyAccount-navigation-link:hover .menu-link, ' + account_selector + ' .main-header-menu.ast-account-nav-menu .woocommerce-MyAccount-navigation-link.is-active:hover > .menu-link, ' + account_selector + ' .main-header-menu.ast-account-nav-menu .woocommerce-MyAccount-navigation-link.is-active > .menu-link:hover, ' + adv_account_selector + ' .main-header-menu.ast-account-nav-menu .menu-item:hover > .menu-link, ' + adv_account_selector + ' .main-header-menu.ast-account-nav-menu .woocommerce-MyAccount-navigation-link:hover .menu-link, ' + adv_account_selector + ' .main-header-menu.ast-account-nav-menu .woocommerce-MyAccount-navigation-link.is-active:hover > .menu-link, ' + adv_account_selector + ' .main-header-menu.ast-account-nav-menu .woocommerce-MyAccount-navigation-link.is-active > .menu-link:hover'
+	);
+
+	// Menu - Active Background
+	astra_color_responsive_css(
+		'astra-account-menu',
+		'astra-settings[header-account-menu-a-bg-color-responsive]',
+		'background',
+		account_selector + ' .main-header-menu.ast-account-nav-menu .menu-item.current-menu-item > .menu-link, ' + account_selector + ' .main-header-menu.ast-account-nav-menu .woocommerce-MyAccount-navigation-link.is-active .menu-link, ' + account_selector + ' .main-header-menu.ast-account-nav-menu .woocommerce-MyAccount-navigation-link.is-active .menu-link, ' + adv_account_selector + ' .main-header-menu.ast-account-nav-menu .menu-item.current-menu-item > .menu-link, ' + adv_account_selector + ' .main-header-menu.ast-account-nav-menu .woocommerce-MyAccount-navigation-link.is-active .menu-link, ' + adv_account_selector + ' .main-header-menu.ast-account-nav-menu .woocommerce-MyAccount-navigation-link.is-active .menu-link'
+	);
+	
+	astra_css(
+		'astra-settings[header-account-popup-label-color]',
+		'color',
+		'.ast-header-account-wrap .ast-hb-account-login-form label,.ast-header-account-wrap .ast-hb-account-login-form-footer .ast-header-account-footer-link'
+	);
+
+	astra_css(
+		'astra-settings[header-account-popup-input-text-color]',
+		'color',
+		'.ast-header-account-wrap .ast-hb-account-login-form input[type=text], .ast-header-account-wrap .ast-hb-account-login-form input[type=password]'
+	);
+
+	astra_css(
+		'astra-settings[header-account-popup-input-border-color]',
+		'border-color',
+		'.ast-header-account-wrap .ast-hb-account-login-form #loginform input[type=text], .ast-header-account-wrap .ast-hb-account-login-form #loginform input[type=password]'
+	);
+
+	astra_css(
+		'astra-settings[header-account-popup-button-bg-color]',
+		'background-color',
+		'.ast-header-account-wrap .ast-hb-account-login-form input[type="submit"]'
+	);
+
+	astra_css(
+		'astra-settings[header-account-popup-button-text-color]',
+		'color',
+		'.ast-header-account-wrap .ast-hb-account-login-form input[type="submit"]'
+	);
+
+	astra_css(
+		'astra-settings[header-account-popup-bg-color]',
+		'background',
+		'.ast-header-account-wrap .ast-hb-account-login'
+	);
+
+	/**
+	 * Header - Menu - Colors.
+	 */
+
+	for ( var index = 1; index <= astColors.header_menu_count; index++ ) {
+
+		var prefix = 'menu' + index;
+		var selector = '.astra-hfb-header .ast-builder-menu-' + index + '.ast-builder-menu .main-header-menu';
+
+		/**
+		 * Sub-Menu - Colors
+		 */
+
+		// Sub-Menu - Normal Color
+		astra_color_responsive_css(
+			'astra-builder',
+			'astra-settings[header-' + prefix + '-submenu-color-responsive]',
+			'color',
+			selector + ' .sub-menu .menu-item .menu-link'
+		);
+
+		// Sub-Menu - Hover Color
+		astra_color_responsive_css(
+			'astra-builder',
+			'astra-settings[header-' + prefix + '-submenu-h-color-responsive]',
+			'color',
+			selector + ' .sub-menu .menu-item .menu-link:hover'
+		);
+
+		// Sub-Menu - Active Color
+		astra_color_responsive_css(
+			'astra-builder',
+			'astra-settings[header-' + prefix + '-submenu-a-color-responsive]',
+			'color',
+			selector + ' .sub-menu li.menu-item.current-menu-item > .menu-link'
+		);
+
+		// Sub-Menu - Normal Background
+		astra_color_responsive_css(
+			'astra-builder',
+			'astra-settings[header-' + prefix + '-submenu-bg-color-responsive]',
+			'background',
+			selector + ' .sub-menu .menu-item .menu-link'
+		);
+
+		// Sub-Menu - Hover Background
+		astra_color_responsive_css(
+			'astra-builder',
+			'astra-settings[header-' + prefix + '-submenu-h-bg-color-responsive]',
+			'background',
+			selector + ' .sub-menu .menu-item .menu-link:hover'
+		);
+
+		// Sub-Menu - Active Background
+		astra_color_responsive_css(
+			'astra-builder',
+			'astra-settings[header-' + prefix + '-submenu-a-bg-color-responsive]',
+			'background',
+			selector + ' .sub-menu li.menu-item.current-menu-item > .menu-link'
+		);
+
+		if ( 3 > index ) {
+			/**
+			 * Mega Menu - Colors
+			 */
+
+			// Mega-Menu - Normal Color
+			astra_css(
+				'astra-settings[header-' + prefix + '-header-megamenu-heading-color]',
+				'color',
+				'.astra-hfb-header.ast-desktop .ast-builder-menu-' + index + ' .main-header-menu .menu-item.menu-item-heading > .menu-link'
+			);
+
+			// Mega-Menu - Hover Color
+			astra_css(
+				'astra-settings[header-' + prefix + '-header-megamenu-heading-h-color]',
+				'color',
+				'.astra-hfb-header.ast-desktop .ast-builder-menu-' + index + ' .main-header-menu .astra-megamenu-li .menu-item.menu-item-heading > .menu-link:hover, .astra-hfb-header.ast-desktop .ast-builder-menu-' + index + ' .main-header-menu .astra-megamenu-li .menu-item.menu-item-heading:hover > .menu-link'
+			);
+		}
+
+	}
+	/**
+	 * Mobile menu CSS
+	 */
+
+	var selector = '.astra-hfb-header .ast-builder-menu-mobile .main-header-menu';
+
+	/**
+	 * Sub-Menu - Colors
+	 */
+
+	// Sub-Menu - Normal Color
+	astra_color_responsive_css(
+		'astra-builder',
+		'astra-settings[header-mobile-menu-submenu-color-responsive]',
+		'color',
+		selector + '.ast-nav-menu .sub-menu .menu-item .menu-link, ' + selector + ' .sub-menu .menu-item > .ast-menu-toggle'
+	);
+
+	// Sub-Menu - Hover Color
+	astra_color_responsive_css(
+		'astra-builder',
+		'astra-settings[header-mobile-menu-submenu-h-color-responsive]',
+		'color',
+		selector + '.ast-nav-menu .sub-menu .menu-item .menu-link:hover, ' + selector + ' .sub-menu .menu-item:hover > .ast-menu-toggle'
+	);
+
+	// Sub-Menu - Active Color
+	astra_color_responsive_css(
+		'astra-builder',
+		'astra-settings[header-mobile-menu-submenu-a-color-responsive]',
+		'color',
+		selector + '.ast-nav-menu .sub-menu li.menu-item.current-menu-item > .menu-link, ' + selector + ' .sub-menu .menu-item.current-menu-item > .ast-menu-toggle'
+	);
+
+	// Sub-Menu - Normal Background
+	astra_color_responsive_css(
+		'astra-builder',
+		'astra-settings[header-mobile-menu-submenu-bg-color-responsive]',
+		'background',
+		selector + '.ast-nav-menu .sub-menu .menu-item .menu-link'
+	);
+
+	// Sub-Menu - Hover Background
+	astra_color_responsive_css(
+		'astra-builder',
+		'astra-settings[header-mobile-menu-submenu-h-bg-color-responsive]',
+		'background',
+		selector + '.ast-nav-menu .sub-menu .menu-item .menu-link:hover'
+	);
+
+	// Sub-Menu - Active Background
+	astra_color_responsive_css(
+		'astra-builder',
+		'astra-settings[header-mobile-menu-submenu-a-bg-color-responsive]',
+		'background',
+		selector + '.ast-nav-menu .sub-menu li.menu-item.current-menu-item > .menu-link'
+	);
+
+	/**
+	 * Search Dynamic CSS
+	 */
+
+	var search_selector = '.ast-header-search .ast-search-menu-icon';
+
+	 // Search Box Background color.
+	 astra_css(
+        'astra-settings[header-search-box-background-color]',
+        'background-color',
+        '.ast-header-search .ast-search-menu-icon .search-field, .ast-header-search .ast-search-menu-icon .search-form, .ast-header-search .ast-search-menu-icon .search-submit'
+	);
+
+	// Search Box Border Size.
+	wp.customize( 'astra-settings[header-search-border-size]', function( setting ) {
+		setting.bind( function( border ) {
+			var dynamicStyle = '.ast-header-search .ast-search-menu-icon .search-form {';
+				dynamicStyle += 'border-top-width:'  + border.top + 'px;';
+				dynamicStyle += 'border-right-width:'  + border.right + 'px;';
+				dynamicStyle += 'border-left-width:'   + border.left + 'px;';
+				dynamicStyle += 'border-bottom-width:'   + border.bottom + 'px;';
+				dynamicStyle += '} ';
+			astra_add_dynamic_css( 'astra-settings[header-search-border-size]', dynamicStyle );
+		} );
+	} );
+
+	// Search Box Border Radius.
+	astra_css(
+		'astra-settings[header-search-border-radius]',
+		'border-radius',
+		'.ast-header-search .ast-search-menu-icon .search-field, .ast-header-search .ast-search-menu-icon .search-form, .ast-header-search .ast-search-menu-icon .search-submit',
+		'px'
+	);
+
+	// Search Box Border Color.
+	astra_css(
+		'astra-settings[header-search-border-color]',
+		'border-color',
+		'.ast-header-search .ast-search-menu-icon .search-form'
+	);
+
+	// Search Box Border Hover Color.
+	astra_css(
+		'astra-settings[header-search-border-h-color]',
+		'border-color',
+		'.ast-header-search .ast-search-menu-icon .search-form:hover'
+	);
+
+	// Seach Full Screen / Header Cover Overlay BG Color.
+	astra_css(
+		'astra-settings[header-search-overlay-color]',
+		'background',
+		'.ast-search-box.full-screen, .ast-search-box.header-cover'
+	);
+
+	// Seach Full Screen / Header Cover Overlay Text Color.
+	wp.customize( 'astra-settings[header-search-overlay-text-color]', function( setting ) {
+		setting.bind( function( color ) {
+			
+			var dynamicStyle = '.ast-search-box.header-cover #close, .ast-search-box.full-screen #close, .ast-search-box.full-screen .ast-search-wrapper .large-search-text, .ast-search-box.header-cover .search-submit, .ast-search-box.full-screen .search-submit, .ast-search-box.header-cover .search-field, .ast-search-box.full-screen .search-field, .ast-search-box.header-cover .search-field::-webkit-input-placeholder, .ast-search-box.full-screen .search-field::-webkit-input-placeholder {';
+				dynamicStyle += 'color:'  + color;
+				dynamicStyle += '} ';
+				dynamicStyle += '.ast-search-box.full-screen .ast-search-wrapper fieldset {';
+				dynamicStyle += 'border-color:'  + color;
+				dynamicStyle += '} ';
+
+			astra_add_dynamic_css( 'astra-settings[header-search-overlay-text-color]', dynamicStyle );
+		} );
+	} );
 
 } )( jQuery );

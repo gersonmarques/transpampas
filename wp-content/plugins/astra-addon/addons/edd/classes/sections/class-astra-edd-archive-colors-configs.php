@@ -49,7 +49,13 @@ if ( ! class_exists( 'Astra_Edd_Archive_Colors_Configs' ) ) {
 					'type'      => 'sub-control',
 					'control'   => 'ast-color',
 					'transport' => 'postMessage',
-					'required'  => array( ASTRA_THEME_SETTINGS . '[edd-archive-product-structure]', 'contains', 'title' ),
+					'context'   => array(
+						array(
+							'setting'  => ASTRA_THEME_SETTINGS . '[edd-archive-product-structure]',
+							'operator' => 'contains',
+							'value'    => 'title',
+						),
+					),
 					'title'     => __( 'Product Title Color', 'astra-addon' ),
 				),
 
@@ -64,7 +70,13 @@ if ( ! class_exists( 'Astra_Edd_Archive_Colors_Configs' ) ) {
 					'type'      => 'sub-control',
 					'control'   => 'ast-color',
 					'transport' => 'postMessage',
-					'required'  => array( ASTRA_THEME_SETTINGS . '[edd-archive-product-structure]', 'contains', 'price' ),
+					'context'   => array(
+						array(
+							'setting'  => ASTRA_THEME_SETTINGS . '[edd-archive-product-structure]',
+							'operator' => 'contains',
+							'value'    => 'price',
+						),
+					),
 					'title'     => __( 'Product Price Color', 'astra-addon' ),
 				),
 

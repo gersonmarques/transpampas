@@ -280,7 +280,7 @@ if ( ! class_exists( 'Astra_Ext_Advanced_Hooks_Meta' ) ) {
 						),
 						'astra_footer_content_top'    => array(
 							'title'       => 'footer_content_top',
-							'description' => __( 'astra_footer_content_top - Action to add your content or snippet at top of the <footer> tag.', 'astra-addon' ),
+							'description' => __( 'astra_footer_content_top - Action to add your content or snippet at top in the <footer> tag.', 'astra-addon' ),
 						),
 						'astra_footer_inside_container_top' => array(
 							'title'       => 'footer_inside_container_top',
@@ -292,7 +292,7 @@ if ( ! class_exists( 'Astra_Ext_Advanced_Hooks_Meta' ) ) {
 						),
 						'astra_footer_content_bottom' => array(
 							'title'       => 'footer_content_bottom',
-							'description' => __( 'astra_footer_content_bottom - Action to add your content or snippet at bottom of the <footer> tag.', 'astra-addon' ),
+							'description' => __( 'astra_footer_content_bottom - Action to add your content or snippet at bottom in the <footer> tag.', 'astra-addon' ),
 						),
 						'astra_footer_after'          => array(
 							'title'       => 'footer_after',
@@ -706,6 +706,189 @@ if ( ! class_exists( 'Astra_Ext_Advanced_Hooks_Meta' ) ) {
 						),
 					),
 				);
+			}
+
+			if ( Astra_Addon_Builder_Helper::$is_header_footer_builder_active ) {
+
+				unset( $hooks['header']['hooks']['astra_main_header_bar_top'] );
+				unset( $hooks['header']['hooks']['astra_masthead_content'] );
+				unset( $hooks['header']['hooks']['astra_masthead_toggle_buttons_after'] );
+				unset( $hooks['header']['hooks']['astra_masthead_toggle_buttons_before'] );
+				unset( $hooks['header']['hooks']['astra_main_header_bar_bottom'] );
+				unset( $hooks['footer']['hooks']['astra_footer_content_top'] );
+				unset( $hooks['footer']['hooks']['astra_footer_inside_container_top'] );
+				unset( $hooks['footer']['hooks']['astra_footer_inside_container_bottom'] );
+				unset( $hooks['footer']['hooks']['astra_footer_content_bottom'] );
+
+				/**
+				 * Above Header
+				 */
+
+				$insert_above_bar_before = array(
+					'astra_header_above_container_before' => array(
+						'title'       => 'header_above_container_before',
+						'description' => __( 'astra_header_above_container_before - Action to add your content or snippet at top of the Above header.', 'astra-addon' ),
+					),
+				);
+
+				// Add new array 'astra_header_above_container_after' at position 3.
+				$above_offset_before      = 3;
+				$mast_head_before         = array_slice( $hooks['header']['hooks'], 0, $above_offset_before, true ) + $insert_above_bar_before + array_slice( $hooks['header']['hooks'], $above_offset_before, null, true );
+				$hooks['header']['hooks'] = $mast_head_before;
+
+				$insert_above_bar_after = array(
+					'astra_header_above_container_after' => array(
+						'title'       => 'header_above_container_after',
+						'description' => __( 'astra_header_above_container_after - Action to add your content or snippet at bottom of the Above header.', 'astra-addon' ),
+					),
+				);
+
+				// Add new array 'astra_header_above_container_after' at position 4.
+				$above_offset_after       = 4;
+				$mast_head_after          = array_slice( $hooks['header']['hooks'], 0, $above_offset_after, true ) + $insert_above_bar_after + array_slice( $hooks['header']['hooks'], $above_offset_after, null, true );
+				$hooks['header']['hooks'] = $mast_head_after;
+
+				/**
+				 * Primary Header
+				 */
+
+				$insert_main_bar_before = array(
+					'astra_header_primary_container_before' => array(
+						'title'       => 'header_primary_container_before',
+						'description' => __( 'astra_header_primary_container_before - Action to add your content or snippet at top of the Primary header.', 'astra-addon' ),
+					),
+				);
+
+				// Add new array 'astra_header_primary_container_after' at position 5.
+				$offset_before            = 5;
+				$mast_head_before         = array_slice( $hooks['header']['hooks'], 0, $offset_before, true ) + $insert_main_bar_before + array_slice( $hooks['header']['hooks'], $offset_before, null, true );
+				$hooks['header']['hooks'] = $mast_head_before;
+
+				$insert_main_bar_after = array(
+					'astra_header_primary_container_after' => array(
+						'title'       => 'header_primary_container_after',
+						'description' => __( 'astra_header_primary_container_after - Action to add your content or snippet at bottom of the Primary header.', 'astra-addon' ),
+					),
+				);
+
+				// Add new array 'astra_header_primary_container_after' at position 6.
+				$offset_after             = 6;
+				$mast_head_after          = array_slice( $hooks['header']['hooks'], 0, $offset_after, true ) + $insert_main_bar_after + array_slice( $hooks['header']['hooks'], $offset_after, null, true );
+				$hooks['header']['hooks'] = $mast_head_after;
+
+				/**
+				 * Below Header
+				 */
+
+				$insert_below_bar_before = array(
+					'astra_header_below_container_before' => array(
+						'title'       => 'header_below_container_before',
+						'description' => __( 'astra_header_below_container_before - Action to add your content or snippet at top of the Below header.', 'astra-addon' ),
+					),
+				);
+
+				// Add new array 'header_below_container_before' at position 7.
+				$below_offset_before      = 7;
+				$mast_head_before         = array_slice( $hooks['header']['hooks'], 0, $below_offset_before, true ) + $insert_below_bar_before + array_slice( $hooks['header']['hooks'], $below_offset_before, null, true );
+				$hooks['header']['hooks'] = $mast_head_before;
+
+				$insert_below_bar_after = array(
+					'astra_header_below_container_after' => array(
+						'title'       => 'header_below_container_after',
+						'description' => __( 'astra_header_below_container_after - Action to add your content or snippet at bottom of the Below header.', 'astra-addon' ),
+					),
+				);
+
+				// Add new array 'astra_header_below_container_after' at position 8.
+				$below_offset_after       = 8;
+				$mast_head_after          = array_slice( $hooks['header']['hooks'], 0, $below_offset_after, true ) + $insert_below_bar_after + array_slice( $hooks['header']['hooks'], $below_offset_after, null, true );
+				$hooks['header']['hooks'] = $mast_head_after;
+
+				/**
+				 * Above Footer
+				 */
+
+				$insert_above_footer_before = array(
+					'astra_footer_above_container_before' => array(
+						'title'       => 'footer_above_container_before',
+						'description' => __( 'astra_footer_above_container_before - Action to add your content or snippet at top of the Above Footer.', 'astra-addon' ),
+					),
+				);
+
+				// Add new array 'astra_footer_above_container_before' at position 2.
+				$offset_above_footer_before = 2;
+				$mast_footer_before         = array_slice( $hooks['footer']['hooks'], 0, $offset_above_footer_before, true ) + $insert_above_footer_before + array_slice( $hooks['footer']['hooks'], $offset_above_footer_before, null, true );
+				$hooks['footer']['hooks']   = $mast_footer_before;
+
+				$insert_above_footer_after = array(
+					'astra_footer_above_container_after' => array(
+						'title'       => 'footer_above_container_after',
+						'description' => __( 'astra_footer_above_container_after - Action to add your content or snippet at bottom of the Above Footer.', 'astra-addon' ),
+					),
+				);
+
+				// Add new array 'astra_footer_above_container_after' at position 3.
+				$offset_above_footer_after = 3;
+				$mast_footer_after         = array_slice( $hooks['footer']['hooks'], 0, $offset_above_footer_after, true ) + $insert_above_footer_after + array_slice( $hooks['footer']['hooks'], $offset_above_footer_after, null, true );
+				$hooks['footer']['hooks']  = $mast_footer_after;
+
+				/**
+				 * Footer
+				 */
+
+				$insert_main_footer_before = array(
+					'astra_footer_primary_container_before' => array(
+						'title'       => 'footer_primary_container_before',
+						'description' => __( 'astra_footer_primary_container_before - Action to add your content or snippet at top of the Primary header.', 'astra-addon' ),
+					),
+				);
+
+				// Add new array 'astra_footer_primary_container_before' at position 4.
+				$offset_footer_before     = 4;
+				$mast_footer_before       = array_slice( $hooks['footer']['hooks'], 0, $offset_footer_before, true ) +
+				$insert_main_footer_before +
+				array_slice( $hooks['footer']['hooks'], $offset_footer_before, null, true );
+				$hooks['footer']['hooks'] = $mast_footer_before;
+
+				$insert_main_footer_after = array(
+					'astra_footer_primary_container_after' => array(
+						'title'       => 'footer_primary_container_after',
+						'description' => __( 'astra_footer_primary_container_after - Action to add your content or snippet at bottom of the Primary header.', 'astra-addon' ),
+					),
+				);
+
+				// Add new array 'astra_footer_primary_container_after' at position 5.
+				$offset_footer_after      = 5;
+				$mast_footer_after        = array_slice( $hooks['footer']['hooks'], 0, $offset_footer_after, true ) + $insert_main_footer_after + array_slice( $hooks['footer']['hooks'], $offset_footer_after, null, true );
+				$hooks['footer']['hooks'] = $mast_footer_after;
+
+				/**
+				 * Below Footer
+				 */
+
+				$insert_below_footer_before = array(
+					'astra_footer_below_container_before' => array(
+						'title'       => 'footer_below_container_before',
+						'description' => __( 'astra_footer_below_container_before - Action to add your content or snippet at top of the Below Footer.', 'astra-addon' ),
+					),
+				);
+
+				// Add new array 'astra_footer_below_container_before' at position 6.
+				$offset_below_footer_before = 6;
+				$mast_footer_before         = array_slice( $hooks['footer']['hooks'], 0, $offset_below_footer_before, true ) + $insert_below_footer_before + array_slice( $hooks['footer']['hooks'], $offset_below_footer_before, null, true );
+				$hooks['footer']['hooks']   = $mast_footer_before;
+
+				$insert_below_footer_after = array(
+					'astra_footer_below_container_after' => array(
+						'title'       => 'footer_below_container_after',
+						'description' => __( 'astra_footer_below_container_after - Action to add your content or snippet at bottom of the Below Footer.', 'astra-addon' ),
+					),
+				);
+
+				// Add new array 'astra_footer_below_container_after' at position 7.
+				$offset_below_footer_after = 7;
+				$mast_footer_after         = array_slice( $hooks['footer']['hooks'], 0, $offset_below_footer_after, true ) + $insert_below_footer_after + array_slice( $hooks['footer']['hooks'], $offset_below_footer_after, null, true );
+				$hooks['footer']['hooks']  = $mast_footer_after;
 			}
 
 			self::$layouts = apply_filters( 'astra_custom_layouts_layout', $layouts );
@@ -1145,6 +1328,7 @@ if ( ! class_exists( 'Astra_Ext_Advanced_Hooks_Meta' ) ) {
 				 * Get options.
 				 */
 				$with_php      = ( isset( $meta['ast-advanced-hook-with-php']['default'] ) ) ? $meta['ast-advanced-hook-with-php']['default'] : '';
+				$editor_type   = ( isset( $meta['editor_type']['default'] ) ) ? $meta['editor_type']['default'] : 'wordpress_editor';
 				$enable_label  = __( 'Enable Code Editor', 'astra-addon' );
 				$disable_label = __( 'Enable WordPress Editor', 'astra-addon' );
 
@@ -1156,6 +1340,12 @@ if ( ! class_exists( 'Astra_Ext_Advanced_Hooks_Meta' ) ) {
 					$editor_type = 'code_editor';
 					$icon        = 'dashicons-edit';
 					$label       = $disable_label;
+				}
+
+				if ( isset( $_GET['wordpress_editor'] ) || 'wordpress_editor' === $editor_type ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+					$editor_type = 'wordpress_editor';
+					$icon        = 'dashicons-editor-code';
+					$label       = $enable_label;
 				}
 
 				?>

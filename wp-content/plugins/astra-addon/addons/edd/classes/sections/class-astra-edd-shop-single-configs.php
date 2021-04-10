@@ -102,7 +102,6 @@ if ( ! class_exists( 'Astra_Edd_Shop_Single_Configs' ) ) {
 					'title'     => __( 'Product Title', 'astra-addon' ),
 					'section'   => 'section-edd-single',
 					'transport' => 'postMessage',
-					'required'  => array( ASTRA_THEME_SETTINGS . '[single-product-structure]', 'contains', 'title' ),
 					'priority'  => 233,
 				),
 

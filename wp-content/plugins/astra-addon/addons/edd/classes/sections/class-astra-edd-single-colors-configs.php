@@ -49,7 +49,13 @@ if ( ! class_exists( 'Astra_Edd_Single_Colors_Configs' ) ) {
 					'type'      => 'sub-control',
 					'control'   => 'ast-color',
 					'transport' => 'postMessage',
-					'required'  => array( ASTRA_THEME_SETTINGS . '[edd-single-product-structure]', 'contains', 'title' ),
+					'context'   => array(
+						array(
+							'setting'  => ASTRA_THEME_SETTINGS . '[edd-single-product-structure]',
+							'operator' => 'contains',
+							'value'    => 'title',
+						),
+					),
 					'title'     => __( 'Product Title Color', 'astra-addon' ),
 				),
 
@@ -77,7 +83,13 @@ if ( ! class_exists( 'Astra_Edd_Single_Colors_Configs' ) ) {
 					'default'   => '',
 					'type'      => 'sub-control',
 					'control'   => 'ast-color',
-					'required'  => array( ASTRA_THEME_SETTINGS . '[disable-edd-single-product-nav]', '!=', 1 ),
+					'context'   => array(
+						array(
+							'setting'  => ASTRA_THEME_SETTINGS . '[disable-edd-single-product-nav]',
+							'operator' => '!=',
+							'value'    => '1',
+						),
+					),
 					'transport' => 'postMessage',
 					'title'     => __( 'Product Navigation Color', 'astra-addon' ),
 				),

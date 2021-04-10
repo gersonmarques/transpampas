@@ -54,6 +54,14 @@ if ( ! class_exists( 'Astra_Ext_Adv_Search_Loader' ) ) {
 		 */
 		public function theme_defaults( $defaults ) {
 
+			/**
+			 * Header Builder > Search style.
+			 */
+			$defaults['header-search-box-type'] = 'slide-search';
+
+			/**
+			 * Astra default header > Search style.
+			 */
 			$defaults['header-main-rt-section-search-box-type'] = 'slide-search';
 			$defaults['below-header-section-2-search-box-type'] = 'slide-search';
 			$defaults['below-header-section-1-search-box-type'] = 'slide-search';
@@ -70,11 +78,14 @@ if ( ! class_exists( 'Astra_Ext_Adv_Search_Loader' ) ) {
 		 * @param WP_Customize_Manager $wp_customize Theme Customizer object.
 		 */
 		public function new_customize_register( $wp_customize ) {
-
-			// Sections.
-			require_once ASTRA_EXT_ADVANCED_SEARCH_DIR . 'classes/sections/class-astra-customizer-adv-search-header.php';
-			require_once ASTRA_EXT_ADVANCED_SEARCH_DIR . 'classes/sections/class-astra-customizer-adv-search-above-header.php';
-			require_once ASTRA_EXT_ADVANCED_SEARCH_DIR . 'classes/sections/class-astra-customizer-adv-search-below-header.php';
+			if ( astra_addon_existing_header_footer_configs() ) {
+				// Sections.
+				require_once ASTRA_EXT_ADVANCED_SEARCH_DIR . 'classes/sections/class-astra-customizer-adv-search-header.php';
+				require_once ASTRA_EXT_ADVANCED_SEARCH_DIR . 'classes/sections/class-astra-customizer-adv-search-above-header.php';
+				require_once ASTRA_EXT_ADVANCED_SEARCH_DIR . 'classes/sections/class-astra-customizer-adv-search-below-header.php';
+			} else {
+				require_once ASTRA_EXT_ADVANCED_SEARCH_DIR . 'classes/sections/class-astra-customizer-adv-search-configs.php';
+			}
 		}
 	}
 }

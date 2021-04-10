@@ -297,191 +297,194 @@ class Astra_Addon_Colors_Dynamic_CSS {
 			$css_output        .= astra_parse_css( $sidebar_foreground );
 		}
 
-		/**
-		 * Responsive Colors options
-		 * [1]. Header Responsive Background with Image
-		 * [2]. Primary Menu Responsive Colors
-		 */
-		$desktop_colors = array(
+		if ( ! Astra_Addon_Builder_Helper::$is_header_footer_builder_active ) {
 
 			/**
-			 * Header
+			 * Responsive Colors options
+			 * [1]. Header Responsive Background with Image
+			 * [2]. Primary Menu Responsive Colors
 			 */
-			'.main-header-bar' => astra_get_responsive_background_obj( $header_bg_obj, 'desktop' ),
-			/**
-			 * Primary Menu
-			 */
-			'.main-header-menu, .ast-header-break-point .main-header-menu, .ast-header-break-point .ast-header-custom-item' => astra_get_responsive_background_obj( $primary_menu_bg_image, 'desktop' ),
-			'.main-header-menu .current-menu-item > .menu-link, .main-header-menu .current-menu-ancestor > .menu-link' => array(
-				'color'            => esc_attr( $primary_menu_a_color['desktop'] ),
-				'background-color' => esc_attr( $primary_menu_a_bg_color['desktop'] ),
-			),
-			'.main-header-menu .menu-link:hover, .ast-header-custom-item a:hover, .main-header-menu .menu-item:hover > .menu-link, .main-header-menu .menu-item.focus > .menu-link' => array(
-				'background-color' => esc_attr( $primary_menu_h_bg_color['desktop'] ),
-				'color'            => esc_attr( $primary_menu_h_color['desktop'] ),
-			),
-			'.main-header-menu .ast-masthead-custom-menu-items a:hover, .main-header-menu .menu-item:hover > .ast-menu-toggle, .main-header-menu .menu-item.focus > .ast-menu-toggle' => array(
-				'color' => esc_attr( $primary_menu_h_color['desktop'] ),
-			),
+			$desktop_colors = array(
 
-			'.main-header-menu, .main-header-menu .menu-link, .ast-header-custom-item, .ast-header-custom-item a,  .ast-masthead-custom-menu-items, .ast-masthead-custom-menu-items a' => array(
-				'color' => esc_attr( $primary_menu_color['desktop'] ),
-			),
+				/**
+				 * Header
+				 */
+				'.main-header-bar' => astra_get_responsive_background_obj( $header_bg_obj, 'desktop' ),
+				/**
+				 * Primary Menu
+				 */
+				'.main-header-menu, .ast-header-break-point .main-header-menu, .ast-header-break-point .ast-header-custom-item' => astra_get_responsive_background_obj( $primary_menu_bg_image, 'desktop' ),
+				'.main-header-menu .current-menu-item > .menu-link, .main-header-menu .current-menu-ancestor > .menu-link' => array(
+					'color'            => esc_attr( $primary_menu_a_color['desktop'] ),
+					'background-color' => esc_attr( $primary_menu_a_bg_color['desktop'] ),
+				),
+				'.main-header-menu .menu-link:hover, .ast-header-custom-item a:hover, .main-header-menu .menu-item:hover > .menu-link, .main-header-menu .menu-item.focus > .menu-link' => array(
+					'background-color' => esc_attr( $primary_menu_h_bg_color['desktop'] ),
+					'color'            => esc_attr( $primary_menu_h_color['desktop'] ),
+				),
+				'.main-header-menu .ast-masthead-custom-menu-items a:hover, .main-header-menu .menu-item:hover > .ast-menu-toggle, .main-header-menu .menu-item.focus > .ast-menu-toggle' => array(
+					'color' => esc_attr( $primary_menu_h_color['desktop'] ),
+				),
 
-			/**
-			 * Primary Submenu
-			 */
-			'.main-header-menu .sub-menu, .main-header-menu .sub-menu .menu-link' => array(
-				'color' => esc_attr( $primary_submenu_color['desktop'] ),
-			),
-			'.main-header-menu .sub-menu .menu-link:hover, .main-header-menu .sub-menu .menu-item:hover > .menu-link, .main-header-menu .sub-menu .menu-item.focus > .menu-link' => array(
-				'color'            => esc_attr( $primary_submenu_h_color['desktop'] ),
-				'background-color' => esc_attr( $primary_submenu_h_bg_color['desktop'] ),
-			),
-			'.main-header-menu .sub-menu .menu-item:hover > .ast-menu-toggle, .main-header-menu .sub-menu .menu-item.focus > .ast-menu-toggle' => array(
-				'color' => esc_attr( $primary_submenu_h_color['desktop'] ),
-			),
-			'.main-header-menu .sub-menu .menu-item.current-menu-item > .menu-link, .main-header-menu .sub-menu .menu-item.current-menu-ancestor > .menu-link, .ast-header-break-point .main-header-menu .sub-menu .menu-item.current-menu-item > .menu-link' => array(
-				'color'            => esc_attr( $primary_submenu_a_color['desktop'] ),
-				'background-color' => esc_attr( $primary_submenu_a_bg_color['desktop'] ),
-			),
-			'.main-navigation .sub-menu, .ast-header-break-point .main-header-menu .sub-menu' => array(
-				'background-color' => esc_attr( $primary_submenu_bg_color['desktop'] ),
-			),
-		);
+				'.main-header-menu, .main-header-menu .menu-link, .ast-header-custom-item, .ast-header-custom-item a,  .ast-masthead-custom-menu-items, .ast-masthead-custom-menu-items a' => array(
+					'color' => esc_attr( $primary_menu_color['desktop'] ),
+				),
 
-		$tablet_colors = array(
-			/**
-			 * Header
-			 */
-			'.main-header-bar' => astra_get_responsive_background_obj( $header_bg_obj, 'tablet' ),
-
-			/**
-			 * Primary Menu
-			 */
-			'.main-header-menu, .ast-header-break-point .main-header-menu, .ast-header-break-point .ast-header-custom-item' => astra_get_responsive_background_obj( $primary_menu_bg_image, 'tablet' ),
-			'.main-header-menu .current-menu-item > .menu-link, .main-header-menu .current-menu-ancestor > .menu-link' => array(
-				'color'            => esc_attr( $primary_menu_a_color['tablet'] ),
-				'background-color' => esc_attr( $primary_menu_a_bg_color['tablet'] ),
-			),
-			'.main-header-menu .menu-link:hover, .ast-header-custom-item a:hover, .main-header-menu .menu-item:hover > .menu-link, .main-header-menu .menu-item.focus > .menu-link' => array(
-				'background-color' => esc_attr( $primary_menu_h_bg_color['tablet'] ),
-				'color'            => esc_attr( $primary_menu_h_color['tablet'] ),
-			),
-			'.main-header-menu .ast-masthead-custom-menu-items a:hover, .main-header-menu .menu-item:hover > .ast-menu-toggle, .main-header-menu .menu-item.focus > .ast-menu-toggle' => array(
-				'color' => esc_attr( $primary_menu_h_color['tablet'] ),
-			),
-
-			'.main-header-menu, .main-header-menu .menu-link, .ast-header-custom-item, .ast-header-custom-item a,  .ast-masthead-custom-menu-items, .ast-masthead-custom-menu-items a' => array(
-				'color' => esc_attr( $primary_menu_color['tablet'] ),
-			),
-
-			/**
-			 * Primary Submenu
-			 */
-			'.main-header-menu .sub-menu, .main-header-menu .sub-menu .menu-link' => array(
-				'color' => esc_attr( $primary_submenu_color['tablet'] ),
-			),
-			'.main-header-menu .sub-menu .menu-link:hover, .main-header-menu .sub-menu .menu-item:hover > .menu-link, .main-header-menu .sub-menu .menu-item.focus > .menu-link' => array(
-				'color'            => esc_attr( $primary_submenu_h_color['tablet'] ),
-				'background-color' => esc_attr( $primary_submenu_h_bg_color['tablet'] ),
-			),
-			'.main-header-menu .sub-menu .menu-item:hover > .ast-menu-toggle, .main-header-menu .sub-menu .menu-item.focus > .ast-menu-toggle' => array(
-				'color' => esc_attr( $primary_submenu_h_color['tablet'] ),
-			),
-			'.main-header-menu .sub-menu .menu-item.current-menu-item > .menu-link, .main-header-menu .sub-menu .menu-item.current-menu-ancestor > .menu-link' => array(
-				'color'            => esc_attr( $primary_submenu_a_color['tablet'] ),
-				'background-color' => esc_attr( $primary_submenu_a_bg_color['tablet'] ),
-			),
-			'.main-navigation .sub-menu, .ast-header-break-point .main-header-menu .sub-menu' => array(
-				'background-color' => esc_attr( $primary_submenu_bg_color['tablet'] ),
-			),
-		);
-		$mobile_colors = array(
-			/**
-			 * Header
-			 */
-			'.main-header-bar' => astra_get_responsive_background_obj( $header_bg_obj, 'mobile' ),
-
-			/**
-			 * Primary Menu
-			 */
-			'.main-header-menu, .ast-header-break-point .main-header-menu, .ast-header-break-point .ast-header-custom-item' => astra_get_responsive_background_obj( $primary_menu_bg_image, 'mobile' ),
-			'.main-header-menu .current-menu-item > .menu-link, .main-header-menu .current-menu-ancestor > .menu-link' => array(
-				'color'            => esc_attr( $primary_menu_a_color['mobile'] ),
-				'background-color' => esc_attr( $primary_menu_a_bg_color['mobile'] ),
-			),
-			'.main-header-menu .menu-link:hover, .ast-header-custom-item a:hover, .main-header-menu .menu-item:hover > .menu-link, .main-header-menu .menu-item.focus > .menu-link' => array(
-				'background-color' => esc_attr( $primary_menu_h_bg_color['mobile'] ),
-				'color'            => esc_attr( $primary_menu_h_color['mobile'] ),
-			),
-			'.main-header-menu .ast-masthead-custom-menu-items a:hover, .main-header-menu .menu-item:hover > .ast-menu-toggle, .main-header-menu .menu-item.focus > .ast-menu-toggle' => array(
-				'color' => esc_attr( $primary_menu_h_color['mobile'] ),
-			),
-
-			'.main-header-menu, .main-header-menu .menu-link, .ast-header-custom-item, .ast-header-custom-item .menu-link, .ast-masthead-custom-menu-items, .ast-masthead-custom-menu-items a' => array(
-				'color' => esc_attr( $primary_menu_color['mobile'] ),
-			),
-
-			/**
-			 * Primary Submenu
-			 */
-			'.main-header-menu .sub-menu, .main-header-menu .sub-menu .menu-link' => array(
-				'color' => esc_attr( $primary_submenu_color['mobile'] ),
-			),
-			'.main-header-menu .sub-menu .menu-link:hover, .main-header-menu .sub-menu .menu-item:hover > .menu-link, .main-header-menu .sub-menu .menu-item.focus > .menu-link' => array(
-				'color'            => esc_attr( $primary_submenu_h_color['mobile'] ),
-				'background-color' => esc_attr( $primary_submenu_h_bg_color['mobile'] ),
-			),
-			'.main-header-menu .sub-menu .menu-item:hover > .ast-menu-toggle, .main-header-menu .sub-menu .menu-item.focus > .ast-menu-toggle' => array(
-				'color' => esc_attr( $primary_submenu_h_color['mobile'] ),
-			),
-			'.main-header-menu .sub-menu .menu-item.current-menu-item > .menu-link, .main-header-menu .sub-menu .menu-item.current-menu-ancestor > .menu-link' => array(
-				'color'            => esc_attr( $primary_submenu_a_color['mobile'] ),
-				'background-color' => esc_attr( $primary_submenu_a_bg_color['mobile'] ),
-			),
-			'.main-navigation .sub-menu, .ast-header-break-point .main-header-menu .sub-menu' => array(
-				'background-color' => esc_attr( $primary_submenu_bg_color['mobile'] ),
-			),
-		);
-
-		// Primary Menu Desabled.
-		if ( $disable_primary_nav ) {
-			// Set Primary Menu background color to the Custom Menu Item.
-			$desktop_colors['.ast-header-break-point .ast-header-custom-item'] = astra_get_responsive_background_obj( $primary_menu_bg_image, 'desktop' );
-			$tablet_colors['.ast-header-break-point .ast-header-custom-item']  = astra_get_responsive_background_obj( $primary_menu_bg_image, 'tablet' );
-			$mobile_colors['.ast-header-break-point .ast-header-custom-item']  = astra_get_responsive_background_obj( $primary_menu_bg_image, 'mobile' );
-		}
-
-		/* Parse CSS from array() */
-		$css_output .= apply_filters( 'astra_addon_colors_dynamic_css_desktop', astra_parse_css( $desktop_colors ) );
-		$css_output .= apply_filters( 'astra_addon_colors_dynamic_css_tablet', astra_parse_css( $tablet_colors, '', astra_addon_get_tablet_breakpoint() ) );
-		$css_output .= apply_filters( 'astra_addon_colors_dynamic_css_mobile', astra_parse_css( $mobile_colors, '', astra_addon_get_mobile_breakpoint() ) );
-
-		// All the primary menu bg color is not set then set the default header bg color to the primary menu for responsive devices.
-		if ( '' == $primary_menu_bg_image['desktop']['background-color'] ) {
-			$menu_bg_color = array(
-				'.ast-header-break-point .main-header-menu' => array(
-					'background-color' => esc_attr( $desktop_header_bg_color ),
+				/**
+				 * Primary Submenu
+				 */
+				'.main-header-menu .sub-menu, .main-header-menu .sub-menu .menu-link' => array(
+					'color' => esc_attr( $primary_submenu_color['desktop'] ),
+				),
+				'.main-header-menu .sub-menu .menu-link:hover, .main-header-menu .sub-menu .menu-item:hover > .menu-link, .main-header-menu .sub-menu .menu-item.focus > .menu-link' => array(
+					'color'            => esc_attr( $primary_submenu_h_color['desktop'] ),
+					'background-color' => esc_attr( $primary_submenu_h_bg_color['desktop'] ),
+				),
+				'.main-header-menu .sub-menu .menu-item:hover > .ast-menu-toggle, .main-header-menu .sub-menu .menu-item.focus > .ast-menu-toggle' => array(
+					'color' => esc_attr( $primary_submenu_h_color['desktop'] ),
+				),
+				'.main-header-menu .sub-menu .menu-item.current-menu-item > .menu-link, .main-header-menu .sub-menu .menu-item.current-menu-ancestor > .menu-link, .ast-header-break-point .main-header-menu .sub-menu .menu-item.current-menu-item > .menu-link' => array(
+					'color'            => esc_attr( $primary_submenu_a_color['desktop'] ),
+					'background-color' => esc_attr( $primary_submenu_a_bg_color['desktop'] ),
+				),
+				'.main-navigation .sub-menu, .ast-header-break-point .main-header-menu .sub-menu' => array(
+					'background-color' => esc_attr( $primary_submenu_bg_color['desktop'] ),
 				),
 			);
-			$css_output   .= astra_parse_css( $menu_bg_color );
-		}
-		if ( '' == $primary_menu_bg_image['tablet']['background-color'] ) {
-			$menu_bg_color = array(
-				'.ast-header-break-point .main-header-menu' => array(
-					'background-color' => esc_attr( $tablet_header_bg_color ),
+
+			$tablet_colors = array(
+				/**
+				 * Header
+				 */
+				'.main-header-bar' => astra_get_responsive_background_obj( $header_bg_obj, 'tablet' ),
+
+				/**
+				 * Primary Menu
+				 */
+				'.main-header-menu, .ast-header-break-point .main-header-menu, .ast-header-break-point .ast-header-custom-item' => astra_get_responsive_background_obj( $primary_menu_bg_image, 'tablet' ),
+				'.main-header-menu .current-menu-item > .menu-link, .main-header-menu .current-menu-ancestor > .menu-link' => array(
+					'color'            => esc_attr( $primary_menu_a_color['tablet'] ),
+					'background-color' => esc_attr( $primary_menu_a_bg_color['tablet'] ),
+				),
+				'.main-header-menu .menu-link:hover, .ast-header-custom-item a:hover, .main-header-menu .menu-item:hover > .menu-link, .main-header-menu .menu-item.focus > .menu-link' => array(
+					'background-color' => esc_attr( $primary_menu_h_bg_color['tablet'] ),
+					'color'            => esc_attr( $primary_menu_h_color['tablet'] ),
+				),
+				'.main-header-menu .ast-masthead-custom-menu-items a:hover, .main-header-menu .menu-item:hover > .ast-menu-toggle, .main-header-menu .menu-item.focus > .ast-menu-toggle' => array(
+					'color' => esc_attr( $primary_menu_h_color['tablet'] ),
+				),
+
+				'.main-header-menu, .main-header-menu .menu-link, .ast-header-custom-item, .ast-header-custom-item a,  .ast-masthead-custom-menu-items, .ast-masthead-custom-menu-items a' => array(
+					'color' => esc_attr( $primary_menu_color['tablet'] ),
+				),
+
+				/**
+				 * Primary Submenu
+				 */
+				'.main-header-menu .sub-menu, .main-header-menu .sub-menu .menu-link' => array(
+					'color' => esc_attr( $primary_submenu_color['tablet'] ),
+				),
+				'.main-header-menu .sub-menu .menu-link:hover, .main-header-menu .sub-menu .menu-item:hover > .menu-link, .main-header-menu .sub-menu .menu-item.focus > .menu-link' => array(
+					'color'            => esc_attr( $primary_submenu_h_color['tablet'] ),
+					'background-color' => esc_attr( $primary_submenu_h_bg_color['tablet'] ),
+				),
+				'.main-header-menu .sub-menu .menu-item:hover > .ast-menu-toggle, .main-header-menu .sub-menu .menu-item.focus > .ast-menu-toggle' => array(
+					'color' => esc_attr( $primary_submenu_h_color['tablet'] ),
+				),
+				'.main-header-menu .sub-menu .menu-item.current-menu-item > .menu-link, .main-header-menu .sub-menu .menu-item.current-menu-ancestor > .menu-link' => array(
+					'color'            => esc_attr( $primary_submenu_a_color['tablet'] ),
+					'background-color' => esc_attr( $primary_submenu_a_bg_color['tablet'] ),
+				),
+				'.main-navigation .sub-menu, .ast-header-break-point .main-header-menu .sub-menu' => array(
+					'background-color' => esc_attr( $primary_submenu_bg_color['tablet'] ),
 				),
 			);
-			$css_output   .= astra_parse_css( $menu_bg_color, '', astra_addon_get_tablet_breakpoint() );
-		}
-		if ( '' == $primary_menu_bg_image['mobile']['background-color'] ) {
-			$menu_bg_color = array(
-				'.ast-header-break-point .main-header-menu' => array(
-					'background-color' => esc_attr( $mobile_header_bg_color ),
+			$mobile_colors = array(
+				/**
+				 * Header
+				 */
+				'.main-header-bar' => astra_get_responsive_background_obj( $header_bg_obj, 'mobile' ),
+
+				/**
+				 * Primary Menu
+				 */
+				'.main-header-menu, .ast-header-break-point .main-header-menu, .ast-header-break-point .ast-header-custom-item' => astra_get_responsive_background_obj( $primary_menu_bg_image, 'mobile' ),
+				'.main-header-menu .current-menu-item > .menu-link, .main-header-menu .current-menu-ancestor > .menu-link' => array(
+					'color'            => esc_attr( $primary_menu_a_color['mobile'] ),
+					'background-color' => esc_attr( $primary_menu_a_bg_color['mobile'] ),
+				),
+				'.main-header-menu .menu-link:hover, .ast-header-custom-item a:hover, .main-header-menu .menu-item:hover > .menu-link, .main-header-menu .menu-item.focus > .menu-link' => array(
+					'background-color' => esc_attr( $primary_menu_h_bg_color['mobile'] ),
+					'color'            => esc_attr( $primary_menu_h_color['mobile'] ),
+				),
+				'.main-header-menu .ast-masthead-custom-menu-items a:hover, .main-header-menu .menu-item:hover > .ast-menu-toggle, .main-header-menu .menu-item.focus > .ast-menu-toggle' => array(
+					'color' => esc_attr( $primary_menu_h_color['mobile'] ),
+				),
+
+				'.main-header-menu, .main-header-menu .menu-link, .ast-header-custom-item, .ast-header-custom-item .menu-link, .ast-masthead-custom-menu-items, .ast-masthead-custom-menu-items a' => array(
+					'color' => esc_attr( $primary_menu_color['mobile'] ),
+				),
+
+				/**
+				 * Primary Submenu
+				 */
+				'.main-header-menu .sub-menu, .main-header-menu .sub-menu .menu-link' => array(
+					'color' => esc_attr( $primary_submenu_color['mobile'] ),
+				),
+				'.main-header-menu .sub-menu .menu-link:hover, .main-header-menu .sub-menu .menu-item:hover > .menu-link, .main-header-menu .sub-menu .menu-item.focus > .menu-link' => array(
+					'color'            => esc_attr( $primary_submenu_h_color['mobile'] ),
+					'background-color' => esc_attr( $primary_submenu_h_bg_color['mobile'] ),
+				),
+				'.main-header-menu .sub-menu .menu-item:hover > .ast-menu-toggle, .main-header-menu .sub-menu .menu-item.focus > .ast-menu-toggle' => array(
+					'color' => esc_attr( $primary_submenu_h_color['mobile'] ),
+				),
+				'.main-header-menu .sub-menu .menu-item.current-menu-item > .menu-link, .main-header-menu .sub-menu .menu-item.current-menu-ancestor > .menu-link' => array(
+					'color'            => esc_attr( $primary_submenu_a_color['mobile'] ),
+					'background-color' => esc_attr( $primary_submenu_a_bg_color['mobile'] ),
+				),
+				'.main-navigation .sub-menu, .ast-header-break-point .main-header-menu .sub-menu' => array(
+					'background-color' => esc_attr( $primary_submenu_bg_color['mobile'] ),
 				),
 			);
-			$css_output   .= astra_parse_css( $menu_bg_color, '', astra_addon_get_mobile_breakpoint() );
+
+			// Primary Menu Desabled.
+			if ( $disable_primary_nav ) {
+				// Set Primary Menu background color to the Custom Menu Item.
+				$desktop_colors['.ast-header-break-point .ast-header-custom-item'] = astra_get_responsive_background_obj( $primary_menu_bg_image, 'desktop' );
+				$tablet_colors['.ast-header-break-point .ast-header-custom-item']  = astra_get_responsive_background_obj( $primary_menu_bg_image, 'tablet' );
+				$mobile_colors['.ast-header-break-point .ast-header-custom-item']  = astra_get_responsive_background_obj( $primary_menu_bg_image, 'mobile' );
+			}
+
+			/* Parse CSS from array() */
+			$css_output .= apply_filters( 'astra_addon_colors_dynamic_css_desktop', astra_parse_css( $desktop_colors ) );
+			$css_output .= apply_filters( 'astra_addon_colors_dynamic_css_tablet', astra_parse_css( $tablet_colors, '', astra_addon_get_tablet_breakpoint() ) );
+			$css_output .= apply_filters( 'astra_addon_colors_dynamic_css_mobile', astra_parse_css( $mobile_colors, '', astra_addon_get_mobile_breakpoint() ) );
+
+			// All the primary menu bg color is not set then set the default header bg color to the primary menu for responsive devices.
+			if ( '' == $primary_menu_bg_image['desktop']['background-color'] ) {
+				$menu_bg_color = array(
+					'.ast-header-break-point .main-header-menu' => array(
+						'background-color' => esc_attr( $desktop_header_bg_color ),
+					),
+				);
+				$css_output   .= astra_parse_css( $menu_bg_color );
+			}
+			if ( '' == $primary_menu_bg_image['tablet']['background-color'] ) {
+				$menu_bg_color = array(
+					'.ast-header-break-point .main-header-menu' => array(
+						'background-color' => esc_attr( $tablet_header_bg_color ),
+					),
+				);
+				$css_output   .= astra_parse_css( $menu_bg_color, '', astra_addon_get_tablet_breakpoint() );
+			}
+			if ( '' == $primary_menu_bg_image['mobile']['background-color'] ) {
+				$menu_bg_color = array(
+					'.ast-header-break-point .main-header-menu' => array(
+						'background-color' => esc_attr( $mobile_header_bg_color ),
+					),
+				);
+				$css_output   .= astra_parse_css( $menu_bg_color, '', astra_addon_get_mobile_breakpoint() );
+			}
 		}
 
 		return $dynamic_css . $css_output;
