@@ -123,13 +123,18 @@ class RequestTransport {
                 'telefone_fixo' =>'user_contato_telefone_fixo',
                 'nome' => 'first_name'
             ];
+            $user_data = get_user_by('id', $id);
             foreach ($response as $key => $value) {
                 foreach ($keys as $k => $v) {
                     if($v === $value->meta_key){
-                        $arrayReturn[$k] = $value->meta_value;
+                        if($k === 'email') {
+                            $arrayReturn[$k] = empty($value->meta_value) ? $user_data->user_email : $value->meta_value;
+                        }else{
+                            $arrayReturn[$k] = $value->meta_value;
+                        }
                     }
                 }
-            }
+            } 
             return $arrayReturn;
         } catch(Exeption $e) {
             return array();

@@ -78,12 +78,13 @@ class Request_transport_html{
                                 } else{
                                     $colCPFOrCNPJ = empty($dataUsers['cpf']) ? $dataUsers['cnpj'] : $dataUsers['cpf'];
                                 }
+                                $user_data = get_user_by('id', $val->id_user)
                             ?>
                             </tr>
                                 <td><input type="checkbox" name="checkbox-actions" class="checkbox-actions" value="<?php echo $val->id?>"></td>
                                 <td style="text-align: center;"><?php echo $val->id?></td>
                                 <td><?php echo $val->nome ? $val->nome : $dataUsers['nome'] ?></td>
-                                <td><?php echo $val->email ? $val->email : $dataUsers['email'] ?></td>
+                                <td><?php echo $val->email ? $val->email : $user_data->user_email?></td>
                                 <td><?php echo $colCPFOrCNPJ ?></td>
                                 <td><?php echo $this->status[$val->status]?></td>
                                 <td><?php echo date("d/m/Y", strtotime($val->criado))?></td>
@@ -124,10 +125,10 @@ class Request_transport_html{
                 <div class="group-add-request-transport">
                     <label for="status-request-transport">Status</label>
                     <select id="status" name="status">
-                       <option value="0">Aguardando</option>
-                       <option value="1">Em andamento</option>
-                       <option value="2">Concluído</option>
-                       <option value="3">Fechado</option>
+                       <option value="0" <?php echo $result['status'] === "0" ? 'selected' : '' ;?>>Aguardando</option>
+                       <option value="1" <?php echo $result['status'] === "1" ? 'selected' : '' ;?>>Em andamento</option>
+                       <option value="2" <?php echo $result['status'] === "2" ? 'selected' : '' ;?>>Concluído</option>
+                       <option value="3" <?php echo $result['status'] === "3" ? 'selected' : '' ;?>>Fechado</option>
                     </select>
                 </div>
 

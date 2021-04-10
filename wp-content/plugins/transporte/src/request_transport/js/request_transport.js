@@ -187,7 +187,7 @@ var RequestTransport = function () {
         <td style="text-align: center;">${value.id}</td>;
         <td>${value.nome || "" }</td>;
         <td>${value.email || "" }</td>;
-        <td>${cpfOrCnpj}</td>;
+        <td>${cpfOrCnpj || ""}</td>;
         <td>${status[value.status]}</td>;
         <td>${criado.toLocaleDateString("pt-BR")}</td>;
         <td>${modificado.toLocaleDateString("pt-BR")}</td>;
