@@ -1,0 +1,5 @@
+# 
+wp-content/plugins/*
+
+# Not Ignore
+!wp-content/plugins/transporte
