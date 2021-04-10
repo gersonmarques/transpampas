@@ -32,16 +32,23 @@ class Request_transport_html{
                         <input type="button" id="input_change" class="button button-primary" value="Alterar" disabled/>
                         <input type="button" id="input_delete" class="button button-secondary" value="Delete" disabled/>
                         <div class='query-table'>
-                            <div class="loader-search"></div>
                             <input type='text' id='query-request-transport'/>
+                            <select id='query-request-transport-status' style="vertical-align: baseline; display:  none">
+                                <option value="0">Aguardando</option>
+                                <option value="1">Em Andamento</option>
+                                <option value="2">Concluído</option>
+                                <option value="3">Fechado</option>
+                            </select>
                             <select id='param-request-transport'>
                                 <option value="id">ID</option>
                                 <option value="nome">Nome</option>
                                 <option value="cpf">CPF</option>
+                                <option value="status">Status</option>
                                 <option value="criado">Criado em</option>
                                 <option value="modificado">Modificado em</option>
                             </select>
                             <input type='button' id='search-request-transport' class="button button-primary" value="Pesquisar"/>
+                            <div class="loader-search"></div>
                         </div>
                     </div>
                     <table class="list-request-transport wp-list-table widefat fixed striped">

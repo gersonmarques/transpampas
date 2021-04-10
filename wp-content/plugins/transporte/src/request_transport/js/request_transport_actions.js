@@ -45,11 +45,26 @@ jQuery(document).ready(function (jQuery) {
     }, 1000);
   });
 
+  jQuery(document).on('change', '#param-request-transport', function () {
+    if (jQuery(this).val() === 'status') {
+      jQuery('#query-request-transport-status').show()
+      jQuery('#query-request-transport').hide()
+    } else {
+      jQuery('#query-request-transport-status').hide()
+      jQuery('#query-request-transport').show()
+    }
+  })
+
   jQuery(document).on('click', '#search-request-transport', function () {
     jQuery('.loader-search').css('display', 'inline-block');
     setTimeout(function () {
-      var search = jQuery('#query-request-transport').val();
+      let search = jQuery('#query-request-transport').val();
       var filter = jQuery('#param-request-transport').val();
+
+      if (filter === 'status') {
+        search = jQuery('#query-request-transport-status').val();
+      }
+
       request.query(search, filter);
     }, 1000);
   });

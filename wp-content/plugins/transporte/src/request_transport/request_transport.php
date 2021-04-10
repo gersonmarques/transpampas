@@ -65,7 +65,7 @@ class RequestTransport {
     public function query_request_transport($phpBool = false, $id = false, $params = false){
         global $wpdb;
         $table = $wpdb->prefix . $this->table;
-        
+
         try{
             if(empty($params)) {
                 $sql = "SELECT * FROM {$table}";
@@ -221,7 +221,7 @@ class RequestTransport {
                 $target =  $wpdb->delete("{$wpdb->prefix}request_transport_source",array('origem_id'=> $data[0]->origem_id));
                 $source =  $wpdb->delete("{$wpdb->prefix}request_transport_target", array('destino_id'=> $data[0]->destino_id));
             }
-            echo json_encode('');
+            echo json_encode($result);
         }catch(Exception $e){
             echo $e->getMessage();
         }

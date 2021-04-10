@@ -69,14 +69,17 @@ var RequestTransport = function () {
           return result;
           break;
         case 'deleteRequest':
-          requestTransport.query();
+          var search = jQuery('#query-request-transport').val();
+          var filter = jQuery('#param-request-transport').val();
+          console.log(search, filter);
+          requestTransport.query(search, filter);
           break;
         case 'addPatio':
           requestTransport.query();
           jQuery('#name-requestTransport').val("");
           jQuery('#description-requestTransport').val("");
           break;
-        case 'updatePatio':
+        case 'updateRequest':
           break;
         }
 
@@ -99,6 +102,13 @@ var RequestTransport = function () {
           jQuery('.notice').show();
           jQuery(".notice").attr("tabindex", -1).focus();
           jQuery('.loader').hide();
+        }
+
+
+        if (tasks === "updateRequest") {
+          setInterval(() => {
+            location.reload();
+          }, 2000)
         }
       },
       error: function (result) {
@@ -152,6 +162,7 @@ var RequestTransport = function () {
       search: search,
       filter: filter
     }
+    console.log(query)
     return this.send(query, url + "?" + task);
   }
 
@@ -170,16 +181,17 @@ var RequestTransport = function () {
         'Fechado'
       ]
 
-      html += '<tr>';
-      html += '<td><input type="checkbox" name="checkbox-actions" class="checkbox-actions" value="' + value.id + '"></td>';
-      html += '<td style="text-align: center;">' + value.id + '</td>';
-      html += '<td>' + value.nome + '</td>';
-      html += '<td>' + value.email + '</td>';
-      html += '<td>' + cpfOrCnpj + '</td>';
-      html += '<td>' + status[value.status] + '</td>';
-      html += '<td>' + criado.toLocaleDateString("pt-BR") + '</td>';
-      html += '<td>' + modificado.toLocaleDateString("pt-BR") + '</td>';
-      html += '</tr>';
+      html += `
+      <tr>;
+        <td><input type="checkbox" name="checkbox-actions" class="checkbox-actions" value="${value.id}"></td>;
+        <td style="text-align: center;">${value.id}</td>;
+        <td>${value.nome || "" }</td>;
+        <td>${value.email || "" }</td>;
+        <td>${cpfOrCnpj}</td>;
+        <td>${status[value.status]}</td>;
+        <td>${criado.toLocaleDateString("pt-BR")}</td>;
+        <td>${modificado.toLocaleDateString("pt-BR")}</td>;
+      </tr>`;
     });
     return html;
   }
@@ -223,7 +235,7 @@ var RequestTransport = function () {
 
     var url = '../wp-content/plugins/transporte/src/request_transport/request_transport.php';
     var task = 'task=updateRequest';
-    return this.send(form_data, url + "?" + task);
+    return this.send(form_data, url + "?" + task, true);
   }
 
   RequestTransport.prototype.delete = function () {
