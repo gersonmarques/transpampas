@@ -36,6 +36,7 @@
   color: #000000BE;
   font-weight: 500;
   margin: 10px 0;
+  width: 100%;
 }
 
 .group-fields {
@@ -208,4 +209,23 @@
 .exists_user_cnpj,
 .exists_user_cpf {
   display: none;
+}
+
+.content-success {
+  text-align: center;
+  line-height: 10px;
+}
+
+.content-success>p {
+  font-size: 18px;
+  margin: 20px 0;
+}
+
+.content-success>h2 {
+  margin: 60px 0;
+}
+
+.content-success>a {
+  padding: 5px 30px;
+  margin-top: 36px;
 }

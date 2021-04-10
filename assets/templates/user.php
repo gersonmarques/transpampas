@@ -1,7 +1,6 @@
 <?php
     function getInfo(WP_REST_Request $request, $raw = false, $onlyId = false) 
-    {
-        
+    {  
         if( (!isset($request['cpf']) || empty($request['cpf'])) && (!isset($request['cnpj']) || empty($request['cnpj'])) ) {
             return array(
                 "erro_code" => "400",
@@ -13,38 +12,36 @@
         $cnpj = $request['cnpj'];
 
         if(empty($cpf)){
-            $where = "WHERE  meta_key = 'user_dados_pessoais_cnpj' and  meta_value  = '{$cnpj}'"; 
+            $where = "WHERE user_login = '{$cnpj}'"; 
         }else{
-            $where = "WHERE  meta_key = 'user_dados_pessoais_cpf' and  meta_value  = '{$cpf}'";
+            $where = "WHERE user_login = '{$cpf}'";
         }
         
         global $wpdb;
         try {
-            $results = $wpdb->get_results( "SELECT user_id FROM {$wpdb->prefix}usermeta {$where}", ARRAY_A);
-            $id = $results[0]['user_id'];
+            $results = $wpdb->get_results( "SELECT ID FROM {$wpdb->prefix}users {$where}", ARRAY_A);
+            $id = $results[0]['ID'];
             
             if($onlyId) return $id;
             
-            $query = "SELECT  wu.display_name, wum.meta_key, wum.meta_value FROM {$wpdb->prefix}usermeta wum
+            $query = "SELECT  wu.user_email as email, wu.display_name, wum.meta_key, wum.meta_value FROM {$wpdb->prefix}usermeta wum
                 INNER JOIN  {$wpdb->prefix}users wu on  wu.ID = '{$id}'
                 WHERE user_id = '{$id}' AND wum.meta_key like 'user_%'";
             $data = $wpdb->get_results($query, ARRAY_A);
 
             if($raw) return $data;
-            
+
             foreach ($data as $key => $value) {
                 if($data[$key]['meta_key'] == 'user_contato_whatsapp'){
                     $data[$key]['meta_value'] = "*********". substr($value['meta_value'], -2);
                 }
                 if($data[$key]['meta_key'] == 'user_contato_telefone_fixo'){
                     $data[$key]['meta_value'] = "********". substr($value['meta_value'], -2);
-                }
-                if($data[$key]['meta_key'] == 'user_contato_email'){
-                    $mail = $value['meta_value'];
-                    if(empty($mail)) continue;
-                    
-                    $data[$key]['meta_value'] = substr_replace($mail, '*****', 1, strpos($mail, '@') - 2);
-                }
+                } 
+                $mail = $value['email'];
+                if(empty($value['email'])) continue;
+                
+                $data[$key]['email'] = substr_replace($mail, '*****', 1, strpos($mail, '@') - 2);
             }
             return $data;
         } catch (\Throwable $th) {
@@ -116,7 +113,7 @@
 
         $data['origem_id'] = $sourceId;
         $data['destino_id'] = $targetId;
-       
+        
         $request_transport = $data['type_account'] === "pessoa_fisica" ?  modeloPessoaFisica($data,  $request) : modeloPessoaJuridica($data);
 
         try {
@@ -134,7 +131,12 @@
                 );
             } 
 
-            saveImage($id);
+            if(!empty($_FILES)){
+                saveImage($id);
+            }
+            
+            $layoutEmail = layoutEmail($request_transport, $request);
+            sendMail($layoutEmail);
 
             return array(
                 'status' => true,
@@ -157,14 +159,14 @@
         }
 
         try {
-            $saved = $wpdb->insert( 
-                "{$wpdb->prefix}request_transport_source", 
+            $saved = $wpdb->insert(
+                "{$wpdb->prefix}request_transport_source",
                 array( 
-                    'cep' => $courtyards['cep'], 
-                    'estado' => $courtyards['estado'], 
-                    'cidade' => $courtyards['cidade'], 
-                    'bairro' => $courtyards['bairro'], 
-                    'endereco' => $courtyards['endereco'], 
+                    'cep' => $courtyards['cep'],
+                    'estado' => $courtyards['estado'],
+                    'cidade' => $courtyards['cidade'],
+                    'bairro' => $courtyards['bairro'],
+                    'endereco' => $courtyards['endereco'],
                     'numero' => $courtyards['numero'],
                     'levar' =>  $levar,
                     'buscar' =>  $buscar,
@@ -199,12 +201,23 @@
                     'retirar' => $retirar, 
                     'levar' =>  $levar,
                 )
-
             );
             return  ($saved) ? $wpdb->insert_id : false;
         } catch (\Throwable $th) {
             return false;
         }
+    }
+
+    function getSource($id) {
+        global $wpdb;
+        $results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}request_transport_source WHERE id = {$id}", ARRAY_A);
+        return (count($results) > 0) ? $results : array();
+    }
+
+    function getTarget($id) {
+        global $wpdb;
+        $results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}request_transport_target WHERE id = {$id}", ARRAY_A);
+        return (count($results) > 0) ? $results : array();
     }
 
     function getPatios($data){
@@ -248,9 +261,9 @@
                 'cpf' => $data['cpf'], 
                 'rg' => $data['rg'], 
                 'nome' => $data['nome'], 
-                'email' => $aux['email'], 
-                'whatsapp' => $aux['whatsapp'], 
-                'telefone_fixo' => $aux['telefone_fixo'],
+                'email' => $aux['email'] ? $aux['email'] : $data['email'], 
+                'whatsapp' => $aux['whatsapp'] ? $aux['whatsapp'] : $data['whatsapp'], 
+                'telefone_fixo' => $aux['telefone_fixo'] ? $aux['telefone_fixo'] : $data['telefone_fixo'],
             );
             return array_merge($model, $modelVar);
         }
@@ -282,13 +295,16 @@
         if(is_array($userData)){
             foreach ($userData as $key => $value) {
                 if($value["meta_key"] === "user_dados_pessoais_ie") $aux['inscricao_estadual'] = $value['meta_value'];
+                if($value["meta_key"] === "user_contato_whatsapp") $aux['whatsapp'] = $value['meta_value'];
+                if($value["meta_key"] === "user_contato_email") $aux['email'] = $value['meta_value'];
+                if($value["meta_key"] === "user_contato_telefone_fixo") $aux['telefone_fixo'] = $value['meta_value'];
             }
             $modelVar = array(
-                'cnpj' => $data['cnpj'], 
+                'cnpj' => $data['cnpj'],
                 'rg' => $data['rg'],
-                'email' => $aux['email'], 
-                'whatsapp' => $aux['whatsapp'], 
-                'telefone_fixo' => $aux['telefone_fixo'],
+                'email' => $aux['email'] ? $aux['email'] : $data['email'], 
+                'whatsapp' => $aux['whatsapp'] ? $aux['whatsapp'] : $data['whatsapp'], 
+                'telefone_fixo' => $aux['telefone_fixo'] ? $aux['telefone_fixo'] : $data['telefone_fixo'],
             );
             return array_merge($model, $modelVar);
         }
@@ -303,7 +319,8 @@
     function saveImage($idRequest){
         $cnh_rg = $_FILES['cnh_rg'];
         $crlv = $_FILES['crlv'];
-        $path = 'C:/xampp/htdocs/transpampas/wp-content/uploads/transporte/';
+        $dir = wp_upload_dir();
+        $path = str_replace('\\','/', $dir["basedir"].'/transporte/');
 
         
         if( !empty($crlv) ) {
@@ -311,14 +328,18 @@
             $imageNameCrlv = base64_encode($idRequest). "-crlv." . $extensionCrlv;
             $locationCrlv = $path . $imageNameCrlv;
             $saved = file_put_contents($locationCrlv, file_get_contents($crlv['tmp_name']));
-            if($savedFile){
+            if($saved){
+                $location = substr(
+                    $locationCrlv,
+                    strpos($locationCrlv, 'wp-content')
+                );
+
                 uploadUrlFiles(
-                    array('crlv' => $locationCrlv),
+                    array('crlv' => $location),
                     $idRequest
                 );
             }
         }
-
 
         if( !empty($cnh_rg) ) {
             $extensionCnh = pathinfo($cnh_rg['name'], PATHINFO_EXTENSION);
@@ -327,8 +348,13 @@
             $savedFile = file_put_contents($locationCnh, file_get_contents($cnh_rg['tmp_name']));
 
             if($savedFile){
+                $location = substr(
+                    $locationCnh,
+                    strpos($locationCnh, 'wp-content')
+                );
+                
                 uploadUrlFiles(
-                    array('rg_cnh' => $locationCnh),
+                    array('rg_cnh' => $location),
                     $idRequest
                 );
             }
@@ -336,10 +362,139 @@
     }
 
     function uploadUrlFiles($data, $id){
+        global $wpdb;
         try {
             $saved = $wpdb->update("{$wpdb->prefix}request_transport", $data, array( 'id' => $id) );
             return  $saved;
         } catch (\Throwable $th) {
             return false;
         }
+    }
+
+    function layoutEmail($data, $request) { 
+        $source = getSource( $data['origem_id']);
+        $source = $source[0];
+        $target = getTarget( $data['destino_id']);
+        $target = $target[0];
+        $levarSource =  $source['levar'] ? 'Vou levar' : 'Quero que busquem';
+        $retirarTarget =  $target['retirar'] ? 'Vou retirar' : 'quero que levem';
+        $userData = getInfo($request, true);
+        
+        if($_POST['hasUser']) {
+            $aux = array();
+            foreach ($userData as $key => $value) {
+                if($value["meta_key"] === "user_dados_pessoais_ie") $aux['inscricao_estadual'] = $value['meta_value'];
+                if($value["meta_key"] === "user_contato_whatsapp") $aux['whatsapp'] = $value['meta_value'];
+                if($value["meta_key"] === "user_contato_email") $aux['email'] = $value['meta_value'];
+                if($value["meta_key"] === "user_contato_telefone_fixo") $aux['telefone_fixo'] = $value['meta_value'];
+                if($value["meta_key"] === "user_dados_pessoais_rg") $aux['rg'] = $value['meta_value'];
+                $aux['nome'] = $value['display_name'];
+            }
+            $modelVar = array(
+                'cpf' => $data['cpf'] ? $data['cpf'] : $_POST['cpf'],
+                'cnpj' => $data['cnpj'] ? $data['cnpj'] : $_POST['cnpj'],
+                'rg' => $aux['rg'] ? $aux['rg'] : $data['rg'],
+                'nome' => $aux['nome'] ? $aux['nome'] : $data['nome'],
+                'email' => $aux['email'] ? $aux['email'] : $data['email'], 
+                'whatsapp' => $aux['whatsapp'] ? $aux['whatsapp'] : $data['whatsapp'], 
+                'telefone_fixo' => $aux['telefone_fixo'] ? $aux['telefone_fixo'] : $data['telefone_fixo'],
+            ); 
+            $data = array_merge($data, $modelVar);
+        }
+
+        $html = "
+        <div id='email-data'class='content-email-data'>
+            <h2>Dados da solicitação de transporte</h2>
+            <div class='content-email'>
+                <div>
+                    <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Dados Pessoais</H3>
+                    <p><b>Nome:</b> {$data['nome']} </p>
+                    <p><b>CPF:</b> {$data['cpf']} </p>
+                    <p><b>RG:</b> {$data['rg']} </p>
+                    <p><b>E-Mail:</b> {$data['email']} </p>
+                    <p><b>Whatsapp:</b> {$data['whatsapp']} </p>
+                    <p><b>Telefone Fixo:</b> {$data['telefone_fixo']} </p>
+                    <p><b>CNPJ:</b> {$data['cnpj']} </p>
+                    <p><b>Inscrição Estadual:</b> {$data['inscricao_estadual']} </p>
+                    <p><b>Razão Social:</b> {$data['razao_social']} </p>
+                    <p><b>Nome Responsável:</b> {$data['nome_responsavel']} </p>
+                    <p><b>Data de Nascimento Responsável:</b> {$data['data_nasc_resposavel']} </p>
+                </div>
+                <div>
+                    <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Dados do veículo</H3>
+                    <p><b>Modelo veículo:</b> {$data['modelo_veiculo']} </p>
+                    <p><b>Ano veículo:</b> {$data['ano_veiculo']} </p>
+                    <p><b>Fipe:</b> {$data['fipe']} </p>
+                    <p><b>Situação veículo:</b> {$data['situacao_veiculo']} </p>
+                    <p><b>Cor:</b> {$data['cor']} </p>
+                    <p><b>Placa:</b> {$data['placa']} </p>
+                </div>
+                <div>
+                    <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Origem</H3>
+                    <p><b>CEP:</b> {$source['cep']} </p>
+                    <p><b>Rua:</b> {$source['endereco']} </p>
+                    <p><b>Número:</b> {$source['numero']} </p>
+                    <p><b>Bairro:</b> {$source['bairro']} </p>
+                    <p><b>Cidade:</b> {$source['cidade']} </p>
+                    <p><b>Estado:</b> {$source['estado']} </p>
+                    <p><b>Vou levar ou quer que busquem:</b> {$levarSource} </p>
+                </div>
+                <div>
+                    <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Destino</H3>
+                    <p><b>CEP:</b> {$target['cep']} </p>
+                    <p><b>Rua:</b> {$target['endereco']} </p>
+                    <p><b>Número:</b> {$target['numero']} </p>
+                    <p><b>Bairro:</b> {$target['bairro']} </p>
+                    <p><b>Cidade:</b> {$target['cidade']} </p>
+                    <p><b>Estado:</b> {$target['estado']} </p>
+                    <p><b>Vou retirar ou quer que levem:</b> {$retirarTarget} </p>
+                </div>
+                <div>
+                    <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Observação</H3>
+                    <p>{$data['observacao']}</p>
+                </div>
+            </div>
+        </div>";
+    return $html;    
+}
+
+    function sendMail($body) {
+        require_once ABSPATH . WPINC . '/PHPMailer/PHPMailer.php';
+        require_once ABSPATH . WPINC . '/PHPMailer/SMTP.php';
+        require_once ABSPATH . WPINC . '/PHPMailer/Exception.php';
+        $emails_to = get_post_meta($_POST['id'], 'email_solicitacoes', true);
+        $to = explode(";", $emails_to);
+
+        $cnh_rg = $_FILES['cnh_rg'];
+        $crlv = $_FILES['crlv'];
+     
+        $mailer = new PHPMailer\PHPMailer\PHPMailer( true );
+        $mailer->IsSMTP();
+        $mailer->Host = get_option( 'mailserver_url' ); // your SMTP server
+        $mailer->Port = (int) get_option('mailserver_port', 465);
+        $mailer->SMTPDebug = 0; // write 0 if you don't want to see client/server communication in page
+        $mailer->CharSet  = "utf-8";
+        $mailer->SMTPAuth = true;
+        $mailer->SMTPSecure = 'ssl';
+        $mailer->Username   = htmlspecialchars_decode(get_option('mailserver_login'));                //SMTP username
+        $mailer->Password   = htmlspecialchars_decode(get_option('mailserver_pass'));
+        
+        $mailer->setFrom(  htmlspecialchars_decode(get_option('mailserver_login')), 'Contato Transpampas');
+        $mailer->isHTML(true); 
+        $mailer->Subject = $subject;
+        $mailer->Body    = $body;       
+        foreach ($to as $key => $email) {
+            $mailer->addAddress( $email );
+        }
+       
+
+        if(!empty($cnh_rg)) {
+            $mailer->addAttachment($cnh_rg['tmp_name'], $cnh_rg['name']);
+        }
+
+        if(!empty($crlv)) {
+            $mailer->addAttachment($crlv['tmp_name'], $crlv['name']);
+        }
+
+      return $mailer->send();
     }

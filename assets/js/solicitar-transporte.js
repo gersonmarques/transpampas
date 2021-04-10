@@ -56,20 +56,19 @@ $(document).ready(function () {
   })
 
   $(document).on('click', '.btn-next', function (e) {
-      e.preventDefault();
-      if (!validate()) return false;
+    e.preventDefault();
+    if (!validate()) return false;
 
-      const step = $('.active').attr('data-step')
-      if (step === STEP1 || step === STEP2) {
-        steps("next");
-      }
+    const step = $('.active').attr('data-step')
+    if (step === STEP1 || step === STEP2) {
+      steps("next");
+    }
 
-      if (step === STEP3) {
-        steps("send");
-        saveData(dataFields)
-      }
-    })
-    // btn-next
+    if (step === STEP3) {
+      steps("send");
+      saveData(dataFields)
+    }
+  })
 
   $(document).on('click', '.btn-prev', function (e) {
     e.preventDefault();
@@ -362,13 +361,6 @@ function getUserInfo(field, iscpf) {
             }
           }
 
-          if (item.meta_key == "user_contato_email") {
-            $('.nome').val(item.display_name);
-            $('.email').val(item.meta_value);
-            $('.nome').prop('disabled', true);
-            $('.email').prop('disabled', true);
-          }
-
           if (item.meta_key == "user_contato_whatsapp") {
             $('.whatsapp').val(item.meta_value);
             $('.whatsapp').prop('disabled', true);
@@ -378,6 +370,11 @@ function getUserInfo(field, iscpf) {
             $('.telefone-fixo').val(item.meta_value);
             $('.telefone-fixo').prop('disabled', true);
           }
+
+          $('.nome').val(item.display_name);
+          $('.email').val(item.email);
+          $('.nome').prop('disabled', true);
+          $('.email').prop('disabled', true);
         });
       }
     },
@@ -444,6 +441,7 @@ function saveData(data) {
 
   form_data.append('cnh_rg', cnh_file);
   form_data.append('crlv', crlv_file);
+  form_data.append('id', $('#id').val());
   form_data.append('type_account', pessoaFisica ? "pessoa_fisica" : "pessoa_juridica");
 
   for (var key in data) {
@@ -458,7 +456,10 @@ function saveData(data) {
     processData: false,
     success: function (response) {
       if (response.status) {
-        alert('Solicitação de transporte realizado com sucesso!');
+        $('#form-solicitar-transporte').hide();
+        $('#html-success').show();
+      } else {
+        alert('Erro ao enviar a solicitação de transporte, tente novamente mais tarde');
       }
     },
     fail: function (response) {

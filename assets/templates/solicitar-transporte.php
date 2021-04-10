@@ -42,6 +42,9 @@ function solicitar_transporte(){
                 <button class='btn btn-next'>Próximo</button>
             </div>
         </div>
+        <?php 
+            htmlSuccess();
+        ?>
         <div class="loading">
             <div class="square">
                 <div class="spinner-border m-5 spinner-load" role="status">
@@ -263,6 +266,19 @@ function getUfs()
     <option value="SP">São Paulo</option>
     <option value="SE">Sergipe</option>
     <option value="TO">Tocantins</option>
+<?php }
+
+function htmlSuccess() { ?>
+    <div id="html-success"class="content-success" style="display:none">
+        <h2>Solicitação de transporte enviada com sucesso!</h2>
+        <div class="content-success">
+            <p>Os dados da sua solicitação foi enviada por email.</p>
+            <p>Caso você possua alguma informação desatualizada,</p>
+            <p>entre na <b>Área do Cliente</b> e atualize.</p>
+            <p>Na Área do Cliente você também pode acompanhar sua solicitação.</p>
+        </div>
+        <a class="btn">Área do Cliente</a>
+    </div>
 <?php }
 
 ?>
