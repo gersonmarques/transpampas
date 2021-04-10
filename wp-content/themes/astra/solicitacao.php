@@ -280,6 +280,6 @@ function htmlSuccess() { ?>
             <p>entre na <b>Área do Cliente</b> e atualize.</p>
             <p>Na Área do Cliente você também pode acompanhar sua solicitação.</p>
         </div>
-        <a class="btn">Área do Cliente</a>
+        <a class="btn" href="<?php echo get_site_url()."/area-cliente" ?>">Área do Cliente</a>
     </div>
 <?php }?>
