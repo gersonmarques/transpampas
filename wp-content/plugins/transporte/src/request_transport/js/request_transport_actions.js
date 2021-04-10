@@ -40,6 +40,7 @@ jQuery(document).ready(function (jQuery) {
   jQuery(document).on('click', '#input_delete', function () {
     jQuery('.loader').css('display', 'inline-block');
     jQuery('.loader').css('margin-top', '4px');
+    jQuery('.loader-search').css('display', 'inline-block');
     setTimeout(function () {
       request.delete();
     }, 1000);

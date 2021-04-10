@@ -71,7 +71,7 @@ var RequestTransport = function () {
         case 'deleteRequest':
           var search = jQuery('#query-request-transport').val();
           var filter = jQuery('#param-request-transport').val();
-          console.log(search, filter);
+          jQuery('.loader-search').css('display', 'none');
           requestTransport.query(search, filter);
           break;
         case 'addPatio':
