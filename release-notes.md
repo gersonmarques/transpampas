@@ -1,14 +1,14 @@
 # Release Notes
 
+## 12/04/2021
+    * Criado a página de listagem das solicitações dos usuários
+    * Criado a página de exibição/alteração da solicitação do usuário
+
 ## 10/04/2021
     * Ajustado as informações da solicitação do usuário, na tabela, após utilizar o filtro
     * Ajustado o campo de `status` na atualização da solicitação de transporte
     * Adicionado a mensagem de sucesso após o usuário concluir o preenchimento do formulário de solicitação
     * Adicionado o link no botão de `Área do Cliente` no layout de sucesso
-
-## 12/04/2021
-    * Criado a página de listagem das solicitações dos usuários
-    * Criado a página de exibição/alteração da solicitação do usuário
 
 ## Tasks
 ```
