@@ -6,6 +6,10 @@
     * Adicionado a mensagem de sucesso após o usuário concluir o preenchimento do formulário de solicitação
     * Adicionado o link no botão de `Área do Cliente` no layout de sucesso
 
+## 12/04/2021
+    * Criado a página de listagem das solicitações dos usuários
+    * Criado a página de exibição/alteração da solicitação do usuário
+
 ## Tasks
 ```
 [x] Alterar formulário para buscar os dados do usuário e não permitir alteração
