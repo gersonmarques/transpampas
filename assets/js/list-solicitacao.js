@@ -7,6 +7,12 @@ $(document).ready(function () {
     }
   })
 
+  $(document).on('click', '.row-list', function () {
+    const location = window.location.href;
+    const id = $(this).data('id')
+    window.location.href = `${location}?id=${id}`
+  })
+
   function saveData() {
     $('.loading').show();
     $('.background-load').show();

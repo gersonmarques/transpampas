@@ -19,7 +19,7 @@ $result = $request_transport->getRequestUser($id);
 
 if(empty($_GET['id'])):
     echo ""?>
-
+    <script type="text/javascript" src="../assets/js/list-solicitacao.js"></script>
     <table class="table table-striped">
     <thead>
         <tr>
@@ -35,15 +35,14 @@ if(empty($_GET['id'])):
         <?php foreach ($result as $key => $requests): 
             $colCPFOrCNPJ = empty($requests->cpf) ? $requests->cnpj : $requests->cpf
             ?>
-            
-            <tr>
-                <th scope="row"><?php echo $requests->id;?></th>
-                <td><?php echo $first_name;?></td>
-                <td><?php echo $user_data->user_email;?></td>
-                <td><?php echo $colCPFOrCNPJ?></td>
-                <td><?php echo $request_transport->status[$requests->status];?></td>
-                <td><?php echo $first_name;?></td>
-            </tr>
+                <tr class="row-list" data-id="<?php echo $requests->id;?>" style="cursor:pointer">
+                    <th scope="row"><?php echo $requests->id;?></th>
+                    <td><?php echo $first_name;?></td>
+                    <td><?php echo $user_data->user_email;?></td>
+                    <td><?php echo $colCPFOrCNPJ?></td>
+                    <td><?php echo $request_transport->status[$requests->status];?></td>
+                    <td><?php echo $first_name;?></td>
+                </tr>
             <?php endforeach; ?>
     </tbody>
     </table>
