@@ -150,3 +150,50 @@
 
 
 /***********************/
+
+
+/**
+  Loading for list
+*/
+
+.spinner-load {
+  color: #c36;
+}
+
+.loading {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: none;
+  z-index: 3;
+}
+
+.square {
+  background: #FFF;
+  display: block;
+  width: 130px;
+  top: 45%;
+  position: relative;
+  left: 45%;
+  border-radius: 4px;
+}
+
+.background-load {
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+  background: #000;
+  z-index: 2;
+  position: fixed;
+  top: 0;
+  left: 0;
+  outline: 0;
+  display: none;
+}
+
+.close:hover,
+.close:focus {
+  background-color: transparent;
+}

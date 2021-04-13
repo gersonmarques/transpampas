@@ -15,4 +15,8 @@ add_action('rest_api_init', function(){
         'methods' => 'POST',
         'callback' => 'saveInfo',
     ));
+	register_rest_route( 'user', '/save/note', array(
+        'methods' => 'POST',
+        'callback' => 'saveNote',
+    ));
 });

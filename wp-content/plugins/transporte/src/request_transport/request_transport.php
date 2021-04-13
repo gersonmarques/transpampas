@@ -11,6 +11,13 @@ class RequestTransport {
      */
     private $table = "request_transport";
 
+    public $status = [
+        'Aguardando',
+        'Em andamento',
+        'Concluído',
+        'Fechado'
+    ];
+
     function __construct($args = null){
         if(!empty($args)){
             $this->rootDir = realpath(__DIR__.'/../../../../../');
@@ -309,6 +316,18 @@ class RequestTransport {
             return  $saved;
         } catch (\Throwable $th) {
             return false;
+        }
+    }
+
+    function getRequestUser($user_id) {
+        global $wpdb;
+        $table = $wpdb->prefix . 'request_transport';
+        try {
+            $sql = "SELECT * FROM  {$table} WHERE id_user = {$user_id}";
+            $query = $wpdb->prepare($sql, '');
+            return $wpdb->get_results($query);
+        } catch(Exeption $e) {
+            return array();
         }
     }
 }

@@ -498,3 +498,23 @@
 
       return $mailer->send();
     }
+
+    function saveNote(WP_REST_Request $request) {
+        global $wpdb;
+        try {
+            $data = ["observacao" => $request['observacao']];
+            $id = $request['id'];
+            $saved = $wpdb->update("{$wpdb->prefix}request_transport", $data, array( 'id' => $id) );
+            return array(
+                'status' => true,
+                'code' => 200,
+                'message' => ''
+            );
+        } catch (\Throwable $th) {
+            return array(
+                'status' => false,
+                'code' => 200,
+                'message' => ''
+            );
+        }
+    }
