@@ -40,13 +40,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php astra_head_top(); ?>
 
-<!-- Usado no plugin de transporte -->
-<link rel="stylesheet" type="text/css" href="<?= get_site_url()."/assets/vendor/bootstrap/css/bootstrap.min.css" ?>" />
-<script src="<?= get_site_url()."/assets/vendor/jquery/jquery-3.5.1.min.js"?>"></script>
-<script src="<?= get_site_url()."/assets/vendor/jquery/jquery.mask.js"?>"></script>
-<script src="<?= get_site_url()."/assets/vendor/bootstrap/js/bootstrap.min.js"?>"></script>
-<!-- Usado no plugin de transporte -->
-
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
