@@ -1,7 +1,5 @@
 <?php 
 // Template Name: Solicitação de Transporte
-get_header();
-
 ?>
     <link rel="stylesheet" type="text/css" href="<?= get_site_url()."/assets/css/solicitar-transporte.css" ?>" />
     <script src="<?= get_site_url()."/assets/js/solicitar-transporte.js"?>"></script>
@@ -58,10 +56,7 @@ get_header();
     </div>
     <input type="hidden" id="url_site" value="<?= get_site_url();?>" />
     <input type="hidden" id="id" value="<?= $post->ID;?>" />
-<?php 
-    get_footer();
-
-
+<?php
 function pessoa_fisica()
 { ?>
     <div class='dados-pessoais section-data'>
@@ -171,7 +166,7 @@ function origem() {
                     <input type='text' class='input-field bairro' name='origem-bairro' placeholder='Bairro' required/>
                 </div>
                 <div class='group-fields-1-3'>
-                    <input type='text' class='input-field field-major endereco' name='origem-endereco' placeholder='Digite o endereço' />
+                    <input type='text' class='input-field field-major endereco' name='origem-endereco' placeholder='Digite o endereço' required/>
                     <input type='tel' class='input-field numero' name='origem-numero' placeholder='Número' required/>
                 </div>
             </div>
@@ -216,7 +211,7 @@ function destino() {
                 <input type='text' class='input-field bairro' name='destino-bairro' placeholder='Bairro' required />
             </div>
             <div class='group-fields-1-3'>
-                <input type='text' class='input-field field-major endereco' name='destino-endereco' placeholder='Digite o endereço' />
+                <input type='text' class='input-field field-major endereco' name='destino-endereco' placeholder='Digite o endereço' required/>
                 <input type='tel' class='input-field numero' name='destino-numero' placeholder='Número' required />
             </div>
         </div>

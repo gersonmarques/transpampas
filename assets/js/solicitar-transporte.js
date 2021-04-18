@@ -183,8 +183,7 @@ function masks() {
   $('.ano').mask('0000');
   $('.valor-fipe').mask('R$ 00.000,00')
 
-  $('.origem-cep').mask('00000-000');
-  $('.destino-cep').mask('00000-000');
+  $('.cep').mask('00000-000');
 }
 
 function validate() {
@@ -295,10 +294,7 @@ function steps(type) {
     step.removeClass('active').removeClass('passed');
     step.prev().addClass('active').removeClass('passed')
   }
-
-  // if (type = "send") {
-  //   saveData(dataFields)
-  // }
+  $('#form-solicitar-transporte').focus();
 }
 
 function getUserInfo(field, iscpf) {

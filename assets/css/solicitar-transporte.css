@@ -160,6 +160,10 @@
   border: 2px solid red !important;
 }
 
+.error:focus {
+  outline: none !important;
+}
+
 .step,
 .btn-prev {
   display: none;
