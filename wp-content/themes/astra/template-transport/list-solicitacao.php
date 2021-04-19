@@ -1,5 +1,4 @@
 <?php
-// Template name: Listagem das solicitações do usuário
 require_once TRANSPORTE_PLUGIN_PATH . '/src/request_transport/request_transport.php';
 
 $id = get_current_user_id();
@@ -14,47 +13,59 @@ $first_name = get_user_meta($id, 'first_name', true);
 
 $request_transport = new RequestTransport();
 $result = $request_transport->getRequestUser($id);
+?>
 
-if(empty($_GET['id'])):
-    echo ""?>
-    <link rel="stylesheet" type="text/css" href="<?= get_site_url()."/assets/vendor/bootstrap/css/bootstrap.min.css" ?>" />
-    <script src="<?= get_site_url()."/assets/vendor/jquery/jquery-3.5.1.min.js"?>"></script>
-    <script src="<?= get_site_url()."/assets/vendor/jquery/jquery.mask.js"?>"></script>
-    <script src="<?= get_site_url()."/assets/vendor/bootstrap/js/bootstrap.min.js"?>"></script>
-    <script type="text/javascript" src="../assets/js/list-solicitacao.js"></script>
-    <table class="table table-striped">
-    <thead>
-        <tr>
-        <th scope="col">Código da Solicitação</th>
-        <th scope="col">Nome</th>
-        <th scope="col">E-mail</th>
-        <th scope="col">CPF/CNP</th>
-        <th scope="col">Status</th>
-        <th scope="col">Data da solicitação</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($result as $key => $requests): 
-            $colCPFOrCNPJ = empty($requests->cpf) ? $requests->cnpj : $requests->cpf
-            ?>
-                <tr class="row-list" data-id="<?php echo $requests->id;?>" style="cursor:pointer">
-                    <th scope="row"><?php echo $requests->id;?></th>
-                    <td><?php echo $first_name;?></td>
-                    <td><?php echo $user_data->user_email;?></td>
-                    <td><?php echo $colCPFOrCNPJ?></td>
-                    <td><?php echo $request_transport->status[$requests->status];?></td>
-                    <td><?php echo $first_name;?></td>
-                </tr>
-            <?php endforeach; ?>
-    </tbody>
-    </table>
+<link rel="stylesheet" type="text/css" href="<?= get_site_url()."/assets/vendor/bootstrap/css/bootstrap.min.css" ?>" />
+<script src="<?= get_site_url()."/assets/vendor/jquery/jquery-3.5.1.min.js"?>"></script>
+<script src="<?= get_site_url()."/assets/vendor/jquery/jquery.mask.js"?>"></script>
+<script src="<?= get_site_url()."/assets/vendor/bootstrap/js/bootstrap.min.js"?>"></script>
+
+<div style="margin: 0 auto;display: flex;flex-direction: column;width: 60%;">
+    <p class="go-back top-go-back" style="cursor:pointer;font-size: 18px;font-weight: 500;">Voltar</p>
+    <p style="cursor:pointer;font-size: 18px;font-weight: 500;">Área do Cliente</p>
+    <?php
+   
+    if(empty($_GET['id'])):
+        echo ""?>
+        <script type="text/javascript" src="../assets/js/list-solicitacao.js"></script>
+        <h1>Solicitações</h1>
+        <table class="table table-striped"  style="width:100%;">
+        <thead>
+            <tr>
+            <th scope="col">Código da Solicitação</th>
+            <th scope="col">Nome</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">CPF/CNP</th>
+            <th scope="col">Status</th>
+            <th scope="col">Data da solicitação</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($result as $key => $requests): 
+                $colCPFOrCNPJ = empty($requests->cpf) ? $requests->cnpj : $requests->cpf;
+                $date_created = date("d/m/Y H:i", strtotime($requests->criado));
+                ?>
+                    <tr class="row-list" data-id="<?php echo $requests->id;?>" style="cursor:pointer">
+                        <th scope="row"><?php echo $requests->id;?></th>
+                        <td><?php echo $first_name;?></td>
+                        <td><?php echo $user_data->user_email;?></td>
+                        <td><?php echo !empty($colCPFOrCNPJ) ? $colCPFOrCNPJ : $user_data->user_login?></td>
+                        <td><?php echo $request_transport->status[$requests->status];?></td>
+                        <td><?php echo $date_created;?></td>
+                    </tr>
+                <?php endforeach; ?>
+        </tbody>
+        </table>
+    <?php
+    endif;
+
+    if(!empty($_GET['id'])) {
+        update();
+    }
+    ?>
+    <button class='go-back' style="background: #F5E44F;padding: 15px 30px;border-radius: 0; color:#000; width:150px;">Voltar</button>
+</div>
 <?php
-endif;
-
-if(!empty($_GET['id'])) {
-    update();
-}
-
 function update(){
     $id = $_GET['id'];
     $request_transport = new RequestTransport();
@@ -73,16 +84,17 @@ function update(){
 ?>
     <link rel="stylesheet" type="text/css" href="../wp-content/plugins/transporte/src/request_transport/css/request_transport.css">
     <script type="text/javascript" src="../assets/js/list-solicitacao.js"></script>
-    <div id="update-request-transport" style="margin-bottom: 50px;">
+
+    <div id="update-request-transport" style="margin-bottom: 50px; width:100%;">
         <form method="post">
-            <h3>Atualizar Solicitação de Transporte </h3>
+            <h1>Editar solicitação de transporte</h1>
             <div class="group-add-request-transport">
                 <label for="id-request-transport">Código</label>
                 <input type="text" id="id-request-transport" name="id" value="<?php echo $result['id'];?>" disabled/>
             </div>
             <div class="group-add-request-transport">
                 <label for="status-request-transport">Status</label>
-                <select id="status" name="status">
+                <select id="status" name="status" disabled>
                    <option value="0" <?php echo $result['status'] === "0" ? 'selected' : '' ;?>>Aguardando</option>
                    <option value="1" <?php echo $result['status'] === "1" ? 'selected' : '' ;?>>Em andamento</option>
                    <option value="2" <?php echo $result['status'] === "2" ? 'selected' : '' ;?>>Concluído</option>

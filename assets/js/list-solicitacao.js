@@ -7,6 +7,10 @@ $(document).ready(function () {
     }
   })
 
+  $(document).on('click', '.go-back', function () {
+    history.back()
+  })
+
   $(document).on('click', '.row-list', function () {
     const location = window.location.href;
     const id = $(this).data('id')
