@@ -1,5 +1,12 @@
 # Release Notes
 
+## 18/04/2021
+    * Removido o cabeçalho e rodapé do modelo de solicitação de transporte
+    * Removido o `outline` do focus nos campos com erros
+    * Adicionado focus no cabeçalho na mudança de todas as etapas
+    * Adicionado o campo correto para a mascará de CEP
+    * Adicionado `required` nos campos de endereço no origem e destino
+    
 ## 12/04/2021
     * Criado a página de listagem das solicitações dos usuários
     * Criado a página de exibição/alteração da solicitação do usuário
