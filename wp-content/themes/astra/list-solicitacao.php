@@ -9,8 +9,6 @@ if (empty($id)) {
     return;
 }
 
-get_header();
-
 $user_data = get_user_by('id', $id);
 $first_name = get_user_meta($id, 'first_name', true);
 
@@ -19,6 +17,10 @@ $result = $request_transport->getRequestUser($id);
 
 if(empty($_GET['id'])):
     echo ""?>
+    <link rel="stylesheet" type="text/css" href="<?= get_site_url()."/assets/vendor/bootstrap/css/bootstrap.min.css" ?>" />
+    <script src="<?= get_site_url()."/assets/vendor/jquery/jquery-3.5.1.min.js"?>"></script>
+    <script src="<?= get_site_url()."/assets/vendor/jquery/jquery.mask.js"?>"></script>
+    <script src="<?= get_site_url()."/assets/vendor/bootstrap/js/bootstrap.min.js"?>"></script>
     <script type="text/javascript" src="../assets/js/list-solicitacao.js"></script>
     <table class="table table-striped">
     <thead>
