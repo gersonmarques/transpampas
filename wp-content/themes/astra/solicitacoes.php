@@ -5,11 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	exit; // Exit if accessed directly.
 
-}
-
-
-
-get_header(); ?>
+}?>
 
 
 	<div id="primary" <?php astra_primary_class(); ?>>
@@ -32,6 +28,3 @@ get_header(); ?>
 
 
 	</div><!-- #primary -->
-
-<?php get_footer(); ?>
-
