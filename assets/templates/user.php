@@ -92,6 +92,7 @@
             }
         }
 
+     
         $sourceId = saveSource($source);
         if(!$sourceId) {
             return array(
@@ -114,7 +115,11 @@
         $data['origem_id'] = $sourceId;
         $data['destino_id'] = $targetId;
         
-        $request_transport = $data['type_account'] === "pessoa_fisica" ?  modeloPessoaFisica($data,  $request) : modeloPessoaJuridica($data);
+        if($data['orcamento']){
+            $request_transport = modeloOrcamento($data,  $request);
+        }else{
+            $request_transport = $data['type_account'] === "pessoa_fisica" ?  modeloPessoaFisica($data,  $request) : modeloPessoaJuridica($data);
+        }
 
         try {
             $saved = $wpdb->insert( 
@@ -131,7 +136,7 @@
                 );
             } 
 
-            if(!empty($_FILES)){
+            if(!$data['orcamento'] && !empty($_FILES)){
                 saveImage($id);
             }
             
@@ -316,6 +321,24 @@
         );
     }
 
+    function modeloOrcamento($data, $request) {
+        return array(
+            'nome' => $data['nome'], 
+            'email' => $data['e-mail'],
+            'whatsapp' => $data['whatsapp'], 
+            'telefone_fixo' => $data['telefone_fixo'],
+            'modelo_veiculo' => $data['modelo-veiculo'],
+            'ano_veiculo' => $data['ano'],
+            'fipe' => $data['valor-fipe'],
+            'situacao_veiculo' => $data['situacao-veiculo'],
+            'cor' => $data['cor'],
+            'placa' => $data['placa'],
+            'origem_id' => $data['origem_id'],
+            'destino_id' => $data['destino_id'],
+            'orcamento' => 1,
+        );
+    }
+
     function saveImage($idRequest){
         $cnh_rg = $_FILES['cnh_rg'];
         $crlv = $_FILES['crlv'];
@@ -378,9 +401,12 @@
         $target = $target[0];
         $levarSource =  $source['levar'] ? 'Vou levar' : 'Quero que busquem';
         $retirarTarget =  $target['retirar'] ? 'Vou retirar' : 'quero que levem';
-        $userData = getInfo($request, true);
+        $isOrcamento = empty($_POST['orcamento']) ? false : true;
+        if(!$isOrcamento){
+            $userData = getInfo($request, true);
+        }
         
-        if($_POST['hasUser']) {
+        if(!$isOrcamento && $_POST['hasUser']) {
             $aux = array();
             foreach ($userData as $key => $value) {
                 if($value["meta_key"] === "user_dados_pessoais_ie") $aux['inscricao_estadual'] = $value['meta_value'];
@@ -402,24 +428,23 @@
             $data = array_merge($data, $modelVar);
         }
 
-        $html = "
-        <div id='email-data'class='content-email-data'>
-            <h2>Dados da solicitação de transporte</h2>
-            <div class='content-email'>
+        $html = "<div id='email-data'class='content-email-data'>";
+        $html .= $isOrcamento ? "<h2>Dados da solicitação de orçamento</h2>" : "<h2>Dados da solicitação de transporte</h2>";
+        $html .= "<div class='content-email'>
                 <div>
                     <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Dados Pessoais</H3>
-                    <p><b>Nome:</b> {$data['nome']} </p>
-                    <p><b>CPF:</b> {$data['cpf']} </p>
-                    <p><b>RG:</b> {$data['rg']} </p>
-                    <p><b>E-Mail:</b> {$data['email']} </p>
+                    <p><b>Nome:</b> {$data['nome']} </p>";
+                $html .= !$isOrcamento ? "<p><b>CPF:</b> {$data['cpf']} </p>
+                    <p><b>RG:</b> {$data['rg']} </p>" : ""; 
+                $html .= "<p><b>E-Mail:</b> {$data['email']} </p>
                     <p><b>Whatsapp:</b> {$data['whatsapp']} </p>
-                    <p><b>Telefone Fixo:</b> {$data['telefone_fixo']} </p>
-                    <p><b>CNPJ:</b> {$data['cnpj']} </p>
+                    <p><b>Telefone Fixo:</b> {$data['telefone_fixo']} </p>";
+                $html .= !$isOrcamento ? "<p><b>CNPJ:</b> {$data['cnpj']} </p>
                     <p><b>Inscrição Estadual:</b> {$data['inscricao_estadual']} </p>
                     <p><b>Razão Social:</b> {$data['razao_social']} </p>
                     <p><b>Nome Responsável:</b> {$data['nome_responsavel']} </p>
-                    <p><b>Data de Nascimento Responsável:</b> {$data['data_nasc_resposavel']} </p>
-                </div>
+                    <p><b>Data de Nascimento Responsável:</b> {$data['data_nasc_resposavel']} </p>" : "";
+                $html .= "</div>
                 <div>
                     <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Dados do veículo</H3>
                     <p><b>Modelo veículo:</b> {$data['modelo_veiculo']} </p>
@@ -448,12 +473,12 @@
                     <p><b>Cidade:</b> {$target['cidade']} </p>
                     <p><b>Estado:</b> {$target['estado']} </p>
                     <p><b>Vou retirar ou quer que levem:</b> {$retirarTarget} </p>
-                </div>
-                <div>
+                </div>";
+                $html .= !$isOrcamento ? "<div>
                     <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Observação</H3>
                     <p>{$data['observacao']}</p>
-                </div>
-            </div>
+                </div>" : "";
+            $html .= "</div>
         </div>";
     return $html;    
 }
