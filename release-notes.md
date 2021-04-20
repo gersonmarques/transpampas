@@ -1,5 +1,10 @@
 # Release Notes
 
+## 20/04/2021
+    * Criado o formulário de Orçamento
+    * Criado a página administrativa para exibir e alterar os orçamento existentes
+    * Ajustado a query das solicitações de transporte para não olhar para os orçamentos
+
 ## 19/04/2021
     * Removido o cabeçalho e rodapé do modelo de lista de solicitação de transporte
     * Adicionado o cabeçalho e rodapé do modelo de solicitação de transporte
