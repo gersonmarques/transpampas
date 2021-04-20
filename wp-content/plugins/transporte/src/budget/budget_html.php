@@ -1,6 +1,6 @@
 <?php 
 
-class Request_transport_html{
+class Budget_html{
     protected $status = [
         'Aguardando',
         'Em andamento',
@@ -12,12 +12,12 @@ class Request_transport_html{
      * Page of list transport
      */
      public function html_list_requests_transport(){
-        require_once TRANSPORTE_PLUGIN_PATH . '/src/request_transport/request_transport.php';
-        $title   = "Solicitações";
+        require_once TRANSPORTE_PLUGIN_PATH . '/src/budget/budget.php';
+        $title   = "Solicitações de Orçamento";
         ?>
-        <link rel="stylesheet" type="text/css" href="../wp-content/plugins/transporte/src/request_transport/css/request_transport.css">
-        <script type="text/javascript" src="../wp-content/plugins/transporte/src/request_transport/js/request_transport.js"></script>
-        <script type="text/javascript" src="../wp-content/plugins/transporte/src/request_transport/js/request_transport_actions.js"></script>
+        <link rel="stylesheet" type="text/css" href="../wp-content/plugins/transporte/src/budget/css/budget.css">
+        <script type="text/javascript" src="../wp-content/plugins/transporte/src/budget/js/budget.js"></script>
+        <script type="text/javascript" src="../wp-content/plugins/transporte/src/budget/js/budget_actions.js"></script>
         <div class="wrap">
             <h2><?php echo $title; ?></h2>
             <div class="notice notice-success is-dismissible">
@@ -42,7 +42,6 @@ class Request_transport_html{
                             <select id='param-request-transport'>
                                 <option value="id">ID</option>
                                 <option value="nome">Nome</option>
-                                <option value="cpf">CPF</option>
                                 <option value="status">Status</option>
                                 <option value="criado">Criado em</option>
                                 <option value="modificado">Modificado em</option>
@@ -58,7 +57,6 @@ class Request_transport_html{
                             <th style="width: 5%; text-align: center;">ID</th>
                             <th style="width:30%;">Nome</th>
                             <th>E-mail</th>
-                            <th>CPF/CNPJ</th>
                             <th>Status</th>
                             <th>Criado em </th>
                             <th>Modificado em </th>
@@ -66,26 +64,15 @@ class Request_transport_html{
                         </thead>
                         <tbody>
                             <?php
-                            $request_transport = new RequestTransport();
+                            $request_transport = new Budget();
                             $result = $request_transport->query_request_transport(true);
                             foreach($result as $key => $val):
-                                if(!empty($val->id_user) ) {
-                                    $dataUsers = $request_transport->getUserMeta($val->id_user);
-                                }
-                                $colCPFOrCNPJ = "";
-                                if(!empty($val->cpf) || !empty($val->cnpj) ){
-                                    $colCPFOrCNPJ = empty($val->cpf) ? $val->cnpj : $val->cpf;
-                                } else{
-                                    $colCPFOrCNPJ = empty($dataUsers['cpf']) ? $dataUsers['cnpj'] : $dataUsers['cpf'];
-                                }
-                                $user_data = get_user_by('id', $val->id_user)
                             ?>
                             </tr>
                                 <td><input type="checkbox" name="checkbox-actions" class="checkbox-actions" value="<?php echo $val->id?>"></td>
                                 <td style="text-align: center;"><?php echo $val->id?></td>
-                                <td><?php echo $val->nome ? $val->nome : $dataUsers['nome'] ?></td>
-                                <td><?php echo $val->email ? $val->email : $user_data->user_email?></td>
-                                <td><?php echo $colCPFOrCNPJ ?></td>
+                                <td><?php echo $val->nome ? $val->nome : ""?></td>
+                                <td><?php echo $val->email ? $val->email : ""?></td>
                                 <td><?php echo $this->status[$val->status]?></td>
                                 <td><?php echo date("d/m/Y", strtotime($val->criado))?></td>
                                 <td><?php echo date("d/m/Y", strtotime($val->modificado))?></td>                                
@@ -102,7 +89,7 @@ class Request_transport_html{
     function html_update_area(){
         $id = $_GET['id'];
         require_once TRANSPORTE_PLUGIN_PATH . '/src/request_transport/request_transport.php';
-        $request_transport = new RequestTransport();
+        $request_transport = new Budget();
         $result = $request_transport->query_request_transport(true, $id);
         $result = (array) $result[0];
         if( !empty($result['id_user']) ) {
@@ -117,7 +104,7 @@ class Request_transport_html{
     ?>
         <div id="update-request-transport">
             <form method="post">
-                <h3>Atualizar Solicitação de Transporte </h3>
+                <h3>Atualizar Solicitação de Orçamento</h3>
                 <div class="group-add-request-transport">
                     <label for="id-request-transport">Código</label>
                     <input type="text" id="id-request-transport" name="id" value="<?php echo $result['id'];?>" disabled/>
@@ -139,14 +126,6 @@ class Request_transport_html{
                         <input type="text" id="nome-request-transport" name="nome" value="<?php echo $result['nome'];?>" disabled/>
                     </div>
                     <div class="group-add-request-transport">
-                        <label for="cpf-request-transport">CPF</label>
-                        <input type="text" id="cpf-request-transport" name="cpf" value="<?php echo $result['cpf'];?>" disabled/>
-                    </div>
-                    <div class="group-add-request-transport">
-                        <label for="rg-request-transport">RG</label>
-                        <input type="text" id="rg-request-transport" name="rg" value="<?php echo $result['rg'];?>" disabled/>
-                    </div>
-                    <div class="group-add-request-transport">
                         <label for="email-request-transport">E-mail</label>
                         <input type="text" id="email-request-transport" name="email" value="<?php echo $result['email'];?>" disabled/>
                     </div>
@@ -157,26 +136,6 @@ class Request_transport_html{
                     <div class="group-add-request-transport">
                         <label for="telefone-fixo-request-transport">Telefone Fixo</label>
                         <input type="text" id="telefone-fixo-request-transport" name="telefone-fixo" value="<?php echo $result['telefone_fixo'];?>" disabled/>
-                    </div>
-                    <div class="group-add-request-transport">
-                        <label for="cnpj-request-transport">CNPJ</label>
-                        <input type="text" id="cnpj-request-transport" name="cnpj" value="<?php echo $result['cnpj'];?>" disabled/>
-                    </div>
-                    <div class="group-add-request-transport">
-                        <label for="inscricao-estadual-request-transport">Inscrição Estadual</label>
-                        <input type="text" id="inscricao-estadual-request-transport" name="inscricao-estadual" value="<?php echo $result['inscricao_estadual'];?>" disabled/>
-                    </div>
-                    <div class="group-add-request-transport">
-                        <label for="razao-social-request-transport">Razão Social</label>
-                        <input type="text" id="razao-social-request-transport" name="razao-social" value="<?php echo $result['razao_social'];?>" disabled/>
-                    </div>
-                    <div class="group-add-request-transport">
-                        <label for="nome-responsavel-request-transport">Nome Responsável</label>
-                        <input type="text" id="nome-responsavel-request-transport" name="nome-responsavel" value="<?php echo $result['nome_responsavel'];?>" disabled/>
-                    </div>
-                    <div class="group-add-request-transport">
-                        <label for="data-nasc-responsavel-request-transport">Data de Nascimento Responsável</label>
-                        <input type="text" id="data-nasc-responsavel-request-transport" name="data-nasc-responsavel" value="<?php echo $result['data_nasc_responsavel'];?>" disabled/>
                     </div>
                 </div>
 
@@ -205,18 +164,6 @@ class Request_transport_html{
                     <div class="group-add-request-transport">
                         <label for="placa-request-transport">Placa</label>
                         <input type="text" id="placa-request-transport" name="placa" value="<?php echo $result['placa'];?>"/>
-                    </div>
-                    <div class="group-add-request-transport">
-                        <label for="rg_cnh-request-transport">RG/CNH</label>
-                        <input class="rg_cnh" accept=".pdf, .jpg, .png" type="file" id="rg_cnh" name="rg_cnh" style="display:none">
-                        <label class="rg_cnh_label label_input"><?php echo !empty($result['rg_cnh']) ?  $cnh :'Cópia/Foto legível de RG OU CNH (.pdf .jpg .png)'?></label>
-                        <a href="<?php echo home_url() . '/' . $result['rg_cnh'] ?>" target="_blank"><span class="dashicons dashicons-visibility"></span></a>
-                    </div>
-                    <div class="group-add-request-transport">
-                        <label for="crlv-request-transport">CRLV</label>
-                        <input class="crlv" accept=".pdf, .jpg, .png" type="file" id="crlv" name="crlv" style="display:none">
-                        <label class="crlv_label label_input"><?php echo !empty($result['crlv']) ?  $crlv :'Cópia/Foto legível de CRLV (.pdf .jpg .png)'?></label>
-                        <a href="<?php echo home_url() . '/' . $result['crlv'] ?>" target="_blank"><span class="dashicons dashicons-visibility"></span></a>
                     </div>
                 </div>
 

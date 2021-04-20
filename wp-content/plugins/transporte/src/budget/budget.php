@@ -2,10 +2,10 @@
 
 $request = $_REQUEST;
 if(!empty($request['task'])){
-    new RequestTransport($request);
+    new Budget($request);
 }
 
-class RequestTransport {
+class Budget {
     /**
      * Table for add informations
      */
@@ -32,39 +32,6 @@ class RequestTransport {
         }
     }
 
-    function addPatios(){
-        global $wpdb;
-        global $current_user;
-        date_default_timezone_set("America/Sao_Paulo");
-
-        $title = empty($_POST['title']) ? '' : $_POST['title'];
-        $cep = empty($_POST['cep']) ? '' : $_POST['cep'];
-        $street = empty($_POST['street']) ? '' : $_POST['street'];
-        $number = empty($_POST['number']) ? '' : $_POST['number'];
-        $neighborhood = empty($_POST['neighborhood']) ? '' : $_POST['neighborhood'];
-        $city = empty($_POST['city']) ? '' : $_POST['city'];
-        $state  = empty($_POST['state']) ? ''  : $_POST['state'];
-        $reference  = empty($_POST['reference']) ? ''  : $_POST['reference'];
-        try{
-            $sql = array(
-                'title'        => $title,
-                'cep'          => $cep,
-                'street'       => $street,
-                'number'       => $number,
-                'neighborhood' => $neighborhood,
-                'city'         => $city,
-                'state'        => $state,
-                'reference'    => $reference,
-            );
-            
-            if(!$this->validateFields($sql))
-                return false;
-            $table = $wpdb->prefix . $this->table;
-            echo json_encode($wpdb->insert($table, $sql));
-        }catch(Exception $e){
-            echo json_encode($e->getMessage());
-        }
-    }
     /**
      * The query of areas
      * @return bool|string
@@ -75,18 +42,18 @@ class RequestTransport {
 
         try{
             if(empty($params)) {
-                $sql = "SELECT * FROM {$table} where orcamento = 0";
+                $sql = "SELECT * FROM {$table} where orcamento = 1";
             }
             
             if($id){
-                $sql = "SELECT * FROM  {$table} WHERE id = {$id} AND orcamento = 0";
+                $sql = "SELECT * FROM  {$table} WHERE id = {$id} AND orcamento = 1";
             }
             if($params){
                 $params[0] = ( $params[1] === "criado" || $params[1] === "modificado" ) 
                 ? implode('-', array_reverse(explode('/', $params[0])))
                 : $params[0];
 
-                $sql = "SELECT * FROM  {$table} WHERE {$params[1]} like '%{$params[0]}%' AND orcamento = 0";
+                $sql = "SELECT * FROM  {$table} WHERE {$params[1]} like '%{$params[0]}%' AND orcamento = 1";
             }
 
             $query = $wpdb->prepare($sql, '');
@@ -95,12 +62,6 @@ class RequestTransport {
             }else{
                 if($params) {
                     $result = $wpdb->get_results($query);
-                    foreach ($result as $key => $value) {   
-                      if($value->id_user){
-                        $resultUserMeta = $this->getUserMeta($value->id_user);
-                        $result[$key] = array_merge( (array) $value, (array) $resultUserMeta);
-                      }
-                    }
                     echo json_encode($result);
                     return; 
                 }
@@ -111,42 +72,6 @@ class RequestTransport {
         }
     }
 
-    public function getUserMeta($id) {
-        global $wpdb;
-        $table = $wpdb->prefix . 'usermeta';
-        try {
-            $sql = "SELECT * FROM  {$table} WHERE user_id = {$id}";
-            $query = $wpdb->prepare($sql, '');
-            $response =  $wpdb->get_results($query);
-            $arrayReturn = array();
-            $keys = [
-                'cpf' => 'user_dados_pessoais_cpf',
-                'rg' => 'user_dados_pessoais_rg',
-                'data_nasc_responsavel' => 'user_dados_pessoais_data_de_nascimento',
-                'cnpj' => 'user_dados_pessoais_cnpj',
-                'inscricao_estadual' => 'user_dados_pessoais_ie',
-                'email' => 'user_contato_email',
-                'whatsapp' => 'user_contato_whatsapp',
-                'telefone_fixo' =>'user_contato_telefone_fixo',
-                'nome' => 'first_name'
-            ];
-            $user_data = get_user_by('id', $id);
-            foreach ($response as $key => $value) {
-                foreach ($keys as $k => $v) {
-                    if($v === $value->meta_key){
-                        if($k === 'email') {
-                            $arrayReturn[$k] = empty($value->meta_value) ? $user_data->user_email : $value->meta_value;
-                        }else{
-                            $arrayReturn[$k] = $value->meta_value;
-                        }
-                    }
-                }
-            } 
-            return $arrayReturn;
-        } catch(Exeption $e) {
-            return array();
-        }
-    }
 
     public function getSource($id) {
         global $wpdb;
@@ -196,13 +121,10 @@ class RequestTransport {
                 'placa'             => $placa_veiculo,
             );
             $where = array('id' => $_POST['id']);
-            if(!$this->validateFields($sql))
-                return false;
-
+            if(!$this->validateFields($sql)) return false;
+            
             $sql['observacao']  = $observacao;  
-            $sql['status']      = $status;  
-
-            $this->saveImage($_POST['id']);
+            $sql['status']      = $status;
 
             $updated = $wpdb->update($wpdb->prefix . $this->table, $sql, $where);
             $result = $updated === false ? 0 : 1;
@@ -258,72 +180,11 @@ class RequestTransport {
         return true;
     }
 
-    function saveImage($idRequest){
-        global $wpdb;
-        $cnh_rg = $_FILES['cnh_rg'];
-        $crlv = $_FILES['crlv'];
-        $dir = wp_upload_dir();
-        $path = str_replace('\\','/', $dir["basedir"].'/transporte/');
-
-        if( !empty($crlv) ) {
-            $extensionCrlv = pathinfo($crlv['name'], PATHINFO_EXTENSION);
-            $imageNameCrlv = base64_encode($idRequest). "-crlv." . $extensionCrlv;
-            $locationCrlv = $path . $imageNameCrlv;
-            $file_pattern = $path . base64_encode($idRequest). "-crlv" . ".*";
-            array_map( "unlink", glob( $file_pattern ) );
-
-            $saved = file_put_contents($locationCrlv, file_get_contents($crlv['tmp_name']));
-
-            if($saved){
-                $location = substr(
-                    $locationCrlv,
-                    strpos($locationCrlv, 'wp-content')
-                );
-            
-                $this->uploadUrlFiles( 
-                    array('crlv' => $location),
-                    $idRequest
-                );
-            }
-        }
-
-        if( !empty($cnh_rg) ) {
-            $extensionCnh = pathinfo($cnh_rg['name'], PATHINFO_EXTENSION);
-            $imageNameCnh = base64_encode($idRequest). "-cnh-rg." . $extensionCnh;
-            $locationCnh = $path. $imageNameCnh;
-            $savedFile = file_put_contents($locationCnh, file_get_contents($cnh_rg['tmp_name']));
-            
-            if($savedFile){
-                $location = substr(
-                    $locationCnh,
-                    strpos($locationCnh, 'wp-content')
-                );
-                
-                $this->uploadUrlFiles(
-                    array("rg_cnh" =>  $location),
-                    $idRequest
-                );
-            }
-        }
-    }
-
-    function uploadUrlFiles($data, $id){
-        global $wpdb;
-        try {
-            $data_where = array('id' => $id);
-            $saved = $wpdb->update("{$wpdb->prefix}request_transport", $data, $data_where);
-    
-            return  $saved;
-        } catch (\Throwable $th) {
-            return false;
-        }
-    }
-
     function getRequestUser($user_id) {
         global $wpdb;
         $table = $wpdb->prefix . 'request_transport';
         try {
-            $sql = "SELECT * FROM  {$table} WHERE id_user = {$user_id} AND orcamento = 0";
+            $sql = "SELECT * FROM  {$table} WHERE id_user = {$user_id} AND orcamento = 1";
             $query = $wpdb->prepare($sql, '');
             return $wpdb->get_results($query);
         } catch(Exeption $e) {

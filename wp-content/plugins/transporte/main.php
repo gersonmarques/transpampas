@@ -44,13 +44,9 @@ function  transporte_item_menu(){
         'Orçamentos',
         'Orçamentos',
         'manage_options',
-        'list_requests',
-        'request_transport_settings_page'
+        'budget_requests',
+        'budget_settings_page'
     );
-
-    // $page_hook_id = question_setings_page_id();
-    // add_action('admin_enqueue_scripts', 'question_enqueue_scripts');
-
 }   
 
 function courtyards_settings_page(){
@@ -72,7 +68,12 @@ function request_transport_settings_page(){
     $courtyards->html_list_requests_transport();
 }
 
-function question_list_page(){
 
+function budget_settings_page(){
+    $path = plugin_dir_url( __FILE__ );
+    wp_enqueue_script( 'validation_js', $path . 'src/js/validation.js',array( 'jquery' ),'1.0.0', true );
+    require_once dirname( __FILE__ ) . '/src/budget/budget_html.php';
+    global $db;
+    $buget = new Budget_html();
+    $buget->html_list_requests_transport();
 }
-
