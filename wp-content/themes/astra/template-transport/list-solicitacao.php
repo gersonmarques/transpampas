@@ -20,14 +20,14 @@ $result = $request_transport->getRequestUser($id);
 <script src="<?= get_site_url()."/assets/vendor/jquery/jquery.mask.js"?>"></script>
 <script src="<?= get_site_url()."/assets/vendor/bootstrap/js/bootstrap.min.js"?>"></script>
 
-<div style="margin: 0 auto;display: flex;flex-direction: column;width: 60%;">
+<div style="margin: 0 auto;padding:80px 0;display: flex;flex-direction: column;width: 60%;">
     <p class="go-back top-go-back" style="cursor:pointer;font-size: 18px;font-weight: 500;">Voltar</p>
     <p style="cursor:pointer;font-size: 18px;font-weight: 500;">Área do Cliente</p>
     <?php
    
     if(empty($_GET['id'])):
         echo ""?>
-        <script type="text/javascript" src="../assets/js/list-solicitacao.js"></script>
+        <script type="text/javascript"  src="<?= get_site_url()."/assets/js/list-solicitacao.js"?>"></script>
         <h1>Solicitações</h1>
         <table class="table table-striped"  style="width:100%;">
         <thead>
