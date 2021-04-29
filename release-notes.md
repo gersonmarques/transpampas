@@ -1,5 +1,13 @@
 # Release Notes
 
+## 28/04/2021
+    * Removido o outline do focus nos campos obrigatórios
+    * Removido o erro do botão no change do input e select
+    * Adicionado o título do formulário cadastrado no admin
+    * Corrigido o erro no endereço no form de orçamento
+    * Adicionado os assuntos nos emails de solicitações
+    * Buscando as mensagens de sucesso do cadastro no admin 'mensagem_sucesso_solicitacoes'
+
 ## 20/04/2021
     * Criado o formulário de Orçamento
     * Criado a página administrativa para exibir e alterar os orçamento existentes
