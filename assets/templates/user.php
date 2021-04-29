@@ -487,9 +487,10 @@
         require_once ABSPATH . WPINC . '/PHPMailer/PHPMailer.php';
         require_once ABSPATH . WPINC . '/PHPMailer/SMTP.php';
         require_once ABSPATH . WPINC . '/PHPMailer/Exception.php';
+        $isOrcamento = empty($_POST['orcamento']) ? false : true;
         $emails_to = get_post_meta($_POST['id'], 'email_solicitacoes', true);
         $to = explode(";", $emails_to);
-
+        $subject = $isOrcamento ? "Solicitação Transporte de: {$_POST['nome']}" : "Solicitação Orçamento de: {$_POST['nome']}";
         $cnh_rg = $_FILES['cnh_rg'];
         $crlv = $_FILES['crlv'];
      

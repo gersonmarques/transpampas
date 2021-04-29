@@ -10,6 +10,11 @@ $(document).ready(function () {
   masks();
   getCourtyards();
 
+
+  $(document).on('change', 'input, select', function () {
+    $(this).removeClass('error')
+  })
+
   $(document).on('change', '.tipo_origem', function () {
     const ORIGEM_LEVAR = "levar_veiculo"
     const ORIGEM_BUSCAR = "buscar_veiculo"
@@ -124,8 +129,7 @@ function masks() {
   $('.ano').mask('0000');
   $('.valor-fipe').mask('R$ 00.000,00')
 
-  $('.origem-cep').mask('00000-000');
-  $('.destino-cep').mask('00000-000');
+  $('.cep').mask('00000-000');
 }
 
 function validate() {
@@ -152,6 +156,7 @@ function validate() {
         return false;
       } else {
         $(`input[name='${field.name}']`).addClass('error').focus();
+        $(`select[name='${field.name}']`).addClass('error').focus();
         return false;
       }
     } else {
@@ -268,11 +273,11 @@ function saveData(data) {
   $('.loading').show();
   $('.background-load').show();
   const URL_SITE = $('#url_site').val();
-  const params = $('telefone-fixo').val() ? {
+  const params = $('.telefone-fixo').val() ? {
     ...data,
     orcamento: 1,
     id: $('#id').val(),
-    telefone_fixo: $('telefone-fixo').val(),
+    telefone_fixo: $('.telefone-fixo').val(),
   } : {
     ...data,
     orcamento: 1,

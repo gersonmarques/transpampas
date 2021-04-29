@@ -45,7 +45,7 @@ get_header();
             </div>
         </div>
         <?php 
-            htmlSuccess();
+            htmlSuccess($post->ID);
         ?>
         <div class="loading">
             <div class="square">
@@ -270,14 +270,13 @@ function getUfs()
     <option value="TO">Tocantins</option>
 <?php }
 
-function htmlSuccess() { ?>
+function htmlSuccess($id) { 
+    $message = get_post_meta($id, 'mensagem_sucesso_solicitacoes', true);
+    ?>
     <div id="html-success"class="content-success" style="display:none">
         <h2>Solicitação de transporte enviada com sucesso!</h2>
         <div class="content-success">
-            <p>Os dados da sua solicitação foi enviada por email.</p>
-            <p>Caso você possua alguma informação desatualizada,</p>
-            <p>entre na <b>Área do Cliente</b> e atualize.</p>
-            <p>Na Área do Cliente você também pode acompanhar sua solicitação.</p>
+           <?= $message?>
         </div>
         <a class="btn" href="<?php echo get_site_url()."/area-cliente" ?>">Área do Cliente</a>
     </div>

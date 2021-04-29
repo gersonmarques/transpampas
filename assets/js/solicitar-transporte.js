@@ -25,6 +25,10 @@ $(document).ready(function () {
     }
   });
 
+  $(document).on('change', 'input, select', function () {
+    $(this).removeClass('error')
+  })
+
   $(document).on('change', '.tipo_origem', function () {
     const ORIGEM_LEVAR = "levar_veiculo"
     const ORIGEM_BUSCAR = "buscar_veiculo"
@@ -438,6 +442,7 @@ function saveData(data) {
   form_data.append('cnh_rg', cnh_file);
   form_data.append('crlv', crlv_file);
   form_data.append('id', $('#id').val());
+  form_data.append('telefone_fixo', $('.telefone-fixo').val());
   form_data.append('type_account', pessoaFisica ? "pessoa_fisica" : "pessoa_juridica");
 
   for (var key in data) {

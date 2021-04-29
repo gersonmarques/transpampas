@@ -6,7 +6,8 @@ get_header();
     <script src="<?= get_site_url()."/assets/js/solicitar-orcamento.js"?>"></script>
     <script src="<?= get_site_url()."/assets/js/utils.js"?>"></script>
 
-    <div class="site-main"> 
+    <div class="site-main">
+        <h1><?= $post->post_title?></h1>
         <div class="container" id="form-solicitar-transporte"  style="display:nones">
             <div class='container-fields col-md-8'>
                 <div class="menu">
@@ -32,7 +33,7 @@ get_header();
             </div>
         </div>
         <?php 
-            htmlSuccess();
+            htmlSuccess($post->ID);
         ?>
         <div class="loading">
             <div class="square">
@@ -210,15 +211,13 @@ function getUfs()
     <option value="TO">Tocantins</option>
 <?php }
 
-function htmlSuccess() { ?>
-    <div id="html-success"class="content-success" style="display:none">
+function htmlSuccess($id) { 
+    $message = get_post_meta($id, 'mensagem_sucesso_solicitacoes', true);
+    ?>
+    <div id="html-success"class="content-success" style="display:block">
         <h2>Sua solicitação do orçamento foi enviado com sucesso!</h2>
         <div class="content-success">
-            <p>Os dados da sua solicitação foi enviada por email.</p>
-            <p>Caso você possua alguma informação desatualizada,</p>
-            <p>entre na <b>Área do Cliente</b> e atualize.</p>
-            <p>Na Área do Cliente você também pode acompanhar sua solicitação.</p>
+            <?= $message; ?>
         </div>
-        <a class="btn" href="<?php echo get_site_url()."/area-cliente" ?>">Área do Cliente</a>
     </div>
 <?php }?>
