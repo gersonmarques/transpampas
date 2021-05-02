@@ -127,7 +127,10 @@ function masks() {
   $('.telefone-fixo').mask('(00) 0000-0000');
 
   $('.ano').mask('0000');
-  $('.valor-fipe').mask('R$ 00.000,00')
+  $('.valor-fipe').mask('###.###,00', {
+    reverse: true,
+    placeholder: "R$ 30.000,00"
+  })
 
   $('.cep').mask('00000-000');
 }
@@ -224,6 +227,7 @@ function steps(type) {
     step.removeClass('active').removeClass('passed');
     step.prev().addClass('active').removeClass('passed')
   }
+  $('#form-content-top')[0].scrollIntoView();
 }
 
 function getCourtyards() {
