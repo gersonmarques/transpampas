@@ -185,7 +185,10 @@ function masks() {
   $('.dtnasc-responsavel').mask('00/00/0000');
 
   $('.ano').mask('0000');
-  $('.valor-fipe').mask('R$ 00.000,00')
+  $('.valor-fipe').mask('###.###,00', {
+    reverse: true,
+    placeholder: "R$ 30.000,00"
+  })
 
   $('.cep').mask('00000-000');
 }
@@ -229,6 +232,7 @@ function validate() {
         return false;
       } else {
         $(`input[name='${field.name}']`).addClass('error').focus();
+        $(`select[name='${field.name}']`).addClass('error').focus();
         return false;
       }
     } else {
@@ -298,7 +302,7 @@ function steps(type) {
     step.removeClass('active').removeClass('passed');
     step.prev().addClass('active').removeClass('passed')
   }
-  $('#form-solicitar-transporte').focus();
+  $('#form-content-top')[0].scrollIntoView();
 }
 
 function getUserInfo(field, iscpf) {

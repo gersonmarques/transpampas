@@ -1,6 +1,21 @@
+.site-main>h1 {
+  text-align: center;
+}
+
+.margin-content {
+  margin: 50px 0;
+}
+
 .container {
   padding: 0;
   margin: 40px auto;
+}
+
+.radio-options {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .form-check-input {
@@ -28,6 +43,7 @@
 
 .container-fields {
   padding-left: 0;
+  margin: 0 auto;
 }
 
 .container-fields .input-field {
@@ -59,6 +75,12 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 20px;
+}
+
+.link-field {
+  display: block;
+  top: -10px;
+  position: relative;
 }
 
 .section-data {
@@ -131,7 +153,7 @@
 }
 
 .menu {
-  margin: 40px 0;
+  margin: 30px 0 10px;
   display: flex;
   justify-content: space-between;
 }

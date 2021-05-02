@@ -7,15 +7,18 @@ get_header();
     <script src="<?= get_site_url()."/assets/js/solicitar-transporte.js"?>"></script>
     <script src="<?= get_site_url()."/assets/js/utils.js"?>"></script>
 
-    <div class="site-main"> 
+    <div class="site-main margin-content" id="form-content-top"> 
+        <h1><?= $post->post_title?></h1>
         <div class="container" id="form-solicitar-transporte"  style="display:nones">
-            <div class="form-check form-check-inline">
-                <input class="form-check-input tipo_dados_pessoais" type="radio" name="inlineRadioOptions" id="pessoa_fisica" value="pessoa_fisica" checked>
-                <label class="form-check-label" for="pessoa_fisica">Pessoa física</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input tipo_dados_pessoais" type="radio" name="inlineRadioOptions" id="pessoa_juridica" value="pessoa_juridica">
-                <label class="form-check-label" for="pessoa_juridica">Pessoa jurídica</label>
+            <div class="radio-options">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input tipo_dados_pessoais" type="radio" name="inlineRadioOptions" id="pessoa_fisica" value="pessoa_fisica" checked>
+                    <label class="form-check-label" for="pessoa_fisica">Pessoa física</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input tipo_dados_pessoais" type="radio" name="inlineRadioOptions" id="pessoa_juridica" value="pessoa_juridica">
+                    <label class="form-check-label" for="pessoa_juridica">Pessoa jurídica</label>
+                </div>
             </div>
             <div class='container-fields col-md-8'>
                 <div class="menu">
@@ -114,9 +117,12 @@ function dadosVeiculos()
     <div class='dados-veiculos section-data'>
         <p class='title-section'>Dados do veículo</p>
         <div class='row-fields'>
-            <input type='text' class='input-field' name='modelo-veiculo' placeholder='Modelo do veículo'required/>
-            <input type='text' class='input-field ano' name='ano' placeholder='Ano' required/>
-            <input type='text' class='input-field valor-fipe' name='valor-fipe' placeholder='Valor Fipe' required/>
+            <div><input type='text' class='input-field' name='modelo-veiculo' placeholder='Modelo do veículo'required/></div>
+            <div><input type='text' class='input-field ano' name='ano' placeholder='Ano' required/></div>
+            <div>
+                <input type='text' class='input-field valor-fipe' name='valor-fipe' placeholder='Valor Fipe' required/>
+                <a href="https://veiculos.fipe.org.br/" class="link-field">Consultar a FIPE</a>
+            </div>
         </div>
         <div class='row-fields'>
             <select class='input-field' name='situacao-veiculo' placeholder='Situação do veículo'required >
@@ -278,6 +284,5 @@ function htmlSuccess($id) {
         <div class="content-success">
            <?= $message?>
         </div>
-        <a class="btn" href="<?php echo get_site_url()."/area-cliente" ?>">Área do Cliente</a>
     </div>
 <?php }?>
