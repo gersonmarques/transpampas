@@ -75,18 +75,18 @@ class RequestTransport {
 
         try{
             if(empty($params)) {
-                $sql = "SELECT * FROM {$table} where orcamento = 0";
+                $sql = "SELECT * FROM {$table} where orcamento = 0  ORDER BY id DESC";
             }
             
             if($id){
-                $sql = "SELECT * FROM  {$table} WHERE id = {$id} AND orcamento = 0";
+                $sql = "SELECT * FROM  {$table} WHERE id = {$id} AND orcamento = 0  ORDER BY id DESC";
             }
             if($params){
                 $params[0] = ( $params[1] === "criado" || $params[1] === "modificado" ) 
                 ? implode('-', array_reverse(explode('/', $params[0])))
                 : $params[0];
 
-                $sql = "SELECT * FROM  {$table} WHERE {$params[1]} like '%{$params[0]}%' AND orcamento = 0";
+                $sql = "SELECT * FROM  {$table} WHERE {$params[1]} like '%{$params[0]}%' AND orcamento = 0  ORDER BY id DESC";
             }
 
             $query = $wpdb->prepare($sql, '');

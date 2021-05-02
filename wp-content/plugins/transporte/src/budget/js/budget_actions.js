@@ -70,4 +70,10 @@ jQuery(document).ready(function (jQuery) {
       request.query(search, filter);
     }, 1000);
   });
+
+  jQuery(document).on('click', '.row-list', function () {
+    const location = window.location.href;
+    const id = jQuery(this).data('id')
+    window.location.href = `${location}&id=${id}`
+  })
 });

@@ -51,7 +51,7 @@ class Request_transport_html{
                             <div class="loader-search"></div>
                         </div>
                     </div>
-                    <table class="list-request-transport wp-list-table widefat fixed striped">
+                    <table class="list-request-transport wp-list-table widefat fixed">
                         <thead>
                         <tr>
                             <th style="width: 2%;"></th>
@@ -80,15 +80,15 @@ class Request_transport_html{
                                 }
                                 $user_data = get_user_by('id', $val->id_user)
                             ?>
-                            </tr>
+                            <tr class="row-list" data-id="<?php echo $val->id?>" style="cursor:pointer">
                                 <td><input type="checkbox" name="checkbox-actions" class="checkbox-actions" value="<?php echo $val->id?>"></td>
                                 <td style="text-align: center;"><?php echo $val->id?></td>
                                 <td><?php echo $val->nome ? $val->nome : $dataUsers['nome'] ?></td>
                                 <td><?php echo $val->email ? $val->email : $user_data->user_email?></td>
                                 <td><?php echo $colCPFOrCNPJ ?></td>
                                 <td><?php echo $this->status[$val->status]?></td>
-                                <td><?php echo date("d/m/Y", strtotime($val->criado))?></td>
-                                <td><?php echo date("d/m/Y", strtotime($val->modificado))?></td>                                
+                                <td><?php echo date("d/m/Y H:i", strtotime($val->criado))?></td>
+                                <td><?php echo date("d/m/Y H:i", strtotime($val->modificado))?></td>                                
                             </tr>
                          <?php endforeach;?>
                         </tbody>

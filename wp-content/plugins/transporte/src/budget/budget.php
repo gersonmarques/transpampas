@@ -42,18 +42,18 @@ class Budget {
 
         try{
             if(empty($params)) {
-                $sql = "SELECT * FROM {$table} where orcamento = 1";
+                $sql = "SELECT * FROM {$table} where orcamento = 1  ORDER BY id DESC";
             }
             
             if($id){
-                $sql = "SELECT * FROM  {$table} WHERE id = {$id} AND orcamento = 1";
+                $sql = "SELECT * FROM  {$table} WHERE id = {$id} AND orcamento = 1  ORDER BY id DESC";
             }
             if($params){
                 $params[0] = ( $params[1] === "criado" || $params[1] === "modificado" ) 
                 ? implode('-', array_reverse(explode('/', $params[0])))
                 : $params[0];
 
-                $sql = "SELECT * FROM  {$table} WHERE {$params[1]} like '%{$params[0]}%' AND orcamento = 1";
+                $sql = "SELECT * FROM  {$table} WHERE {$params[1]} like '%{$params[0]}%' AND orcamento = 1 ORDER BY id DESC";
             }
 
             $query = $wpdb->prepare($sql, '');
