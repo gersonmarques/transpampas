@@ -1,14 +1,14 @@
 # Release Notes
 
 ## 02/05/2021
-    ### Admin
+### Admin
         * No menu do admin de solicitações, alterar "Transporte" para "Solicitações"
         * Na listagem de orçamentos e solicitações, informar a hora do item também
         * Nas listagens (orçamento e solicitações) order by ID DESC
         * Nas listagens (orçamento e solicitações), ver se é possível clicar no item e ir pra ele, sem a necessidade de ter que rolar pra cima e clicar em alterar (isso pode continuar existindo, juntamente com os filtros)
         * Nas listagens (orçamento e solicitações) colocar um hover (efeito de card)
 
-    ### Solicitação de Transporte
+### Solicitação de Transporte
         * Centralizar o form
         * Diminuir espaço entre "abas de sinalização e o form" [dados pessoais e do veículo....] deixar 10px
         * Colocar uma margin de 60px no topo e bottom
@@ -20,7 +20,7 @@
         * Remover botão de "área do cliente" na mensagem de sucesso
         * Ao tentar uma solicitação com um usuário que não existe na base, ele está dando erro
     
-    ### Orçamento
+### Orçamento
         * Centralizar o form
         * Diminuir espaço entre "abas de sinalização e o form" [dados pessoais e do veículo....] * deixar 10px
         * Colocar uma margin de 50px no topo e bottom
