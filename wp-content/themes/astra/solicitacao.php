@@ -42,7 +42,7 @@ get_header();
                     <?= documentos();?>
                 </div>
             </div>
-            <div>
+            <div style="text-align: center">
                 <button class='btn btn-prev'>Voltar</button>
                 <button class='btn btn-next'>Próximo</button>
             </div>
@@ -121,7 +121,7 @@ function dadosVeiculos()
             <div><input type='text' class='input-field ano' name='ano' placeholder='Ano' required/></div>
             <div>
                 <input type='text' class='input-field valor-fipe' name='valor-fipe' placeholder='Valor Fipe' required/>
-                <a href="https://veiculos.fipe.org.br/" class="link-field">Consultar a FIPE</a>
+                <a href="https://veiculos.fipe.org.br/" target="_blank" class="link-field">Consultar a FIPE</a>
             </div>
         </div>
         <div class='row-fields'>
