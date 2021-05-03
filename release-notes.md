@@ -1,5 +1,35 @@
 # Release Notes
 
+## 02/05/2021
+    ### Admin
+        * No menu do admin de solicitações, alterar "Transporte" para "Solicitações"
+        * Na listagem de orçamentos e solicitações, informar a hora do item também
+        * Nas listagens (orçamento e solicitações) order by ID DESC
+        * Nas listagens (orçamento e solicitações), ver se é possível clicar no item e ir pra ele, sem a necessidade de ter que rolar pra cima e clicar em alterar (isso pode continuar existindo, juntamente com os filtros)
+        * Nas listagens (orçamento e solicitações) colocar um hover (efeito de card)
+
+    ### Solicitação de Transporte
+        * Centralizar o form
+        * Diminuir espaço entre "abas de sinalização e o form" [dados pessoais e do veículo....] deixar 10px
+        * Colocar uma margin de 60px no topo e bottom
+        * Pegar o título da página
+        * Ao avançar as etapas, rolar a página para o topo  
+        * Em dados "Dados do Veículo", o campo "Situação do veículo " não está ficando em vermelho na validação;
+        * Em "Origem" e "Destino" os campos não estão ficando em vermelho na validação;
+        * Abaixo do campo da  "Tabela Fipe" Adicionar link  "Consultar Tabela Fipe": https://veiculos.fipe.org.br/  
+        * Remover botão de "área do cliente" na mensagem de sucesso
+        * Ao tentar uma solicitação com um usuário que não existe na base, ele está dando erro
+    
+    ### Orçamento
+        * Centralizar o form
+        * Diminuir espaço entre "abas de sinalização e o form" [dados pessoais e do veículo....] * deixar 10px
+        * Colocar uma margin de 50px no topo e bottom
+        * Ao avançar as etapas, rolar a página para o topo
+        * A mensagem de retorno, está aparecendo desde o início ao entrar na página
+        * No Campo "Tabela Fipe", aumentar possibilidade para valores acima de R$ 99.999,99 (deixar 3 digitos)
+        * Abaixo do campo da  "Tabela Fipe" Adicionar link  "Consultar Tabela Fipe": https://veiculos.fipe.org.br/
+
+
 ## 28/04/2021
     * Removido o outline do focus nos campos obrigatórios
     * Removido o erro do botão no change do input e select
