@@ -79,7 +79,7 @@ $(document).ready(function () {
     steps("prev");
   })
 
-  $(document).on('blur', '.origem-cep, .destino-cep', function () {
+  $(document).on('blur', '.cep', function () {
     const CEP_LENGTH = 8;
     if ($(this).cleanVal().length < CEP_LENGTH) return;
 
