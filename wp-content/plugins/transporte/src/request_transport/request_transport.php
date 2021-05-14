@@ -172,6 +172,18 @@ class RequestTransport {
         }
     }
     
+    public function getAddress($id) {
+        global $wpdb;
+        $table = $wpdb->prefix . 'request_transport_address';
+        try {
+            $sql = "SELECT * FROM  {$table} WHERE id = {$id}";
+            $query = $wpdb->prepare($sql, '');
+            return $wpdb->get_results($query);
+        } catch(Exeption $e) {
+            return array();
+        }
+    }
+
     public function updateRequest(){
         global $wpdb;
 

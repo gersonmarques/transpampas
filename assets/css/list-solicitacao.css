@@ -1,0 +1,205 @@
+#add-request-transport,
+#update-request-transport {
+  display: inline-block;
+  width: 30%;
+}
+
+#update-request-transport {
+  width: 60%;
+}
+
+.group-add-request-transport {
+  display: inline-block;
+  width: 100%;
+  margin: 5px 0;
+}
+
+.group-add-request-transport>label {
+  color: #23282d;
+  font-weight: 400;
+  text-shadow: none;
+  display: block;
+  padding: 2px 0;
+  margin-bottom: 0;
+}
+
+.group-add-request-transport>input,
+.group-add-request-transport>textarea,
+.group-add-request-transport>select {
+  display: inline-block;
+  width: 100%;
+  max-width: 100%;
+  padding: 5px;
+}
+
+.group-add-request-transport>p {
+  display: inline-block;
+  width: 100%;
+  margin: 2px 0 5px;
+  color: #666;
+  font-size: 13px;
+  font-style: italic;
+}
+
+#input_save {
+  margin: 15px 0;
+}
+
+.table-request-transport {
+  display: inline-block;
+  margin: 40px 0 0 50px;
+}
+
+.notice {
+  display: none;
+}
+
+.actions-table {
+  display: inline-block;
+  width: 100%;
+  margin: 3px auto;
+}
+
+.query-table {
+  display: inline-block;
+}
+
+#param-request-transport {
+  vertical-align: baseline;
+}
+
+.section-data {
+  display: grid;
+  margin: 5px 0;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+}
+
+.section-data>h3 {
+  display: grid;
+  grid-column: 1 / 3;
+  background: #007cba;
+  padding: 15px;
+  color: #FFF;
+  border-radius: 2px;
+  text-align: center;
+}
+
+.group-add-request-transport .crlv_label,
+.group-add-request-transport .rg_cnh_label {
+  border: 1px solid #7e8993;
+  padding: 5px;
+  color: #000000BE;
+  font-weight: 500;
+  margin: 2px 0;
+  border-radius: 4px;
+  line-height: 1.5;
+  grid-column: 1 / 3;
+  background-color: #FFF;
+}
+
+
+/***********************/
+
+
+/*       Loader        */
+
+
+/***********************/
+
+.loader,
+.loader-search {
+  display: none;
+  z-index: 1;
+  vertical-align: middle;
+  height: 150px;
+  border: 5px solid #ddd;
+  border-radius: 50%;
+  border-top: 5px solid #3498db;
+  width: 10px;
+  height: 10px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  margin-left: 10px;
+  margin-top: 20px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader_list {
+  position: absolute;
+  vertical-align: middle;
+  margin-top: 5px;
+}
+
+.loader-search {
+  margin-top: 0px;
+}
+
+
+/***********************/
+
+
+/*     End Loader      */
+
+
+/***********************/
+
+
+/**
+  Loading for list
+*/
+
+.spinner-load {
+  color: #c36;
+}
+
+.loading {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: none;
+  z-index: 3;
+}
+
+.square {
+  background: #FFF;
+  display: block;
+  width: 130px;
+  top: 45%;
+  position: relative;
+  left: 45%;
+  border-radius: 4px;
+}
+
+.background-load {
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+  background: #000;
+  z-index: 2;
+  position: fixed;
+  top: 0;
+  left: 0;
+  outline: 0;
+  display: none;
+}
+
+.close:hover,
+.close:focus {
+  background-color: transparent;
+}
+
+.row-list:hover {
+  -webkit-box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.23);
+  box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.23);
+}

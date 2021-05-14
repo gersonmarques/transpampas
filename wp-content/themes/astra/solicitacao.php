@@ -28,7 +28,7 @@ get_header();
                 </div>
                 <div class="step1 step step-active">
                     <div id='pessoa_fisica_wrapper'>
-                        <?= pessoa_fisica();?>
+                        <?= pessoa_fisica();?> 
                     </div>
                     <div id='pessoa_juridica_wrapper'>
                         <?= pessoa_juridica(); ?>
@@ -83,6 +83,7 @@ function pessoa_fisica()
         </div>
     </div>
 <?php
+    endereco();
     dadosVeiculos();
 }
 
@@ -109,6 +110,7 @@ function pessoa_fisica()
         </div>
     </div>
 <?php 
+    endereco();
     dadosVeiculos();
 }
 
@@ -228,6 +230,28 @@ function destino() {
     </div>
 <?php           
 }
+
+
+function endereco() { ?>
+    <div class='endereco-user section-data'>
+        <p class='title-section'>Dados de Endereço</p>
+        <div id="endereco-user-buscar">
+            <div class='group-fields'>
+                <input type='tel' class='input-field cep' name='endereco-user-cep' placeholder='CEP' required />
+                <select type='text' class='input-field estado' name='endereco-user-estado' placeholder='Estado' required>
+                    <?= getUfs();?>
+                </select>
+                <input type='text' class='input-field cidade' name='endereco-user-cidade' placeholder='Cidade' required />
+                <input type='text' class='input-field bairro' name='endereco-user-bairro' placeholder='Bairro' required/>
+            </div>
+            <div class='group-fields-1-3'>
+                <input type='text' class='input-field field-major endereco' name='endereco-user-endereco' placeholder='Digite o endereço' required/>
+                <input type='tel' class='input-field numero' name='endereco-user-numero' placeholder='Número' required/>
+            </div>
+        </div>
+    </div>
+
+<?php }
 
 function documentos()
 { ?>

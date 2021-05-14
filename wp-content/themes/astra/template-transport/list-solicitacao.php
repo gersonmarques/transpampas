@@ -32,7 +32,6 @@ $result = $request_transport->getRequestUser($id);
         <table class="table table-striped"  style="width:100%;">
         <thead>
             <tr>
-            <th scope="col">Código da Solicitação</th>
             <th scope="col">Nome</th>
             <th scope="col">E-mail</th>
             <th scope="col">CPF/CNP</th>
@@ -46,7 +45,6 @@ $result = $request_transport->getRequestUser($id);
                 $date_created = date("d/m/Y H:i", strtotime($requests->criado));
                 ?>
                     <tr class="row-list" data-id="<?php echo $requests->id;?>" style="cursor:pointer">
-                        <th scope="row"><?php echo $requests->id;?></th>
                         <td><?php echo $first_name;?></td>
                         <td><?php echo $user_data->user_email;?></td>
                         <td><?php echo !empty($colCPFOrCNPJ) ? $colCPFOrCNPJ : $user_data->user_login?></td>
@@ -82,16 +80,12 @@ function update(){
 
     echo "";
 ?>
-    <link rel="stylesheet" type="text/css" href="../wp-content/plugins/transporte/src/request_transport/css/request_transport.css">
-    <script type="text/javascript" src="../assets/js/list-solicitacao.js"></script>
+    <link rel="stylesheet" type="text/css"  href="<?=  get_site_url()."/assets/css/list-solicitacao.css" ?>">
+    <script type="text/javascript"  src="<?= get_site_url()."/assets/js/list-solicitacao.js" ?>"></script>
 
     <div id="update-request-transport" style="margin-bottom: 50px; width:100%;">
         <form method="post">
             <h1>Editar solicitação de transporte</h1>
-            <div class="group-add-request-transport">
-                <label for="id-request-transport">Código</label>
-                <input type="text" id="id-request-transport" name="id" value="<?php echo $result['id'];?>" disabled/>
-            </div>
             <div class="group-add-request-transport">
                 <label for="status-request-transport">Status</label>
                 <select id="status" name="status" disabled>
@@ -146,6 +140,38 @@ function update(){
                 <div class="group-add-request-transport">
                     <label for="data-nasc-responsavel-request-transport">Data de Nascimento Responsável</label>
                     <input type="text" id="data-nasc-responsavel-request-transport" name="data-nasc-responsavel" value="<?php echo $result['data_nasc_responsavel'];?>" disabled/>
+                </div>
+            </div>
+            <div class="section-data">
+                <h3 style="background-color: #e94442">Endereço</h3>
+                <?php 
+                    $address = $request_transport->getAddress($result['endereco_id']);
+                ?>
+                <div class="group-add-request-transport">
+                    <label for="endereco-user-cep">CEP</label>
+                    <input type="tel" id="endereco-user-cep" name="cep" value="<?php echo $address[0]->cep;?>" disabled/>
+                </div>
+                <div class="group-add-request-transport">
+                    <label for="endereco-user-endereco">Rua</label>
+                    <input type="text" id="endereco-user-endereco" name="endereco" value="<?php echo $address[0]->endereco;?>" disabled/>
+                </div>
+                <div class="group-add-request-transport">
+                    <label for="endereco-user-numero">Número</label>
+                    <input type="tel" id="endereco-user-numero" name="numero" value="<?php echo $address[0]->numero;?>" disabled/>
+                </div>
+                <div class="group-add-request-transport">
+                    <label for="endereco-user-bairro">Bairro</label>
+                    <input type="text" id="endereco-user-bairro" name="bairro" value="<?php echo $address[0]->bairro;?>" disabled/>
+                </div>
+                <div class="group-add-request-transport">
+                    <label for="endereco-user-cidade">Cidade</label>
+                    <input type="text" id="endereco-user-cidade" name="cidade" value="<?php echo $address[0]->cidade;?>" disabled/>
+                </div>
+                <div class="group-add-request-transport">
+                    <label for="endereco-user-estado">Estado</label>
+                    <select id="endereco-user-estado" name="estado" disabled>
+                        <?= getUfs($address[0]->estado);?>
+                    </select>
                 </div>
             </div>
             <div class="section-data">

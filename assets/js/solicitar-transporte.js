@@ -345,6 +345,7 @@ function getUserInfo(field, iscpf) {
         } else {
           $('.exists_user_cnpj').show();
         }
+        let id = 0;
         response.forEach(item => {
           if (iscpf) {
             if (item.meta_key == "user_dados_pessoais_rg") {
@@ -379,7 +380,9 @@ function getUserInfo(field, iscpf) {
           $('.email').val(item.email);
           $('.nome').prop('disabled', true);
           $('.email').prop('disabled', true);
+          id = item.id;
         });
+        getUserMeta(id);
       }
     },
     fail: function (response) {
@@ -468,6 +471,42 @@ function saveData(data) {
       }
     },
     fail: function (response) {
+      return []
+    },
+    complete: function (response) {
+      $('.loading').hide();
+      $('.background-load').hide();
+    }
+  })
+}
+
+function getUserMeta(id) {
+  $('.loading').show();
+  $('.background-load').show();
+  const URL_SITE = $('#url_site').val();
+
+  $.ajax({
+    url: `${URL_SITE}/wp-json/user/getUserMeta`,
+    method: "GET",
+    data: { id },
+    async: false,
+    success: function (response) {
+      $('#endereco-user-buscar .cep').val(response.user_endereco_cep).prop('disabled', true);
+      $('#endereco-user-buscar .cidade').val(response.user_endereco_cidade).prop('disabled', true);
+      $('#endereco-user-buscar .endereco').val(response.user_endereco_rua).prop('disabled', true);
+      $('#endereco-user-buscar .numero').val(response.user_endereco_numero).prop('disabled', true);
+      $('#endereco-user-buscar .bairro').val(response.user_endereco_bairro).prop('disabled', true);
+      $('#endereco-user-buscar').find(`.estado option[value=${response.user_endereco_estado}]`).attr('selected', 'selected');
+      $('#endereco-user-buscar .estado').prop('disabled', true);
+    },
+    fail: function (response) {
+      $('#endereco-user-buscar .cep').val('').prop('disabled', false);
+      $('#endereco-user-buscar .cidade').val('').prop('disabled', false);
+      $('#endereco-user-buscar .endereco').val('').prop('disabled', false);
+      $('#endereco-user-buscar .numero').val('').prop('disabled', false);
+      $('#endereco-user-buscar .bairro').val('').prop('disabled', false);
+      $('#endereco-user-buscar .estado').prop('disabled', false);
+
       return []
     },
     complete: function (response) {

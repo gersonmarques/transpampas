@@ -42,6 +42,7 @@
                 if(empty($value['email'])) continue;
                 
                 $data[$key]['email'] = substr_replace($mail, '*****', 1, strpos($mail, '@') - 2);
+                $data[$key]['id'] = $id;
             }
             return $data;
         } catch (\Throwable $th) {
@@ -57,6 +58,7 @@
         $files = $_FILES;
         $source = [];
         $target = [];
+        $address = [];
 
         foreach ($data as $key => $value) {
             if(empty($value)) {
@@ -90,9 +92,15 @@
                 $name = str_replace("destino-","",$key);
                 $target[$name] = $value;
             }
-        }
 
-     
+            $posAddress = strpos($key, "endereco-user");
+            if($posAddress !== false){
+                $name = str_replace("endereco-user-","",$key);
+                $address[$name] = $value;
+            }
+           
+        }
+       
         $sourceId = saveSource($source);
         if(!$sourceId) {
             return array(
@@ -121,7 +129,19 @@
             $request_transport = $data['type_account'] === "pessoa_fisica" ?  modeloPessoaFisica($data,  $request) : modeloPessoaJuridica($data);
         }
 
+        $hasIdUser = !empty($request_transport['id_user']) ? $request_transport['id_user'] : false;
+        $addressId = saveAddress($address, $hasIdUser);
+        if(!$addressId) {
+            return array(
+                'status' => false,
+                'code' => 422,
+                'message' => 'Não foi possível salvar os dados de endereço'
+            );
+        }
+
         try {
+            $request_transport['endereco_id'] = $addressId;
+           
             $saved = $wpdb->insert( 
                 "{$wpdb->prefix}request_transport", 
                 $request_transport
@@ -213,6 +233,37 @@
         }
     }
 
+    function saveAddress($data, $idUser = false){
+        global $wpdb;
+        $address = $data; 
+       
+        if($idUser) {
+            $userMeta = get_user_meta($idUser);
+            $address['cep'] = $userMeta['user_endereco_cep'][0];
+            $address['estado'] = $userMeta['user_endereco_estado'][0];
+            $address['cidade'] = $userMeta['user_endereco_cidade'][0];
+            $address['bairro'] = $userMeta['user_endereco_bairro'][0] ? $userMeta['user_endereco_bairro'][0] : 'asdas';
+            $address['endereco'] = $userMeta['user_endereco_rua'][0];
+            $address['numero'] = $userMeta['user_endereco_numero'][0];
+        }
+        try {
+            $saved = $wpdb->insert(
+                "{$wpdb->prefix}request_transport_address",
+                array( 
+                    'cep' => $address['cep'],
+                    'estado' => $address['estado'],
+                    'cidade' => $address['cidade'],
+                    'bairro' => $address['bairro'],
+                    'endereco' => $address['endereco'],
+                    'numero' => $address['numero'],
+                )
+            );
+            return  ($saved) ? $wpdb->insert_id : false;
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
     function getSource($id) {
         global $wpdb;
         $results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}request_transport_source WHERE id = {$id}", ARRAY_A);
@@ -222,6 +273,11 @@
     function getTarget($id) {
         global $wpdb;
         $results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}request_transport_target WHERE id = {$id}", ARRAY_A);
+        return (count($results) > 0) ? $results : array();
+    }
+    function getAddress($id) {
+        global $wpdb;
+        $results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}request_transport_address WHERE id = {$id}", ARRAY_A);
         return (count($results) > 0) ? $results : array();
     }
 
@@ -253,7 +309,14 @@
             'placa' => $data['placa'],
             'origem_id' => $data['origem_id'],
             'destino_id' => $data['destino_id'],
+            'cpf' => $data['cpf'], 
+            'rg' => $data['rg'], 
+            'nome' => $data['nome'], 
+            'email' => $data['e-mail'], 
+            'whatsapp' => $data['whatsapp'], 
+            'telefone_fixo' => $data['telefone_fixo'],
         );
+       
         $modelVar = array();
 
         if(is_array($userData)){
@@ -266,13 +329,17 @@
                 'cpf' => $data['cpf'], 
                 'rg' => $data['rg'], 
                 'nome' => $data['nome'], 
-                'email' => $aux['email'] ? $aux['email'] : $data['email'], 
+                'email' => $aux['email'] ? $aux['email'] : $data['e-mail'], 
                 'whatsapp' => $aux['whatsapp'] ? $aux['whatsapp'] : $data['whatsapp'], 
                 'telefone_fixo' => $aux['telefone_fixo'] ? $aux['telefone_fixo'] : $data['telefone_fixo'],
             );
             return array_merge($model, $modelVar);
         }
 
+        if(empty($userData)) {
+            return $model;
+        }
+      
         return array_merge($model, 
             array(
                 'id_user' =>  $userData
@@ -295,8 +362,13 @@
             'razao_social' => $data['razao_social'], 
             'nome_responsavel' => $data['nome_responsavel'], 
             'data_nasc_responsavel' => $data['data_nasc_responsavel'],
+            'cnpj' => $data['cnpj'],
+            'rg' => $data['rg'],
+            'email' => $data['e-mail'], 
+            'whatsapp' => $data['whatsapp'], 
+            'telefone_fixo' => $data['telefone_fixo'],
         );
-
+        
         if(is_array($userData)){
             foreach ($userData as $key => $value) {
                 if($value["meta_key"] === "user_dados_pessoais_ie") $aux['inscricao_estadual'] = $value['meta_value'];
@@ -307,11 +379,15 @@
             $modelVar = array(
                 'cnpj' => $data['cnpj'],
                 'rg' => $data['rg'],
-                'email' => $aux['email'] ? $aux['email'] : $data['email'], 
-                'whatsapp' => $aux['whatsapp'] ? $aux['whatsapp'] : $data['whatsapp'], 
+                'email' => $aux['email'] ? $aux['email'] : $data['e-mail'],
+                'whatsapp' => $aux['whatsapp'] ? $aux['whatsapp'] : $data['whatsapp'],
                 'telefone_fixo' => $aux['telefone_fixo'] ? $aux['telefone_fixo'] : $data['telefone_fixo'],
             );
             return array_merge($model, $modelVar);
+        }
+
+        if(empty($userData)) {
+            return $model;
         }
 
         return array_merge($model, 
@@ -399,6 +475,8 @@
         $source = $source[0];
         $target = getTarget( $data['destino_id']);
         $target = $target[0];
+        $address = getAddress( $data['endereco_id']);
+        $address = $address[0];
         $levarSource =  $source['levar'] ? 'Vou levar' : 'Quero que busquem';
         $retirarTarget =  $target['retirar'] ? 'Vou retirar' : 'quero que levem';
         $isOrcamento = empty($_POST['orcamento']) ? false : true;
@@ -445,6 +523,15 @@
                     <p><b>Nome Responsável:</b> {$data['nome_responsavel']} </p>
                     <p><b>Data de Nascimento Responsável:</b> {$data['data_nasc_resposavel']} </p>" : "";
                 $html .= "</div>
+                <div>
+                    <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Endereço</H3>
+                    <p><b>CEP:</b> {$address['cep']} </p>
+                    <p><b>Rua:</b> {$address['endereco']} </p>
+                    <p><b>Número:</b> {$address['numero']} </p>
+                    <p><b>Bairro:</b> {$address['bairro']} </p>
+                    <p><b>Cidade:</b> {$address['cidade']} </p>
+                    <p><b>Estado:</b> {$address['estado']} </p>
+                </div>
                 <div>
                     <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Dados do veículo</H3>
                     <p><b>Modelo veículo:</b> {$data['modelo_veiculo']} </p>
@@ -543,4 +630,9 @@
                 'message' => ''
             );
         }
+    }
+
+    function getUserMeta(WP_REST_Request $request) {
+        $id = $request['id'];
+        return get_user_meta($id);
     }

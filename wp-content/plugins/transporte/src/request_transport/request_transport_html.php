@@ -181,6 +181,39 @@ class Request_transport_html{
                 </div>
 
                 <div class="section-data">
+                    <h3>Endereço</h3>
+                    <?php 
+                        $address = $request_transport->getAddress($result['endereco_id']);
+                    ?>
+                    <div class="group-add-request-transport">
+                        <label for="endereco-user-cep">CEP</label>
+                        <input type="tel" id="endereco-user-cep" name="cep" value="<?php echo $address[0]->cep;?>" disabled/>
+                    </div>
+                    <div class="group-add-request-transport">
+                        <label for="endereco-user-endereco">Rua</label>
+                        <input type="text" id="endereco-user-endereco" name="endereco" value="<?php echo $address[0]->endereco;?>" disabled/>
+                    </div>
+                    <div class="group-add-request-transport">
+                        <label for="endereco-user-numero">Número</label>
+                        <input type="tel" id="endereco-user-numero" name="numero" value="<?php echo $address[0]->numero;?>" disabled/>
+                    </div>
+                    <div class="group-add-request-transport">
+                        <label for="endereco-user-bairro">Bairro</label>
+                        <input type="text" id="endereco-user-bairro" name="bairro" value="<?php echo $address[0]->bairro;?>" disabled/>
+                    </div>
+                    <div class="group-add-request-transport">
+                        <label for="endereco-user-cidade">Cidade</label>
+                        <input type="text" id="endereco-user-cidade" name="cidade" value="<?php echo $address[0]->cidade;?>" disabled/>
+                    </div>
+                    <div class="group-add-request-transport">
+                        <label for="endereco-user-estado">Estado</label>
+                        <select id="endereco-user-estado" name="estado" disabled>
+                            <?= getUfs($address[0]->estado);?>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="section-data">
                     <h3>Dados do veículo</h3>
                     <div class="group-add-request-transport">
                         <label for="modelo-veiculo-request-transport">Modelo veículo</label>

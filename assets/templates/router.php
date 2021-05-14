@@ -19,4 +19,8 @@ add_action('rest_api_init', function(){
         'methods' => 'POST',
         'callback' => 'saveNote',
     ));
+	register_rest_route( 'user', '/getUserMeta', array(
+        'methods' => 'GET',
+        'callback' => 'getUserMeta',
+    ));
 });
