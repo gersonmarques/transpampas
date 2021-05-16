@@ -148,6 +148,24 @@
   grid-column: 1 / 3;
 }
 
+.wrapper {
+  grid-column: 1 / 3;
+}
+
+.wrapper>i {
+  font-size: 25px;
+  vertical-align: middle;
+  cursor: pointer;
+  color: #dd3333;
+  display: none;
+}
+
+.rg_cnh_label,
+.crlv_label {
+  width: 90%;
+  margin-right: 10px;
+}
+
 .documentos {
   display: block;
 }

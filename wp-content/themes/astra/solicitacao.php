@@ -259,10 +259,16 @@ function documentos()
     <div class='documentos section-data'>
         <p class='title-section'>Documentação</p>
         <div class='group-fields'>
-            <input class="rg_cnh" accept=".pdf, .jpg, .png" type="file" id="rg_cnh" name="rg_cnh" style="display:none">
-            <label class="rg_cnh_label label_input">Cópia/Foto legível de RG OU CNH (.pdf .jpg .png)</label>
-            <input class="crlv" accept=".pdf, .jpg, .png" type="file" id="crlv" name="crlv" style="display:none">
-            <label class="crlv_label label_input">Cópia/Foto legível de CRLV (.pdf .jpg .png)</label>
+            <div class="wrapper">    
+                <input class="rg_cnh" accept=".pdf, .jpg, .png" type="file" id="rg_cnh" name="rg_cnh" style="display:none">
+                <label class="rg_cnh_label label_input">Cópia/Foto legível de RG OU CNH (.pdf .jpg .png)</label>
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="wrapper">
+                <input class="crlv" accept=".pdf, .jpg, .png" type="file" id="crlv" name="crlv" style="display:none">
+                <label class="crlv_label label_input">Cópia/Foto legível de CRLV (.pdf .jpg .png)</label>
+                <i class="fas fa-times"></i>
+            </div>
         </div>
     </div>
 <?php

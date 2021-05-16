@@ -125,15 +125,19 @@ $(document).ready(function () {
   $(document).on('change', '.rg_cnh', function () {
     if (!this.files[0]) {
       $(this).text('Cópia/Foto legível de RG OU CNH (.pdf .jpg .png)')
+      $(this).siblings('i').hide()
     }
     $('.rg_cnh_label').text(this.files[0].name)
+    $(this).siblings('i').show()
   });
 
   $(document).on('change', '.crlv', function () {
     if (!this.files[0]) {
       $(this).text('Cópia/Foto legível de CRLV (.pdf .jpg .png)')
+      $(this).siblings('i').hide()
     }
     $('.crlv_label').text(this.files[0].name)
+    $(this).siblings('i').show()
   });
 
   $(document).on('change', '#origem-levar select[name="origem-estado"], #destino-retirar select[name="destino-estado"]', function () {
@@ -174,6 +178,13 @@ $(document).ready(function () {
     }
   })
 
+  $(document).on('click', '.wrapper>i', function () {
+    console.log()
+    $(this).siblings('input').val('')
+    $(this).siblings('.rg_cnh_label').text('Cópia/Foto legível de RG OU CNH (.pdf .jpg .png)')
+    $(this).siblings('.crlv_label').text('Cópia/Foto legível de CRLV (.pdf .jpg .png)')
+    $(this).hide()
+  })
 })
 
 function masks() {
