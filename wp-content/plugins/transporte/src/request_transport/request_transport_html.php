@@ -338,6 +338,13 @@ class Request_transport_html{
                         <textarea id="observacao" name="observacao" rows='6'><?php echo $result['observacao'];?></textarea>
                     </div>
                 </div>
+                <div class="section-data">
+                    <h3>Link para a vistoria</h3>
+                    <div class="group-add-request-transport" style="grid-column: 1 / 3">
+                        <label for="link-vistoria">Link para a vistoria</label>
+                        <input type="text" id="link-vistoria" name="link-vistoria" value="<?php echo $result['vistoria'];?>"/>
+                    </div>
+                </div>
                 <input type="button" id="input_update" class="button button-primary" value="Atualizar"/>
                 <div class="loader"></div>
             </form>

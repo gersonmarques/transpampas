@@ -216,6 +216,13 @@ function update(){
                     <label class="crlv_label label_input" disabled style="opacity: 0.8"><?php echo !empty($result['crlv']) ?  $crlv :'Cópia/Foto legível de CRLV (.pdf .jpg .png)'?></label>
                     <a href="<?php echo home_url() . '/' . $result['crlv']; ?>" target="_blank"><span class="dashicons dashicons-visibility"></span></a>
                 </div>
+                <?php if(!empty($result['vistoria'])):?>
+                    <div class="group-add-request-transport">
+                        <a class="btn-vistoria" href="<?= $result['vistoria']?>" target="_blank">
+                            <input type="button" class="button button-primary" value="Vistoria"/>
+                        </a>
+                    </div>
+                <?php endif; ?>
             </div>
             <div class="section-data">
                 <h3 style="background-color: #e94442">Origem</h3>

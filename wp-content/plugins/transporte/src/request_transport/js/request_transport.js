@@ -220,6 +220,7 @@ var RequestTransport = function () {
       return false;
     }
     arrayFields['observacao'] = jQuery('#observacao').val()
+    arrayFields['vistoria'] = jQuery('#link-vistoria').val()
     arrayFields['status'] = jQuery('#status').val()
 
     var crlv_file = jQuery('#crlv').prop('files')[0];

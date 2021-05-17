@@ -196,6 +196,7 @@ class RequestTransport {
         $rg_cnh_veiculo  = empty($_POST['rg_cnh_veiculo']) ? ''  : $_POST['rg_cnh_veiculo'];
         $crlv_veiculo  = empty($_POST['crlv_veiculo']) ? ''  : $_POST['crlv_veiculo'];
         $observacao  = empty($_POST['observacao']) ? ''  : $_POST['observacao'];
+        $vistoria  = empty($_POST['vistoria']) ? ''  : $_POST['vistoria'];
         $status  = empty($_POST['status']) ? ''  : $_POST['status'];
 
         try{
@@ -212,6 +213,7 @@ class RequestTransport {
                 return false;
 
             $sql['observacao']  = $observacao;  
+            $sql['vistoria']  = $vistoria;  
             $sql['status']      = $status;  
 
             $this->saveImage($_POST['id']);
