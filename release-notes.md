@@ -1,5 +1,23 @@
 # Release Notes
 
+## 16/05/2021
+### Solicitação de transporte
+    *  Em origem e destino, quando selecionado "meu endereço", busca pelo CEP dos correios
+    * Na etapa de envio de documento, ter a opção de desmarcar/limpar um documento selecionado
+
+### Listagem de solicitações (Tela do usuário)
+    * ao visualizar uma solicitação, está vindo com erros e com os estilos bugados
+    * ver se é possível clicar no item e ir pra ele, sem a necessidade de ter que rolar pra cima e clicar em alterar (isso pode continuar existindo, juntamente com os filtros)
+    * order by ID DESC
+    * ocultar ID da tabela
+    * colocar um hover (efeito de card)
+    * deixar maior a tabela
+    * buscar listagem por ID e CPF/CNPJ (username)
+    * na listagem de solicitações, mostrar um botão chamado "Vistoria" quando campo tiver preenchido
+
+### Admin
+    * na listagem de solicitações, incluir campo para incluir link de vistoria (duplicar e colocar antes de observações)
+
 ## 02/05/2021
 ### Admin
         * No menu do admin de solicitações, alterar "Transporte" para "Solicitações"
