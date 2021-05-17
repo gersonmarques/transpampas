@@ -9,10 +9,11 @@ if (empty($id)) {
 }
 
 $user_data = get_user_by('id', $id);
+$username = $user_data->data->user_login;
 $first_name = get_user_meta($id, 'first_name', true);
 
 $request_transport = new RequestTransport();
-$result = $request_transport->getRequestUser($id);
+$result = $request_transport->getRequestUser($id, $username);
 ?>
 
 <link rel="stylesheet" type="text/css" href="<?= get_site_url()."/assets/vendor/bootstrap/css/bootstrap.min.css" ?>" />
@@ -20,40 +21,43 @@ $result = $request_transport->getRequestUser($id);
 <script src="<?= get_site_url()."/assets/vendor/jquery/jquery.mask.js"?>"></script>
 <script src="<?= get_site_url()."/assets/vendor/bootstrap/js/bootstrap.min.js"?>"></script>
 
-<div style="margin: 0 auto;padding:80px 0;display: flex;flex-direction: column;width: 60%;">
+<div style="margin: 0 auto;padding:80px 0;display: flex;flex-direction: column;width: 80%;">
     <p class="go-back top-go-back" style="cursor:pointer;font-size: 18px;font-weight: 500;">Voltar</p>
     <p style="cursor:pointer;font-size: 18px;font-weight: 500;">Área do Cliente</p>
     <?php
    
     if(empty($_GET['id'])):
         echo ""?>
+        <link rel="stylesheet" type="text/css"  href="<?=  get_site_url()."/assets/css/list-solicitacao.css" ?>">
         <script type="text/javascript"  src="<?= get_site_url()."/assets/js/list-solicitacao.js"?>"></script>
         <h1>Solicitações</h1>
-        <table class="table table-striped"  style="width:100%;">
-        <thead>
-            <tr>
-            <th scope="col">Nome</th>
-            <th scope="col">E-mail</th>
-            <th scope="col">CPF/CNP</th>
-            <th scope="col">Status</th>
-            <th scope="col">Data da solicitação</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($result as $key => $requests): 
-                $colCPFOrCNPJ = empty($requests->cpf) ? $requests->cnpj : $requests->cpf;
-                $date_created = date("d/m/Y H:i", strtotime($requests->criado));
-                ?>
-                    <tr class="row-list" data-id="<?php echo $requests->id;?>" style="cursor:pointer">
-                        <td><?php echo $first_name;?></td>
-                        <td><?php echo $user_data->user_email;?></td>
-                        <td><?php echo !empty($colCPFOrCNPJ) ? $colCPFOrCNPJ : $user_data->user_login?></td>
-                        <td><?php echo $request_transport->status[$requests->status];?></td>
-                        <td><?php echo $date_created;?></td>
-                    </tr>
-                <?php endforeach; ?>
-        </tbody>
-        </table>
+        <div class="wrapper-table">
+            <table class="table"  style="width:100%;">
+            <thead>
+                <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">CPF/CNP</th>
+                <th scope="col">Status</th>
+                <th scope="col">Data da solicitação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($result as $key => $requests): 
+                    $colCPFOrCNPJ = empty($requests->cpf) ? $requests->cnpj : $requests->cpf;
+                    $date_created = date("d/m/Y H:i", strtotime($requests->criado));
+                    ?>
+                        <tr class="row-list" data-id="<?php echo $requests->id;?>" style="cursor:pointer">
+                            <td><?php echo $first_name;?></td>
+                            <td><?php echo $user_data->user_email;?></td>
+                            <td><?php echo !empty($colCPFOrCNPJ) ? $colCPFOrCNPJ : $user_data->user_login?></td>
+                            <td><?php echo $request_transport->status[$requests->status];?></td>
+                            <td><?php echo $date_created;?></td>
+                        </tr>
+                    <?php endforeach; ?>
+            </tbody>
+            </table>
+        </div>
     <?php
     endif;
 

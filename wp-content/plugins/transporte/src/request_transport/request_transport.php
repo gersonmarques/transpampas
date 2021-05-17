@@ -331,11 +331,13 @@ class RequestTransport {
         }
     }
 
-    function getRequestUser($user_id) {
+    function getRequestUser($user_id, $cpfOrCnpj) {
         global $wpdb;
         $table = $wpdb->prefix . 'request_transport';
         try {
-            $sql = "SELECT * FROM  {$table} WHERE id_user = {$user_id} AND orcamento = 0";
+            $sql = "SELECT * FROM  {$table} WHERE 
+            (id_user = {$user_id} OR cpf = '{$cpfOrCnpj}' OR cnpj = '{$cpfOrCnpj}') 
+            AND orcamento = 0  ORDER BY id DESC";
             $query = $wpdb->prepare($sql, '');
             return $wpdb->get_results($query);
         } catch(Exeption $e) {

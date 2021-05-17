@@ -203,3 +203,20 @@
   -webkit-box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.23);
   box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.23);
 }
+
+.wrapper-table {
+  overflow-y: auto;
+  max-height: 600px;
+}
+
+th {
+  background: #dee2e6;
+  position: sticky;
+  top: -1px;
+  z-index: 1;
+  border-bottom: 3px solid #dee2e6;
+}
+
+.go-back {
+  margin-top: 50px;
+}
