@@ -3,6 +3,7 @@
 ## 17/05/2021
 ### FORMS
     * Atualizado o endereço de consulta de CEP para utilizar o https
+    * Criado uma verificação para remover a inserção do endereço do usuário quando for orçamento
 ## 16/05/2021
 ### Solicitação de transporte
     *  Em origem e destino, quando selecionado "meu endereço", busca pelo CEP dos correios
