@@ -130,18 +130,20 @@
         }
 
         $hasIdUser = !empty($request_transport['id_user']) ? $request_transport['id_user'] : false;
-        $addressId = saveAddress($address, $hasIdUser);
-        if(!$addressId) {
-            return array(
-                'status' => false,
-                'code' => 422,
-                'message' => 'Não foi possível salvar os dados de endereço'
-            );
+        
+        if(!$data['orcamento']) {
+            $addressId = saveAddress($address, $hasIdUser);
+            if(!$addressId) {
+                return array(
+                    'status' => false,
+                    'code' => 422,
+                    'message' => 'Não foi possível salvar os dados de endereço'
+                );
+            }
+            $request_transport['endereco_id'] = $addressId;
         }
 
         try {
-            $request_transport['endereco_id'] = $addressId;
-           
             $saved = $wpdb->insert( 
                 "{$wpdb->prefix}request_transport", 
                 $request_transport
@@ -522,8 +524,8 @@
                     <p><b>Razão Social:</b> {$data['razao_social']} </p>
                     <p><b>Nome Responsável:</b> {$data['nome_responsavel']} </p>
                     <p><b>Data de Nascimento Responsável:</b> {$data['data_nasc_resposavel']} </p>" : "";
-                $html .= "</div>
-                <div>
+                $html .= "</div>";
+                $html .= !$isOrcamento ? "<div>
                     <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Endereço</H3>
                     <p><b>CEP:</b> {$address['cep']} </p>
                     <p><b>Rua:</b> {$address['endereco']} </p>
@@ -531,8 +533,8 @@
                     <p><b>Bairro:</b> {$address['bairro']} </p>
                     <p><b>Cidade:</b> {$address['cidade']} </p>
                     <p><b>Estado:</b> {$address['estado']} </p>
-                </div>
-                <div>
+                </div>" : "";
+                $html .= "<div>
                     <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Dados do veículo</H3>
                     <p><b>Modelo veículo:</b> {$data['modelo_veiculo']} </p>
                     <p><b>Ano veículo:</b> {$data['ano_veiculo']} </p>
