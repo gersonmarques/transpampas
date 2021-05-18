@@ -1,5 +1,8 @@
 # Release Notes
 
+## 17/05/2021
+### FORMS
+    * Atualizado o endereço de consulta de CEP para utilizar o https
 ## 16/05/2021
 ### Solicitação de transporte
     *  Em origem e destino, quando selecionado "meu endereço", busca pelo CEP dos correios
