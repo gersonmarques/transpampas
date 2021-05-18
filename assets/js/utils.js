@@ -87,7 +87,7 @@ function validateEmail(mail) {
 
 function getCEP(cep) {
   return $.ajax({
-    url: `http://viacep.com.br/ws/${cep}/json/`,
+    url: `https://viacep.com.br/ws/${cep}/json/`,
     success: function (response) {
       return response;
     },
