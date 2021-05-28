@@ -1,5 +1,14 @@
 # Release Notes
 
+## 27/05/2021
+### FORMS
+    * Ajustado os formulários para ser obrigatório o endereço 
+    * Ajustado o campo telefone para não vir * quando o campo for vazio
+### Admin
+    * Ajustado o método que  buscava email e o display name
+    * Ajustado o click no check button da tela de consulta dentro do plugin
+    * Adicionado class de btn no campo de vistoria, na tela do usuário
+    * Ajustado o título do menu para Solicitações
 ## 17/05/2021
 ### FORMS
     * Atualizado o endereço de consulta de CEP para utilizar o https
