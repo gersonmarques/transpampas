@@ -115,7 +115,9 @@ class RequestTransport {
         global $wpdb;
         $table = $wpdb->prefix . 'usermeta';
         try {
-            $sql = "SELECT * FROM  {$table} WHERE user_id = {$id}";
+            $sql = "SELECT {$table}.*, wu.user_email as email FROM  {$table}
+             INNER JOIN  {$wpdb->prefix}users wu on  wu.ID = '{$id}'
+             WHERE user_id = {$id}";
             $query = $wpdb->prepare($sql, '');
             $response =  $wpdb->get_results($query);
             $arrayReturn = array();
@@ -125,7 +127,7 @@ class RequestTransport {
                 'data_nasc_responsavel' => 'user_dados_pessoais_data_de_nascimento',
                 'cnpj' => 'user_dados_pessoais_cnpj',
                 'inscricao_estadual' => 'user_dados_pessoais_ie',
-                'email' => 'user_contato_email',
+                'email' => 'email',
                 'whatsapp' => 'user_contato_whatsapp',
                 'telefone_fixo' =>'user_contato_telefone_fixo',
                 'nome' => 'first_name'

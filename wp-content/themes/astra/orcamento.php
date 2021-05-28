@@ -129,7 +129,7 @@ function origem() {
                     <input type='text' class='input-field bairro' name='origem-bairro' placeholder='Bairro' required/>
                 </div>
                 <div class='group-fields-1-3'>
-                    <input type='text' class='input-field field-major endereco' name='origem-endereco' placeholder='Digite o endereço' />
+                    <input type='text' class='input-field field-major endereco' name='origem-endereco' placeholder='Digite o endereço' required/>
                     <input type='tel' class='input-field numero' name='origem-numero' placeholder='Número' required/>
                 </div>
             </div>
@@ -174,7 +174,7 @@ function destino() {
                 <input type='text' class='input-field bairro' name='destino-bairro' placeholder='Bairro' required />
             </div>
             <div class='group-fields-1-3'>
-                <input type='text' class='input-field field-major endereco' name='destino-endereco' placeholder='Digite o endereço' />
+                <input type='text' class='input-field field-major endereco' name='destino-endereco' placeholder='Digite o endereço' required/>
                 <input type='tel' class='input-field numero' name='destino-numero' placeholder='Número' required />
             </div>
         </div>

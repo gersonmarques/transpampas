@@ -22,7 +22,7 @@ function  transporte_item_menu(){
     /* Adding plugin in menu*/
     $settings_page = add_menu_page(
         'Transporte',
-        'Transporte',
+        'Solicitações',
         'manage_options', 
         'transporte',
         'request_transport_settings_page',

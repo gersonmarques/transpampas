@@ -92,7 +92,7 @@ jQuery(document).ready(function (jQuery) {
     jQuery('.crlv_label').text(this.files[0].name)
   });
 
-  jQuery(document).on('click', '.row-list', function () {
+  jQuery(document).on('click', '.column-list', function () {
     const location = window.location.href;
     const id = jQuery(this).data('id')
     window.location.href = `${location}&id=${id}`

@@ -217,9 +217,9 @@ function update(){
                     <a href="<?php echo home_url() . '/' . $result['crlv']; ?>" target="_blank"><span class="dashicons dashicons-visibility"></span></a>
                 </div>
                 <?php if(!empty($result['vistoria'])):?>
-                    <div class="group-add-request-transport">
+                    <div class="group-add-request-transport group-vistoria">
                         <a class="btn-vistoria" href="<?= $result['vistoria']?>" target="_blank">
-                            <input type="button" class="button button-primary" value="Vistoria"/>
+                            <input type="button" class="btn button button-primary" value="Vistoria"/>
                         </a>
                     </div>
                 <?php endif; ?>

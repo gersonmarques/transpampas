@@ -220,3 +220,13 @@ th {
 .go-back {
   margin-top: 50px;
 }
+
+.btn {
+  background: #F5E44F;
+  padding: 15px 30px;
+  border-radius: 0;
+}
+
+.group-vistoria {
+  margin-bottom: 15px;
+}

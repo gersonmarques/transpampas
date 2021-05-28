@@ -28,14 +28,23 @@
                 INNER JOIN  {$wpdb->prefix}users wu on  wu.ID = '{$id}'
                 WHERE user_id = '{$id}' AND wum.meta_key like 'user_%'";
             $data = $wpdb->get_results($query, ARRAY_A);
+            $first_name = get_user_meta($id, 'first_name', true);
+            $last_name = get_user_meta($id, 'last_name', true);
 
-            if($raw) return $data;
+          
+            if($raw) {
+                $data['full_name'] =  $first_name . ' ' . $last_name;
+                return $data;
+            }
+            
 
             foreach ($data as $key => $value) {
                 if($data[$key]['meta_key'] == 'user_contato_whatsapp'){
+                    if(empty($data[$key]['meta_value'])) continue;
                     $data[$key]['meta_value'] = "*********". substr($value['meta_value'], -2);
                 }
                 if($data[$key]['meta_key'] == 'user_contato_telefone_fixo'){
+                    if( empty($data[$key]['meta_value']) ) continue;
                     $data[$key]['meta_value'] = "********". substr($value['meta_value'], -2);
                 } 
                 $mail = $value['email'];
@@ -43,6 +52,7 @@
                 
                 $data[$key]['email'] = substr_replace($mail, '*****', 1, strpos($mail, '@') - 2);
                 $data[$key]['id'] = $id;
+                $data[$key]['display_name'] = $first_name . ' ' . $last_name;
             }
             return $data;
         } catch (\Throwable $th) {
@@ -60,8 +70,16 @@
         $target = [];
         $address = [];
 
+        $ignore = [
+            "cnh_rg",
+            "crlv",
+            "telefone_fixo"  
+        ];
+
         foreach ($data as $key => $value) {
-            if(empty($value)) {
+            if(in_array($key, $ignore)) continue;
+
+            if(empty($value) ) {
                 return array(
                     'status' => false,
                     'code' => 400,
@@ -324,7 +342,7 @@
         if(is_array($userData)){
             foreach ($userData as $key => $value) {
                 if($value["meta_key"] === "user_contato_whatsapp") $aux['whatsapp'] = $value['meta_value'];
-                if($value["meta_key"] === "user_contato_email") $aux['email'] = $value['meta_value'];
+                if(!empty($value["email"])) $aux['email'] = $value['email'];
                 if($value["meta_key"] === "user_contato_telefone_fixo") $aux['telefone_fixo'] = $value['meta_value'];
             }
             $modelVar = array(
@@ -375,7 +393,7 @@
             foreach ($userData as $key => $value) {
                 if($value["meta_key"] === "user_dados_pessoais_ie") $aux['inscricao_estadual'] = $value['meta_value'];
                 if($value["meta_key"] === "user_contato_whatsapp") $aux['whatsapp'] = $value['meta_value'];
-                if($value["meta_key"] === "user_contato_email") $aux['email'] = $value['meta_value'];
+                if(!empty($value["email"])) $aux['email'] = $value['email'];
                 if($value["meta_key"] === "user_contato_telefone_fixo") $aux['telefone_fixo'] = $value['meta_value'];
             }
             $modelVar = array(
@@ -488,13 +506,15 @@
         
         if(!$isOrcamento && $_POST['hasUser']) {
             $aux = array();
+            $aux['nome'] = $userData['full_name'];
             foreach ($userData as $key => $value) {
                 if($value["meta_key"] === "user_dados_pessoais_ie") $aux['inscricao_estadual'] = $value['meta_value'];
                 if($value["meta_key"] === "user_contato_whatsapp") $aux['whatsapp'] = $value['meta_value'];
-                if($value["meta_key"] === "user_contato_email") $aux['email'] = $value['meta_value'];
+                if(!empty($value["email"])) $aux['email'] = $value['email'];
                 if($value["meta_key"] === "user_contato_telefone_fixo") $aux['telefone_fixo'] = $value['meta_value'];
                 if($value["meta_key"] === "user_dados_pessoais_rg") $aux['rg'] = $value['meta_value'];
-                $aux['nome'] = $value['display_name'];
+                if($value["meta_key"] === "user_dados_pessoais_rg") $aux['rg'] = $value['meta_value'];
+                if($value["meta_key"] === "user_dados_pessoais_rg") $aux['rg'] = $value['meta_value'];
             }
             $modelVar = array(
                 'cpf' => $data['cpf'] ? $data['cpf'] : $_POST['cpf'],
