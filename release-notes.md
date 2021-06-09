@@ -1,5 +1,9 @@
 # Release Notes
 
+## 08/06/2021
+   ### FORMS
+    * Ajustado os dados do E-mail para irem como UpperCase, menos o e-mail do usuário
+
 ## 27/05/2021
 ### FORMS
     * Ajustado os formulários para ser obrigatório o endereço 
