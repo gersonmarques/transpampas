@@ -508,13 +508,13 @@
             $aux = array();
             $aux['nome'] = $userData['full_name'];
             foreach ($userData as $key => $value) {
-                if($value["meta_key"] === "user_dados_pessoais_ie") $aux['inscricao_estadual'] = $value['meta_value'];
-                if($value["meta_key"] === "user_contato_whatsapp") $aux['whatsapp'] = $value['meta_value'];
+                if(isset($value["meta_key"]) && $value["meta_key"] === "user_dados_pessoais_ie") $aux['inscricao_estadual'] = $value['meta_value'];
+                if(isset($value["meta_key"]) && $value["meta_key"] === "user_contato_whatsapp") $aux['whatsapp'] = $value['meta_value'];
                 if(!empty($value["email"])) $aux['email'] = $value['email'];
-                if($value["meta_key"] === "user_contato_telefone_fixo") $aux['telefone_fixo'] = $value['meta_value'];
-                if($value["meta_key"] === "user_dados_pessoais_rg") $aux['rg'] = $value['meta_value'];
-                if($value["meta_key"] === "user_dados_pessoais_rg") $aux['rg'] = $value['meta_value'];
-                if($value["meta_key"] === "user_dados_pessoais_rg") $aux['rg'] = $value['meta_value'];
+                if(isset($value["meta_key"]) && $value["meta_key"] === "user_contato_telefone_fixo") $aux['telefone_fixo'] = $value['meta_value'];
+                if(isset($value["meta_key"]) && $value["meta_key"] === "user_dados_pessoais_rg") $aux['rg'] = $value['meta_value'];
+                if(isset($value["meta_key"]) && $value["meta_key"] === "user_dados_pessoais_rg") $aux['rg'] = $value['meta_value'];
+                if(isset($value["meta_key"]) && $value["meta_key"] === "user_dados_pessoais_rg") $aux['rg'] = $value['meta_value'];
             }
             $modelVar = array(
                 'cpf' => $data['cpf'] ? $data['cpf'] : $_POST['cpf'],
@@ -533,59 +533,59 @@
         $html .= "<div class='content-email'>
                 <div>
                     <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Dados Pessoais</H3>
-                    <p><b>Nome:</b> {$data['nome']} </p>";
-                $html .= !$isOrcamento ? "<p><b>CPF:</b> {$data['cpf']} </p>
-                    <p><b>RG:</b> {$data['rg']} </p>" : ""; 
-                $html .= "<p><b>E-Mail:</b> {$data['email']} </p>
-                    <p><b>Whatsapp:</b> {$data['whatsapp']} </p>
-                    <p><b>Telefone Fixo:</b> {$data['telefone_fixo']} </p>";
-                $html .= !$isOrcamento ? "<p><b>CNPJ:</b> {$data['cnpj']} </p>
-                    <p><b>Inscrição Estadual:</b> {$data['inscricao_estadual']} </p>
-                    <p><b>Razão Social:</b> {$data['razao_social']} </p>
-                    <p><b>Nome Responsável:</b> {$data['nome_responsavel']} </p>
-                    <p><b>Data de Nascimento Responsável:</b> {$data['data_nasc_resposavel']} </p>" : "";
+                    <p><b>Nome: </b> ". strtoupper($data['nome']) ."</p>";
+                $html .= !$isOrcamento ? "<p><b>CPF: </b> ". strtoupper($data['cpf']) ."</p>
+                    <p><b>RG: </b> ". strtoupper($data['rg']) ."</p>" : ""; 
+                $html .= "<p><b>E-Mail: </b> ". $data['email'] ."</p>
+                    <p><b>Whatsapp: </b> ". strtoupper($data['whatsapp']) ."</p>
+                    <p><b>Telefone Fixo: </b> ". strtoupper($data['telefone_fixo']) ."</p>";
+                $html .= !$isOrcamento ? "<p><b>CNPJ: </b> ". strtoupper($data['cnpj']) ."</p>
+                    <p><b>Inscrição Estadual: </b> ". strtoupper($data['inscricao_estadual']) ."</p>
+                    <p><b>Razão Social: </b> ". strtoupper($data['razao_social']) ."</p>
+                    <p><b>Nome Responsável: </b> ". strtoupper($data['nome_responsavel']) ."</p>
+                    <p><b>Data de Nascimento Responsável: </b> ". strtoupper($data['data_nasc_resposavel']) ."</p>" : "";
                 $html .= "</div>";
                 $html .= !$isOrcamento ? "<div>
                     <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Endereço</H3>
-                    <p><b>CEP:</b> {$address['cep']} </p>
-                    <p><b>Rua:</b> {$address['endereco']} </p>
-                    <p><b>Número:</b> {$address['numero']} </p>
-                    <p><b>Bairro:</b> {$address['bairro']} </p>
-                    <p><b>Cidade:</b> {$address['cidade']} </p>
-                    <p><b>Estado:</b> {$address['estado']} </p>
+                    <p><b>CEP: </b> " . strtoupper($address['cep']) . "</p>
+                    <p><b>Rua: </b> " . strtoupper($address['endereco']) . "</p>
+                    <p><b>Número: </b> " . strtoupper($address['numero']) . "</p>
+                    <p><b>Bairro: </b> " . strtoupper($address['bairro']) . "</p>
+                    <p><b>Cidade: </b> " . strtoupper($address['cidade']) . "</p>
+                    <p><b>Estado: </b> " . strtoupper($address['estado']) . "</p>
                 </div>" : "";
                 $html .= "<div>
                     <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Dados do veículo</H3>
-                    <p><b>Modelo veículo:</b> {$data['modelo_veiculo']} </p>
-                    <p><b>Ano veículo:</b> {$data['ano_veiculo']} </p>
-                    <p><b>Fipe:</b> {$data['fipe']} </p>
-                    <p><b>Situação veículo:</b> {$data['situacao_veiculo']} </p>
-                    <p><b>Cor:</b> {$data['cor']} </p>
-                    <p><b>Placa:</b> {$data['placa']} </p>
+                    <p><b>Modelo veículo: </b>". strtoupper($data['modelo_veiculo']) ."</p>
+                    <p><b>Ano veículo: </b>". strtoupper($data['ano_veiculo']) ."</p>
+                    <p><b>Fipe: </b>". strtoupper($data['fipe']) ."</p>
+                    <p><b>Situação veículo: </b>". strtoupper($data['situacao_veiculo']) ."</p>
+                    <p><b>Cor: </b>". strtoupper($data['cor']) ."</p>
+                    <p><b>Placa: </b>". strtoupper($data['placa']) ."</p>
                 </div>
                 <div>
                     <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Origem</H3>
-                    <p><b>CEP:</b> {$source['cep']} </p>
-                    <p><b>Rua:</b> {$source['endereco']} </p>
-                    <p><b>Número:</b> {$source['numero']} </p>
-                    <p><b>Bairro:</b> {$source['bairro']} </p>
-                    <p><b>Cidade:</b> {$source['cidade']} </p>
-                    <p><b>Estado:</b> {$source['estado']} </p>
-                    <p><b>Vou levar ou quer que busquem:</b> {$levarSource} </p>
+                    <p><b>CEP: </b>" . strtoupper($source['cep']) . "</p>
+                    <p><b>Rua: </b>" . strtoupper($source['endereco']) . "</p>
+                    <p><b>Número: </b>" . strtoupper($source['numero']) . "</p>
+                    <p><b>Bairro: </b>" . strtoupper($source['bairro']) . "</p>
+                    <p><b>Cidade: </b>" . strtoupper($source['cidade']) . "</p>
+                    <p><b>Estado: </b>" . strtoupper($source['estado']) . "</p>
+                    <p><b>Vou levar ou quer que busquem: </b>" . strtoupper($levarSource) . "</p>
                 </div>
                 <div>
                     <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Destino</H3>
-                    <p><b>CEP:</b> {$target['cep']} </p>
-                    <p><b>Rua:</b> {$target['endereco']} </p>
-                    <p><b>Número:</b> {$target['numero']} </p>
-                    <p><b>Bairro:</b> {$target['bairro']} </p>
-                    <p><b>Cidade:</b> {$target['cidade']} </p>
-                    <p><b>Estado:</b> {$target['estado']} </p>
-                    <p><b>Vou retirar ou quer que levem:</b> {$retirarTarget} </p>
+                    <p><b>CEP: </b>" . strtoupper($target['cep']) . "</p>
+                    <p><b>Rua: </b>" . strtoupper($target['endereco']) . "</p>
+                    <p><b>Número: </b>" . strtoupper($target['numero']) . "</p>
+                    <p><b>Bairro: </b>" . strtoupper($target['bairro']) . "</p>
+                    <p><b>Cidade: </b>" . strtoupper($target['cidade']) . "</p>
+                    <p><b>Estado: </b>" . strtoupper($target['estado']) . "</p>
+                    <p><b>Vou retirar ou quer que levem: </b>" . strtoupper($retirarTarget) . "</p>
                 </div>";
                 $html .= !$isOrcamento ? "<div>
                     <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Observação</H3>
-                    <p>{$data['observacao']}</p>
+                    <p>" . strtoupper($data['observacao']) ."</p>
                 </div>" : "";
             $html .= "</div>
         </div>";
