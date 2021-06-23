@@ -455,12 +455,13 @@ function saveData(data) {
   var crlv_file = $('#crlv').prop('files')[0];
   var cnh_file = $('#rg_cnh').prop('files')[0];
   var form_data = new FormData();
+  const type_account = pessoaFisica ? "pessoa_fisica" : "pessoa_juridica"
 
   form_data.append('cnh_rg', cnh_file);
   form_data.append('crlv', crlv_file);
   form_data.append('id', $('#id').val());
-  form_data.append('telefone_fixo', $('.telefone-fixo:visible').cleanVal() || '');
-  form_data.append('type_account', pessoaFisica ? "pessoa_fisica" : "pessoa_juridica");
+  form_data.append('telefone_fixo', $(`#${type_account}_wrapper .telefone-fixo`).val() ? $(`#${type_account}_wrapper .telefone-fixo`).cleanVal() : '');
+  form_data.append('type_account',type_account );
 
   for (var key in data) {
     form_data.append(key, data[key]);

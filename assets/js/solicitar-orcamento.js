@@ -124,7 +124,7 @@ $(document).ready(function () {
 
 function masks() {
   $('.whatsapp').mask('(00) 00000-0000');
-  $('.telefone-fixo').mask('(00) 0000-0000');
+  $('.telefone-fixo').mask('(00) 00000-0000');
 
   $('.ano').mask('0000');
   $('.valor-fipe').mask('###.###,00', {

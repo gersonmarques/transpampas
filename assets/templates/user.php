@@ -165,8 +165,11 @@
                 "{$wpdb->prefix}request_transport", 
                 $request_transport
             );
+            // echo '<pre>';
+            // var_dump($wpdb->print_error());
+            // echo '</pre>';
+            // die;
             $id = ($saved) ? $wpdb->insert_id : false;
-
             if(!$id){
                 return array(
                     'status' => false,
@@ -378,8 +381,9 @@
             'placa' => $data['placa'],
             'origem_id' => $data['origem_id'],
             'destino_id' => $data['destino_id'],
-            'razao_social' => $data['razao_social'], 
-            'nome_responsavel' => $data['nome_responsavel'], 
+            'razao_social' => $data['razao-social'], 
+            'inscricao_estadual' =>  $data['inscricao-estadual'],
+            'nome_responsavel' => $data['nome-responsavel'], 
             'data_nasc_responsavel' => $data['data_nasc_responsavel'],
             'cnpj' => $data['cnpj'],
             'rg' => $data['rg'],
@@ -400,6 +404,7 @@
                 'rg' => $data['rg'],
                 'email' => $aux['email'] ? $aux['email'] : $data['e-mail'],
                 'whatsapp' => $aux['whatsapp'] ? $aux['whatsapp'] : $data['whatsapp'],
+                'inscricao_estadual' =>  $aux['inscricao_estadual'] ? $aux['inscricao_estadual'] : $data['inscricao-estadual'],
                 'telefone_fixo' => $aux['telefone_fixo'] ? $aux['telefone_fixo'] : $data['telefone_fixo'],
             );
             return array_merge($model, $modelVar);
