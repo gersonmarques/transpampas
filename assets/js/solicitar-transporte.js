@@ -179,7 +179,6 @@ $(document).ready(function () {
   })
 
   $(document).on('click', '.wrapper>i', function () {
-    console.log()
     $(this).siblings('input').val('')
     $(this).siblings('.rg_cnh_label').text('Cópia/Foto legível de RG OU CNH (.pdf .jpg .png)')
     $(this).siblings('.crlv_label').text('Cópia/Foto legível de CRLV (.pdf .jpg .png)')
@@ -190,7 +189,7 @@ $(document).ready(function () {
 function masks() {
   $('.cpf').mask('000.000.000-00');
   $('.whatsapp').mask('(00) 00000-0000');
-  $('.telefone-fixo').mask('(00) 0000-0000');
+  $('.telefone-fixo').mask('(00) 00000-0000');
 
   $('.cnpj').mask('00.000.000/0000-00');
   $('.dtnasc-responsavel').mask('00/00/0000');
@@ -209,48 +208,48 @@ function validate() {
   let aux = {}
   for (let field of fields) {
     if (field.name === "cpf") {
-      field.value = $(`input[name='${field.name}']`).cleanVal();
+      field.value = $(`input[name='${field.name}']:visible`).cleanVal();
       if (!validateCPF(field.value)) {
-        $(`input[name='${field.name}']`).addClass('error').focus();
+        $(`input[name='${field.name}']:visible`).addClass('error').focus();
         return false;
       }
     } else if (field.name === "cnpj") {
-      field.value = $(`input[name='${field.name}']`).cleanVal();
+      field.value = $(`input[name='${field.name}']:visible`).cleanVal();
       if (!validateCNPJ(field.value)) {
-        $(`input[name='${field.name}']`).addClass('error').focus();
+        $(`input[name='${field.name}']:visible`).addClass('error').focus();
         return false;
       }
     } else if (field.name === "nome") {
       if (!validateFullName(field.value)) {
-        $(`input[name='${field.name}']`).addClass('error').focus();
+        $(`input[name='${field.name}']:visible`).addClass('error').focus();
         return false;
       }
     } else if (field.name === "email") {
       if (!validateEmail(field.value)) {
-        $(`input[name='${field.name}']`).addClass('error').focus();
+        $(`input[name='${field.name}']:visible`).addClass('error').focus();
         return false;
       }
     } else {
-      $(`input[name='${field.name}']`).removeClass('error')
+      $(`input[name='${field.name}']:visible`).removeClass('error')
     }
 
     if (!field.value) {
       if (field.name == "rg") {
-        $(`input[name='${field.name}']`).addClass('error').focus();
+        $(`input[name='${field.name}']:visible`).addClass('error').focus();
         return false;
       } else if (field.name == "whatsapp") {
-        $(`input[name='${field.name}']`).addClass('error').focus();
+        $(`input[name='${field.name}']:visible`).addClass('error').focus();
         return false;
       } else {
-        $(`input[name='${field.name}']`).addClass('error').focus();
-        $(`select[name='${field.name}']`).addClass('error').focus();
+        $(`input[name='${field.name}']:visible`).addClass('error').focus();
+        $(`select[name='${field.name}']:visible`).addClass('error').focus();
         return false;
       }
     } else {
       field.value = checkedFieldMask(field);
-      $(`input[name='${field.name}']`).removeClass('error')
+      $(`input[name='${field.name}']:visible`).removeClass('error')
 
-      if ($(`input[name='${field.name}']`).parent().parent().attr('id') === "origem-levar") {
+      if ($(`input[name='${field.name}']:visible`).parent().parent().attr('id') === "origem-levar") {
         aux[`origem-levar-${field.name}`] = field.value
       } else {
         aux[field.name] = field.value
@@ -278,7 +277,7 @@ function checkedFieldMask(field) {
     field.name === "origem-cep" ||
     field.name === "destino-cep"
   ) {
-    return $(`input[name='${field.name}']`).cleanVal()
+    return $(`input[name='${field.name}']:visible`).cleanVal()
   }
   return field.value
 }
@@ -460,7 +459,7 @@ function saveData(data) {
   form_data.append('cnh_rg', cnh_file);
   form_data.append('crlv', crlv_file);
   form_data.append('id', $('#id').val());
-  form_data.append('telefone_fixo', $('.telefone-fixo').val());
+  form_data.append('telefone_fixo', $('.telefone-fixo:visible').cleanVal() || '');
   form_data.append('type_account', pessoaFisica ? "pessoa_fisica" : "pessoa_juridica");
 
   for (var key in data) {

@@ -94,7 +94,7 @@ jQuery(document).ready(function (jQuery) {
 
   jQuery(document).on('click', '.column-list', function () {
     const location = window.location.href;
-    const id = jQuery(this).data('id')
+    const id = jQuery(this).parent().data('id')
     window.location.href = `${location}&id=${id}`
   })
 });

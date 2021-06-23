@@ -78,7 +78,7 @@
 
         foreach ($data as $key => $value) {
             if(in_array($key, $ignore)) continue;
-
+            
             if(empty($value) ) {
                 return array(
                     'status' => false,
@@ -137,14 +137,13 @@
             );
         }
 
-
+       
         $data['origem_id'] = $sourceId;
         $data['destino_id'] = $targetId;
-        
         if($data['orcamento']){
             $request_transport = modeloOrcamento($data,  $request);
         }else{
-            $request_transport = $data['type_account'] === "pessoa_fisica" ?  modeloPessoaFisica($data,  $request) : modeloPessoaJuridica($data);
+            $request_transport = $data['type_account'] === "pessoa_fisica" ?  modeloPessoaFisica($data,  $request) : modeloPessoaJuridica($data, $request);
         }
 
         $hasIdUser = !empty($request_transport['id_user']) ? $request_transport['id_user'] : false;
@@ -367,7 +366,7 @@
         );
     }
 
-    function modeloPessoaJuridica($data) {
+    function modeloPessoaJuridica($data, $request) {
         $userData = $data['hasUser'] ? getInfo($request, true, $data['hasUser']) : getInfo($request, true);
         $aux = array();
         $model = array(

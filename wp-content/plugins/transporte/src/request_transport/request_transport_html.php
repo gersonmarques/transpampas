@@ -82,13 +82,13 @@ class Request_transport_html{
                             ?>
                             <tr class="row-list" data-id="<?php echo $val->id?>" style="cursor:pointer">
                                 <td><input type="checkbox" name="checkbox-actions" class="checkbox-actions" value="<?php echo $val->id?>"></td>
-                                <td style="text-align: center;"><?php echo $val->id?></td>
-                                <td><?php echo $val->nome ? $val->nome : $dataUsers['nome'] ?></td>
-                                <td><?php echo $val->email ? $val->email : $user_data->user_email?></td>
-                                <td><?php echo $colCPFOrCNPJ ?></td>
-                                <td><?php echo $this->status[$val->status]?></td>
-                                <td><?php echo date("d/m/Y H:i", strtotime($val->criado))?></td>
-                                <td><?php echo date("d/m/Y H:i", strtotime($val->modificado))?></td>                                
+                                <td style="text-align: center;" class="column-list"><?php echo $val->id?></td>
+                                <td class="column-list"><?php echo $val->nome ? $val->nome : $dataUsers['nome'] ?></td>
+                                <td class="column-list"><?php echo $val->email ? $val->email : $user_data->user_email?></td>
+                                <td class="column-list"><?php echo $colCPFOrCNPJ ?></td>
+                                <td class="column-list"><?php echo $this->status[$val->status]?></td>
+                                <td class="column-list"><?php echo date("d/m/Y H:i", strtotime($val->criado))?></td>
+                                <td class="column-list"><?php echo date("d/m/Y H:i", strtotime($val->modificado))?></td>                                
                             </tr>
                          <?php endforeach;?>
                         </tbody>
