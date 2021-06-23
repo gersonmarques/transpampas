@@ -1,5 +1,11 @@
 # Release Notes
 
+## 22/06/2021
+  ### FORMS
+    * Adicionado no orçamento e solicitação de transporte um número a mais no campo de cel
+    * Resolvido o erro ao finalizar modo Pessoa Jurídica
+    * Corrigido o problema que no admin não está aparecendo as solicitações
+
 ## 08/06/2021
    ### FORMS
     * Ajustado os dados do E-mail para irem como UpperCase, menos o e-mail do usuário
