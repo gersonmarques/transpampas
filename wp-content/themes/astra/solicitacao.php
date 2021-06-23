@@ -97,7 +97,7 @@ function pessoa_fisica()
                 <strong>acesse a Área do Cliente e atualize os dados.</strong>
             </p>
         </div>    
-        <input type='text' class='input-field inscricao-estadual' name='inscricao-estadual' placeholder='Inscrição Estadual'required />
+        <input type='text' maxLength='14' class='input-field inscricao-estadual' name='inscricao-estadual' placeholder='Inscrição Estadual'required />
         <input type='text' class='input-field' name='razao-social' placeholder='Razão Social' required/>
         <input type='email' class='input-field email' name='e-mail' placeholder='E-mail' required/>
         <div class='group-fields'>
