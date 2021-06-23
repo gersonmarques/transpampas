@@ -100,10 +100,7 @@ function pessoa_fisica()
         <input type='text' maxLength='14' class='input-field inscricao-estadual' name='inscricao-estadual' placeholder='Inscrição Estadual'required />
         <input type='text' class='input-field' name='razao-social' placeholder='Razão Social' required/>
         <input type='email' class='input-field email' name='e-mail' placeholder='E-mail' required/>
-        <div class='group-fields'>
-            <input type='text' class='input-field' name='nome-responsavel' placeholder='Nome do responsável' required/>
-            <input type='text' class='input-field dtnasc-responsavel' name='dtnasc-responsavel' placeholder='Data Nasc. responsável' />
-        </div>
+        <input type='text' class='input-field' name='nome-responsavel' placeholder='Nome do responsável' required/>
         <div class='group-fields'>
             <input type='tel' class='input-field whatsapp' name='whatsapp' placeholder='Whatsapp' required/>
             <input type='tel' class='input-field telefone-fixo ' name='telefone-fixo' placeholder='Tel. Celular' />

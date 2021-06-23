@@ -165,10 +165,6 @@
                 "{$wpdb->prefix}request_transport", 
                 $request_transport
             );
-            // echo '<pre>';
-            // var_dump($wpdb->print_error());
-            // echo '</pre>';
-            // die;
             $id = ($saved) ? $wpdb->insert_id : false;
             if(!$id){
                 return array(
@@ -383,8 +379,7 @@
             'destino_id' => $data['destino_id'],
             'razao_social' => $data['razao-social'], 
             'inscricao_estadual' =>  $data['inscricao-estadual'],
-            'nome_responsavel' => $data['nome-responsavel'], 
-            'data_nasc_responsavel' => $data['data_nasc_responsavel'],
+            'nome_responsavel' => $data['nome-responsavel'],
             'cnpj' => $data['cnpj'],
             'rg' => $data['rg'],
             'email' => $data['e-mail'], 
@@ -546,8 +541,7 @@
                 $html .= !$isOrcamento ? "<p><b>CNPJ: </b> ". strtoupper($data['cnpj']) ."</p>
                     <p><b>Inscrição Estadual: </b> ". strtoupper($data['inscricao_estadual']) ."</p>
                     <p><b>Razão Social: </b> ". strtoupper($data['razao_social']) ."</p>
-                    <p><b>Nome Responsável: </b> ". strtoupper($data['nome_responsavel']) ."</p>
-                    <p><b>Data de Nascimento Responsável: </b> ". strtoupper($data['data_nasc_resposavel']) ."</p>" : "";
+                    <p><b>Nome Responsável: </b> ". strtoupper($data['nome_responsavel']) ."</p>" : "";
                 $html .= "</div>";
                 $html .= !$isOrcamento ? "<div>
                     <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Endereço</H3>

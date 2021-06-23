@@ -141,10 +141,6 @@ function update(){
                     <label for="nome-responsavel-request-transport">Nome Responsável</label>
                     <input type="text" id="nome-responsavel-request-transport" name="nome-responsavel" value="<?php echo $result['nome_responsavel'];?>" disabled/>
                 </div>
-                <div class="group-add-request-transport">
-                    <label for="data-nasc-responsavel-request-transport">Data de Nascimento Responsável</label>
-                    <input type="text" id="data-nasc-responsavel-request-transport" name="data-nasc-responsavel" value="<?php echo $result['data_nasc_responsavel'];?>" disabled/>
-                </div>
             </div>
             <div class="section-data">
                 <h3 style="background-color: #e94442">Endereço</h3>

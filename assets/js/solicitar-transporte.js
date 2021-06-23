@@ -192,7 +192,6 @@ function masks() {
   $('.telefone-fixo').mask('(00) 00000-0000');
 
   $('.cnpj').mask('00.000.000/0000-00');
-  $('.dtnasc-responsavel').mask('00/00/0000');
 
   $('.ano').mask('0000');
   $('.valor-fipe').mask('###.###,00', {
@@ -367,7 +366,6 @@ function getUserInfo(field, iscpf) {
             $('.inscricao-estadual').prop('disabled', false);
             $('input[name="razao-social"]').val("");
             $('input[name="nome-responsavel"]').val("");
-            $('.dtnasc-responsavel').val("");
             $('.cnpj').val("");
           } else {
             if (item.meta_key == "user_dados_pessoais_ie") {
