@@ -5,6 +5,7 @@
     * Adicionado no orçamento e solicitação de transporte um número a mais no campo de cel
     * Resolvido o erro ao finalizar modo Pessoa Jurídica
     * Corrigido o problema que no admin não está aparecendo as solicitações
+    * Removido o campo de Data de nascimento do responsável
 
 ## 08/06/2021
    ### FORMS
