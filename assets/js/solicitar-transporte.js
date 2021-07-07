@@ -167,8 +167,9 @@ $(document).ready(function () {
 
     endereco.empty().append(new Option('Endereço', ''))
     const street = dataCourtyards.filter(item => item.state === state && item.city === this.value)
-    street.forEach(element => {
-      endereco.append(new Option(element.street, element.street))
+    street.forEach(({street, city, number, state, neighborhood}) => {
+      const streetText = `${street}, ${number}, ${neighborhood} - ${city} - ${state}`
+      endereco.append(new Option(streetText, street))
     });
 
     if (street.length > 0) {
