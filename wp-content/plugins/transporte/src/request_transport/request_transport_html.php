@@ -78,12 +78,14 @@ class Request_transport_html{
                                 } else{
                                     $colCPFOrCNPJ = empty($dataUsers['cpf']) ? $dataUsers['cnpj'] : $dataUsers['cpf'];
                                 }
-                                $user_data = get_user_by('id', $val->id_user)
+                                $user_data = get_user_by('id', $val->id_user);
+                                $pf = $val->nome ? $val->nome : $dataUsers['nome'];
+                                $name = empty($val->cpf) ? $val->razao_social : $pf;
                             ?>
                             <tr class="row-list" data-id="<?php echo $val->id?>" style="cursor:pointer">
                                 <td><input type="checkbox" name="checkbox-actions" class="checkbox-actions" value="<?php echo $val->id?>"></td>
                                 <td style="text-align: center;" class="column-list"><?php echo $val->id?></td>
-                                <td class="column-list"><?php echo $val->nome ? $val->nome : $dataUsers['nome'] ?></td>
+                                <td class="column-list"><?php echo $name ?></td>
                                 <td class="column-list"><?php echo $val->email ? $val->email : $user_data->user_email?></td>
                                 <td class="column-list"><?php echo $colCPFOrCNPJ ?></td>
                                 <td class="column-list"><?php echo $this->status[$val->status]?></td>
