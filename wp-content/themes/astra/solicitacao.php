@@ -148,7 +148,7 @@ function origem() {
             </div>
             <div class="form-check">
                 <input class="form-check-input position-static tipo_origem" type="radio" name="origem" id="buscar_veiculo" value="buscar_veiculo">
-                <label class="form-check-label" for="buscar_veiculo">Quero que <strong>busquem</strong> o automóvel no meu endereço</label>
+                <label class="form-check-label" for="buscar_veiculo">Quero <strong>coleta</strong> do automóvel no meu endereço</label>
             </div>
 
             <div id="origem-levar">
@@ -193,7 +193,7 @@ function destino() {
         </div>
         <div class="form-check">
             <input class="form-check-input position-static tipo_destino" type="radio" name="destino" id="levem_veiculo" value="levem_veiculo">
-            <label class="form-check-label" for="levem_veiculo">Quero que <strong>levem</strong> o automóvel no meu endereço</label>
+            <label class="form-check-label" for="levem_veiculo">Quero <strong>entrega</strong> do automóvel no meu endereço</label>
         </div>
 
         <div  id="destino-retirar">

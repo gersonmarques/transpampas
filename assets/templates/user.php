@@ -496,8 +496,8 @@
         $target = $target[0];
         $address = getAddress( $data['endereco_id']);
         $address = $address[0];
-        $levarSource =  $source['levar'] ? 'Vou levar' : 'Quero que busquem';
-        $retirarTarget =  $target['retirar'] ? 'Vou retirar' : 'quero que levem';
+        $levarSource =  $source['levar'] ? 'Vou levar' : 'Quero que coletem';
+        $retirarTarget =  $target['retirar'] ? 'Vou retirar' : 'quero que entreguem';
         $isOrcamento = empty($_POST['orcamento']) ? false : true;
         if(!$isOrcamento){
             $userData = getInfo($request, true);
@@ -569,7 +569,7 @@
                     <p><b>Bairro: </b>" . strtoupper($source['bairro']) . "</p>
                     <p><b>Cidade: </b>" . strtoupper($source['cidade']) . "</p>
                     <p><b>Estado: </b>" . strtoupper($source['estado']) . "</p>
-                    <p><b>Vou levar ou quer que busquem: </b>" . strtoupper($levarSource) . "</p>
+                    <p><b>Vou levar ou quer que coletem: </b>" . strtoupper($levarSource) . "</p>
                 </div>
                 <div>
                     <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Destino</H3>
@@ -579,7 +579,7 @@
                     <p><b>Bairro: </b>" . strtoupper($target['bairro']) . "</p>
                     <p><b>Cidade: </b>" . strtoupper($target['cidade']) . "</p>
                     <p><b>Estado: </b>" . strtoupper($target['estado']) . "</p>
-                    <p><b>Vou retirar ou quer que levem: </b>" . strtoupper($retirarTarget) . "</p>
+                    <p><b>Vou retirar ou quer que entreguem: </b>" . strtoupper($retirarTarget) . "</p>
                 </div>";
                 $html .= !$isOrcamento ? "<div>
                     <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Observação</H3>

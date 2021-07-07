@@ -96,7 +96,6 @@ function pessoa_fisica()
         <input type='email' class='input-field email' name='e-mail' placeholder='E-mail' required/>
         <div class='group-fields'>
             <input type='text' class='input-field' name='nome-responsavel' placeholder='Nome do responsável' required/>
-            <input type='text' class='input-field dtnasc-responsavel' name='dtnasc-responsavel' placeholder='Data Nasc. responsável' />
         </div>
         <div class='group-fields'>
             <input type='tel' class='input-field whatsapp' name='whatsapp' placeholder='Whatsapp' required/>
