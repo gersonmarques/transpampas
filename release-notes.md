@@ -1,5 +1,11 @@
 # Release Notes
 
+## 06/07/2021
+    * Alterado os textos de coleta e entrega de origem e destino
+    * Removido a obrigatoriedade do campo referencia
+    * Alterado o texto do endereço para ter o logradouro, número, bairro, cidade e estado no mesmo campo
+    * Ajustado a coluna nome na tabela de solicitações no admin
+
 ## 22/06/2021
   ### FORMS
     * Adicionado no orçamento e solicitação de transporte um número a mais no campo de cel
