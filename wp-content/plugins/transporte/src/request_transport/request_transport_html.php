@@ -136,18 +136,38 @@ class Request_transport_html{
 
                 <div class="section-data">
                     <h3>Dados pessoais</h3>
-                    <div class="group-add-request-transport">
-                        <label for="nome-request-transport">Nome</label>
-                        <input type="text" id="nome-request-transport" name="nome" value="<?php echo $result['nome'];?>" disabled/>
-                    </div>
-                    <div class="group-add-request-transport">
-                        <label for="cpf-request-transport">CPF</label>
-                        <input type="text" id="cpf-request-transport" name="cpf" value="<?php echo $result['cpf'];?>" disabled/>
-                    </div>
-                    <div class="group-add-request-transport">
-                        <label for="rg-request-transport">RG</label>
-                        <input type="text" id="rg-request-transport" name="rg" value="<?php echo $result['rg'];?>" disabled/>
-                    </div>
+                    <?php if(!empty($result['cpf'])):?>
+                        <div class="group-add-request-transport">
+                            <label for="nome-request-transport">Nome</label>
+                            <input type="text" id="nome-request-transport" name="nome" value="<?php echo $result['nome'];?>" disabled/>
+                        </div>
+                        <div class="group-add-request-transport">
+                            <label for="cpf-request-transport">CPF</label>
+                            <input type="text" id="cpf-request-transport" name="cpf" value="<?php echo $result['cpf'];?>" disabled/>
+                        </div>
+                        <div class="group-add-request-transport">
+                            <label for="rg-request-transport">RG</label>
+                            <input type="text" id="rg-request-transport" name="rg" value="<?php echo $result['rg'];?>" disabled/>
+                        </div>
+                    <?php endif; ?>
+                    <?php if(!empty($result['cnpj'])):?>
+                        <div class="group-add-request-transport">
+                            <label for="cnpj-request-transport">CNPJ</label>
+                            <input type="text" id="cnpj-request-transport" name="cnpj" value="<?php echo $result['cnpj'];?>" disabled/>
+                        </div>
+                        <div class="group-add-request-transport">
+                            <label for="inscricao-estadual-request-transport">Inscrição Estadual</label>
+                            <input type="text" id="inscricao-estadual-request-transport" name="inscricao-estadual" value="<?php echo $result['inscricao_estadual'];?>" disabled/>
+                        </div>
+                        <div class="group-add-request-transport">
+                            <label for="razao-social-request-transport">Razão Social</label>
+                            <input type="text" id="razao-social-request-transport" name="razao-social" value="<?php echo $result['razao_social'];?>" disabled/>
+                        </div>
+                        <div class="group-add-request-transport">
+                            <label for="nome-responsavel-request-transport">Nome Responsável</label>
+                            <input type="text" id="nome-responsavel-request-transport" name="nome-responsavel" value="<?php echo $result['nome_responsavel'];?>" disabled/>
+                        </div>
+                    <?php endif; ?>  
                     <div class="group-add-request-transport">
                         <label for="email-request-transport">E-mail</label>
                         <input type="text" id="email-request-transport" name="email" value="<?php echo $result['email'];?>" disabled/>
@@ -159,22 +179,6 @@ class Request_transport_html{
                     <div class="group-add-request-transport">
                         <label for="telefone-fixo-request-transport">Telefone Fixo</label>
                         <input type="text" id="telefone-fixo-request-transport" name="telefone-fixo" value="<?php echo $result['telefone_fixo'];?>" disabled/>
-                    </div>
-                    <div class="group-add-request-transport">
-                        <label for="cnpj-request-transport">CNPJ</label>
-                        <input type="text" id="cnpj-request-transport" name="cnpj" value="<?php echo $result['cnpj'];?>" disabled/>
-                    </div>
-                    <div class="group-add-request-transport">
-                        <label for="inscricao-estadual-request-transport">Inscrição Estadual</label>
-                        <input type="text" id="inscricao-estadual-request-transport" name="inscricao-estadual" value="<?php echo $result['inscricao_estadual'];?>" disabled/>
-                    </div>
-                    <div class="group-add-request-transport">
-                        <label for="razao-social-request-transport">Razão Social</label>
-                        <input type="text" id="razao-social-request-transport" name="razao-social" value="<?php echo $result['razao_social'];?>" disabled/>
-                    </div>
-                    <div class="group-add-request-transport">
-                        <label for="nome-responsavel-request-transport">Nome Responsável</label>
-                        <input type="text" id="nome-responsavel-request-transport" name="nome-responsavel" value="<?php echo $result['nome_responsavel'];?>" disabled/>
                     </div>
                 </div>
 

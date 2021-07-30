@@ -48,11 +48,11 @@ class Courtyards{
                 'neighborhood' => $neighborhood,
                 'city'         => $city,
                 'state'        => $state,
-                'reference'    => $reference,
             );
             
             if(!$this->validateFields($sql))
                 return false;
+            $sql['reference'] = $reference;                
             $table = $wpdb->prefix . $this->table;
             echo json_encode($wpdb->insert($table, $sql));
         }catch(Exception $e){
@@ -111,11 +111,11 @@ class Courtyards{
                 'neighborhood' => $neighborhood,
                 'city'         => $city,
                 'state'        => $state,
-                'reference'    => $reference,
             );
             $where = array('id' => $_POST['id']);
             if(!$this->validateFields($sql))
                 return false;
+            $sql['reference'] = $reference;
             echo  json_encode($wpdb->update($wpdb->prefix . $this->table, $sql, $where));
         }catch(Exception $e){
             echo json_encode($e->getMessage());

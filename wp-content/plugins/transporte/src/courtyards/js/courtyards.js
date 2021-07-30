@@ -10,7 +10,6 @@ var Courtyards = function () {
       neighborhood: jQuery('#neighborhood-courtyards').val(),
       city: jQuery('#city-courtyards').val(),
       state: jQuery('#state-courtyards').val(),
-      reference: jQuery('#reference-courtyards').val(),
     };
 
     var validation = new Validation();
@@ -172,7 +171,6 @@ var Courtyards = function () {
       neighborhood: jQuery('#neighborhood-courtyards').val(),
       city: jQuery('#city-courtyards').val(),
       state: jQuery('#state-courtyards').val(),
-      reference: jQuery('#reference-courtyards').val(),
     };
 
 
@@ -185,6 +183,9 @@ var Courtyards = function () {
       jQuery('.notice > p > strong').text("Campos obrigatórios não foram preenchidos corretamente.");
       jQuery('.notice').show();
       return false;
+    }
+    if (jQuery('#reference-courtyards').val() != "" && jQuery('#reference-courtyards').val() != "undefined" && jQuery('#reference-courtyards').val() != null) {
+      arrayFields['reference'] = jQuery('#reference-courtyards').val();
     }
     arrayFields['description'] = jQuery('#description-courtyards').val();
     var url = '../wp-content/plugins/transporte/src/courtyards/courtyards.php';

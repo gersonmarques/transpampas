@@ -373,6 +373,11 @@ function getUserInfo(field, iscpf) {
               $('.inscricao-estadual').val(item.meta_value);
               $('.inscricao-estadual').prop('disabled', true);
             }
+
+            if (item.meta_key == "user_dados_pessoais_razao_social") {
+              $('.razao-social').val(item.meta_value);
+              $('.razao-social').prop('disabled', true);
+            }
           }
 
           if (item.meta_key == "user_contato_whatsapp") {
