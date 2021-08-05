@@ -1,5 +1,16 @@
 # Release Notes
 
+## 04/08/2021
+    * Corrigido o problema de o campo e-mail não vir no menu de solicitações
+    * Ajustado o campo nome_reponsável para olhar para nome
+
+## 30/07/2021
+    * Removido a obrigatoriedade do campo referencia
+    * Populado o campo Razão Social
+    * Criado um condição para aparacer somente os campos de PF/PJ no email
+    * Iniciando os formulários com o option `estado` vindo selecionado
+    * Criado um condição para aparacer somente os campos de PF/PJ na consulta de solicitações no ADMIN
+
 ## 06/07/2021
     * Alterado os textos de coleta e entrega de origem e destino
     * Removido a obrigatoriedade do campo referencia
