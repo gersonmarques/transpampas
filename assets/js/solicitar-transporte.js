@@ -378,6 +378,9 @@ function getUserInfo(field, iscpf) {
               $('.razao-social').val(item.meta_value);
               $('.razao-social').prop('disabled', true);
             }
+
+            $('input[name="nome-responsavel"]').val(item.display_name);
+            $('input[name="nome-responsavel"]').prop('disabled', true);
           }
 
           if (item.meta_key == "user_contato_whatsapp") {

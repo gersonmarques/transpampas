@@ -122,28 +122,20 @@ class RequestTransport {
             $response =  $wpdb->get_results($query);
             $arrayReturn = array();
             $keys = [
-                'cpf' => 'user_dados_pessoais_cpf',
                 'rg' => 'user_dados_pessoais_rg',
                 'data_nasc_responsavel' => 'user_dados_pessoais_data_de_nascimento',
-                'cnpj' => 'user_dados_pessoais_cnpj',
                 'inscricao_estadual' => 'user_dados_pessoais_ie',
-                'email' => 'email',
                 'whatsapp' => 'user_contato_whatsapp',
                 'telefone_fixo' =>'user_contato_telefone_fixo',
                 'nome' => 'first_name'
             ];
+            $userMeta = get_user_meta($id);
+            foreach ($keys as $k => $v) {
+                $arrayReturn[$k] = $userMeta[$v][0];
+            }
             $user_data = get_user_by('id', $id);
-            foreach ($response as $key => $value) {
-                foreach ($keys as $k => $v) {
-                    if($v === $value->meta_key){
-                        if($k === 'email') {
-                            $arrayReturn[$k] = empty($value->meta_value) ? $user_data->user_email : $value->meta_value;
-                        }else{
-                            $arrayReturn[$k] = $value->meta_value;
-                        }
-                    }
-                }
-            } 
+            $arrayReturn['email'] = $user_data->user_email;
+
             return $arrayReturn;
         } catch(Exeption $e) {
             return array();

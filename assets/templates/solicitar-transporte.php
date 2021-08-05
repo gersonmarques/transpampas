@@ -237,7 +237,7 @@ function documentos()
 
 function getUfs() 
 { ?>
-    <option value="">Estado</option>
+    <option value="" selected>Estado</option>
     <option value="AC">Acre</option>
     <option value="AL">Alagoas</option>
     <option value="AP">Amapá</option>

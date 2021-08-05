@@ -139,7 +139,7 @@ function update(){
                 </div>
                 <div class="group-add-request-transport">
                     <label for="nome-responsavel-request-transport">Nome Responsável</label>
-                    <input type="text" id="nome-responsavel-request-transport" name="nome-responsavel" value="<?php echo $result['nome_responsavel'];?>" disabled/>
+                    <input type="text" id="nome-responsavel-request-transport" name="nome-responsavel" value="<?php echo empty($result['nome']) ? $result['nome_responsavel'] : $result['nome'];?>" disabled/>
                 </div>
             </div>
             <div class="section-data">
