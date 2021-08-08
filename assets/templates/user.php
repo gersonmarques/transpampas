@@ -179,7 +179,7 @@
             }
             
             $layoutEmail = layoutEmail($request_transport, $request);
-            sendMail($layoutEmail);
+            sendMail($layoutEmail, $request_transport['nome']);
 
             return array(
                 'status' => true,
@@ -531,17 +531,20 @@
         $html .= $isOrcamento ? "<h2>Dados da solicitação de orçamento</h2>" : "<h2>Dados da solicitação de transporte</h2>";
         $html .= "<div class='content-email'>
                 <div>
-                    <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Dados Pessoais</H3>
-                    <p><b>Nome: </b> ". strtoupper($data['nome']) ."</p>";
-                $html .= !$isOrcamento ? "<p><b>CPF: </b> ". strtoupper($data['cpf']) ."</p>
-                    <p><b>RG: </b> ". strtoupper($data['rg']) ."</p>" : ""; 
+                    <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Dados Pessoais</H3>";
+                if(!empty($data['cpf'])){
+                    $html .= "<p><b>Nome: </b> ". strtoupper($data['nome']) ."</p>";
+                    $html .= !$isOrcamento ? "<p><b>CPF: </b> ". strtoupper($data['cpf']) ."</p>
+                        <p><b>RG: </b> ". strtoupper($data['rg']) ."</p>" : ""; 
+                }else {
+                    $html .= !$isOrcamento ? "<p><b>CNPJ: </b> ". strtoupper($data['cnpj']) ."</p>
+                        <p><b>Inscrição Estadual: </b> ". strtoupper($data['inscricao_estadual']) ."</p>
+                        <p><b>Razão Social: </b> ". strtoupper($data['razao_social']) ."</p>
+                        <p><b>Nome Responsável: </b> ". empty($data['nome_responsavel']) ? strtoupper($data['nome']) : strtoupper($data['nome_responsavel']) ."</p>" : "";
+                }
                 $html .= "<p><b>E-Mail: </b> ". $data['email'] ."</p>
                     <p><b>Whatsapp: </b> ". strtoupper($data['whatsapp']) ."</p>
                     <p><b>Telefone Fixo: </b> ". strtoupper($data['telefone_fixo']) ."</p>";
-                $html .= !$isOrcamento ? "<p><b>CNPJ: </b> ". strtoupper($data['cnpj']) ."</p>
-                    <p><b>Inscrição Estadual: </b> ". strtoupper($data['inscricao_estadual']) ."</p>
-                    <p><b>Razão Social: </b> ". strtoupper($data['razao_social']) ."</p>
-                    <p><b>Nome Responsável: </b> ". strtoupper($data['nome_responsavel']) ."</p>" : "";
                 $html .= "</div>";
                 $html .= !$isOrcamento ? "<div>
                     <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Endereço</H3>
@@ -590,14 +593,14 @@
     return $html;    
 }
 
-    function sendMail($body) {
+    function sendMail($body , $nome) {
         require_once ABSPATH . WPINC . '/PHPMailer/PHPMailer.php';
         require_once ABSPATH . WPINC . '/PHPMailer/SMTP.php';
         require_once ABSPATH . WPINC . '/PHPMailer/Exception.php';
         $isOrcamento = empty($_POST['orcamento']) ? false : true;
         $emails_to = get_post_meta($_POST['id'], 'email_solicitacoes', true);
         $to = explode(";", $emails_to);
-        $subject = !$isOrcamento ? "Solicitação Transporte de: {$_POST['nome']}" : "Solicitação Orçamento de: {$_POST['nome']}";
+        $subject = !$isOrcamento ? "Solicitação Transporte de: {$nome}" : "Solicitação Orçamento de: {$nome}";
         $cnh_rg = $_FILES['cnh_rg'];
         $crlv = $_FILES['crlv'];
      
