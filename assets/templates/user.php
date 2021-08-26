@@ -179,7 +179,8 @@
             }
             
             $layoutEmail = layoutEmail($request_transport, $request);
-            sendMail($layoutEmail, $request_transport['nome']);
+            $nome = empty($request_transport['nome']) ? $request_transport['nome_responsavel'] : $request_transport['nome'];
+            sendMail($layoutEmail, $nome);
 
             return array(
                 'status' => true,
@@ -235,7 +236,7 @@
             $saved = $wpdb->insert( 
                 "{$wpdb->prefix}request_transport_target", 
                 array( 
-                    'cep' => $courtyards["cep"], 
+                    'cep' => str_replace('-','',$courtyards['cep']), 
                     'estado' => $courtyards["estado"], 
                     'cidade' => $courtyards["cidade"], 
                     'bairro' => $courtyards["bairro"], 
@@ -268,7 +269,7 @@
             $saved = $wpdb->insert(
                 "{$wpdb->prefix}request_transport_address",
                 array( 
-                    'cep' => $address['cep'],
+                    'cep' => str_replace('-','',$address['cep']),
                     'estado' => $address['estado'],
                     'cidade' => $address['cidade'],
                     'bairro' => $address['bairro'],
@@ -502,8 +503,8 @@
         if(!$isOrcamento){
             $userData = getInfo($request, true);
         }
-        
-        if(!$isOrcamento && $_POST['hasUser']) {
+       
+        if(!$isOrcamento && $_POST['hasUser'] === "true") {
             $aux = array();
             $aux['nome'] = $userData['full_name'];
             foreach ($userData as $key => $value) {
@@ -540,7 +541,7 @@
                     $html .= !$isOrcamento ? "<p><b>CNPJ: </b> ". strtoupper($data['cnpj']) ."</p>
                         <p><b>Inscrição Estadual: </b> ". strtoupper($data['inscricao_estadual']) ."</p>
                         <p><b>Razão Social: </b> ". strtoupper($data['razao_social']) ."</p>
-                        <p><b>Nome Responsável: </b> ". empty($data['nome_responsavel']) ? strtoupper($data['nome']) : strtoupper($data['nome_responsavel']) ."</p>" : "";
+                        <p><b>Nome Responsável: </b> ". (empty($data['nome_responsavel']) ? strtoupper($data['nome']) : strtoupper($data['nome_responsavel'])) ."</p>" : "";
                 }
                 $html .= "<p><b>E-Mail: </b> ". $data['email'] ."</p>
                     <p><b>Whatsapp: </b> ". strtoupper($data['whatsapp']) ."</p>

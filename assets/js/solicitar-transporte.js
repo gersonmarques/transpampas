@@ -453,6 +453,7 @@ function getState(el, data) {
   })
   el.empty()
   el.append(state)
+  el.children().first().prop('selected', true)
 }
 
 function saveData(data) {
