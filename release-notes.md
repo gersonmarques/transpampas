@@ -1,5 +1,9 @@
 # Release Notes
 
+## 25/08/2021
+    * Corrigido o problema de não aparecer alguns dados no email
+    * Iniciando os formulários com o option `estado` vindo selecionado
+
 ## 04/08/2021
     * Corrigido o problema de o campo e-mail não vir no menu de solicitações
     * Ajustado o campo nome_reponsável para olhar para nome
