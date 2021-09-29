@@ -534,60 +534,60 @@
                 <div>
                     <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Dados Pessoais</H3>";
                 if(!empty($data['cpf'])){
-                    $html .= "<p><b>Nome: </b> ". strtoupper($data['nome']) ."</p>";
-                    $html .= !$isOrcamento ? "<p><b>CPF: </b> ". strtoupper($data['cpf']) ."</p>
-                        <p><b>RG: </b> ". strtoupper($data['rg']) ."</p>" : ""; 
+                    $html .= "<p><b>Nome: </b> ". mb_strtoupper($data['nome']) ."</p>";
+                    $html .= !$isOrcamento ? "<p><b>CPF: </b> ". mb_strtoupper($data['cpf']) ."</p>
+                        <p><b>RG: </b> ". mb_strtoupper($data['rg']) ."</p>" : ""; 
                 }else {
-                    $html .= !$isOrcamento ? "<p><b>CNPJ: </b> ". strtoupper($data['cnpj']) ."</p>
-                        <p><b>Inscrição Estadual: </b> ". strtoupper($data['inscricao_estadual']) ."</p>
-                        <p><b>Razão Social: </b> ". strtoupper($data['razao_social']) ."</p>
-                        <p><b>Nome Responsável: </b> ". (empty($data['nome_responsavel']) ? strtoupper($data['nome']) : strtoupper($data['nome_responsavel'])) ."</p>" : "";
+                    $html .= !$isOrcamento ? "<p><b>CNPJ: </b> ". mb_strtoupper($data['cnpj']) ."</p>
+                        <p><b>Inscrição Estadual: </b> ". mb_strtoupper($data['inscricao_estadual']) ."</p>
+                        <p><b>Razão Social: </b> ". mb_strtoupper($data['razao_social']) ."</p>
+                        <p><b>Nome Responsável: </b> ". (empty($data['nome_responsavel']) ? mb_strtoupper($data['nome']) : mb_strtoupper($data['nome_responsavel'])) ."</p>" : "";
                 }
                 $html .= "<p><b>E-Mail: </b> ". $data['email'] ."</p>
-                    <p><b>Whatsapp: </b> ". strtoupper($data['whatsapp']) ."</p>
-                    <p><b>Telefone Fixo: </b> ". strtoupper($data['telefone_fixo']) ."</p>";
+                    <p><b>Whatsapp: </b> ". mb_strtoupper($data['whatsapp']) ."</p>
+                    <p><b>Telefone Fixo: </b> ". mb_strtoupper($data['telefone_fixo']) ."</p>";
                 $html .= "</div>";
                 $html .= !$isOrcamento ? "<div>
                     <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Endereço</H3>
-                    <p><b>CEP: </b> " . strtoupper($address['cep']) . "</p>
-                    <p><b>Rua: </b> " . strtoupper($address['endereco']) . "</p>
-                    <p><b>Número: </b> " . strtoupper($address['numero']) . "</p>
-                    <p><b>Bairro: </b> " . strtoupper($address['bairro']) . "</p>
-                    <p><b>Cidade: </b> " . strtoupper($address['cidade']) . "</p>
-                    <p><b>Estado: </b> " . strtoupper($address['estado']) . "</p>
+                    <p><b>CEP: </b> " . mb_strtoupper($address['cep']) . "</p>
+                    <p><b>Rua: </b> " . mb_strtoupper($address['endereco']) . "</p>
+                    <p><b>Número: </b> " . mb_strtoupper($address['numero']) . "</p>
+                    <p><b>Bairro: </b> " . mb_strtoupper($address['bairro']) . "</p>
+                    <p><b>Cidade: </b> " . mb_strtoupper($address['cidade']) . "</p>
+                    <p><b>Estado: </b> " . mb_strtoupper($address['estado']) . "</p>
                 </div>" : "";
                 $html .= "<div>
                     <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Dados do veículo</H3>
-                    <p><b>Modelo veículo: </b>". strtoupper($data['modelo_veiculo']) ."</p>
-                    <p><b>Ano veículo: </b>". strtoupper($data['ano_veiculo']) ."</p>
-                    <p><b>Fipe: </b>". strtoupper($data['fipe']) ."</p>
-                    <p><b>Situação veículo: </b>". strtoupper($data['situacao_veiculo']) ."</p>
-                    <p><b>Cor: </b>". strtoupper($data['cor']) ."</p>
-                    <p><b>Placa: </b>". strtoupper($data['placa']) ."</p>
+                    <p><b>Modelo veículo: </b>". mb_strtoupper($data['modelo_veiculo']) ."</p>
+                    <p><b>Ano veículo: </b>". mb_strtoupper($data['ano_veiculo']) ."</p>
+                    <p><b>Fipe: </b>". mb_strtoupper($data['fipe']) ."</p>
+                    <p><b>Situação veículo: </b>". mb_strtoupper($data['situacao_veiculo']) ."</p>
+                    <p><b>Cor: </b>". mb_strtoupper($data['cor']) ."</p>
+                    <p><b>Placa: </b>". mb_strtoupper($data['placa']) ."</p>
                 </div>
                 <div>
                     <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Origem</H3>
-                    <p><b>CEP: </b>" . strtoupper($source['cep']) . "</p>
-                    <p><b>Rua: </b>" . strtoupper($source['endereco']) . "</p>
-                    <p><b>Número: </b>" . strtoupper($source['numero']) . "</p>
-                    <p><b>Bairro: </b>" . strtoupper($source['bairro']) . "</p>
-                    <p><b>Cidade: </b>" . strtoupper($source['cidade']) . "</p>
-                    <p><b>Estado: </b>" . strtoupper($source['estado']) . "</p>
-                    <p>" . strtoupper($levarSource) . "</p>
+                    <p><b>CEP: </b>" . mb_strtoupper($source['cep']) . "</p>
+                    <p><b>Rua: </b>" . mb_strtoupper($source['endereco']) . "</p>
+                    <p><b>Número: </b>" . mb_strtoupper($source['numero']) . "</p>
+                    <p><b>Bairro: </b>" . mb_strtoupper($source['bairro']) . "</p>
+                    <p><b>Cidade: </b>" . mb_strtoupper($source['cidade']) . "</p>
+                    <p><b>Estado: </b>" . mb_strtoupper($source['estado']) . "</p>
+                    <p>" . mb_strtoupper($levarSource, 'UTF-8') . "</p>
                 </div>
                 <div>
                     <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Destino</H3>
-                    <p><b>CEP: </b>" . strtoupper($target['cep']) . "</p>
-                    <p><b>Rua: </b>" . strtoupper($target['endereco']) . "</p>
-                    <p><b>Número: </b>" . strtoupper($target['numero']) . "</p>
-                    <p><b>Bairro: </b>" . strtoupper($target['bairro']) . "</p>
-                    <p><b>Cidade: </b>" . strtoupper($target['cidade']) . "</p>
-                    <p><b>Estado: </b>" . strtoupper($target['estado']) . "</p>
-                    <p>" . strtoupper($retirarTarget) . "</p>
+                    <p><b>CEP: </b>" . mb_strtoupper($target['cep']) . "</p>
+                    <p><b>Rua: </b>" . mb_strtoupper($target['endereco']) . "</p>
+                    <p><b>Número: </b>" . mb_strtoupper($target['numero']) . "</p>
+                    <p><b>Bairro: </b>" . mb_strtoupper($target['bairro']) . "</p>
+                    <p><b>Cidade: </b>" . mb_strtoupper($target['cidade']) . "</p>
+                    <p><b>Estado: </b>" . mb_strtoupper($target['estado']) . "</p>
+                    <p>" . mb_strtoupper($retirarTarget, 'UTF-8') . "</p>
                 </div>";
                 $html .= !$isOrcamento ? "<div>
                     <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Observação</H3>
-                    <p>" . strtoupper($data['observacao']) ."</p>
+                    <p>" . mb_strtoupper($data['observacao']) ."</p>
                 </div>" : "";
             $html .= "</div>
         </div>";
