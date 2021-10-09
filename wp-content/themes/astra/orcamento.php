@@ -58,7 +58,7 @@ function pessoa_fisica()
         <input type='email' class='input-field email' name='e-mail' placeholder='E-mail' required/>
         <div class='group-fields'>
             <input type='tel' class='input-field whatsapp' name='whatsapp' placeholder='Whatsapp' required/>
-            <input type='tel' class='input-field telefone-fixo ' name='telefone-fixo' placeholder='Tel. Celular' />
+            <input type='tel' class='input-field telefone-fixo ' name='telefone-fixo' placeholder='Telefone' />
         </div>
     </div>
 <?php

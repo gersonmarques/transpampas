@@ -545,7 +545,7 @@
                 }
                 $html .= "<p><b>E-Mail: </b> ". $data['email'] ."</p>
                     <p><b>Whatsapp: </b> ". mb_strtoupper($data['whatsapp']) ."</p>
-                    <p><b>Telefone Fixo: </b> ". mb_strtoupper($data['telefone_fixo']) ."</p>";
+                    <p><b>Telefone: </b> ". mb_strtoupper($data['telefone_fixo']) ."</p>";
                 $html .= "</div>";
                 $html .= !$isOrcamento ? "<div>
                     <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Endereço</H3>

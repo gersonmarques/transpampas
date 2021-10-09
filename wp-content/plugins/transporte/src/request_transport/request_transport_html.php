@@ -177,7 +177,7 @@ class Request_transport_html{
                         <input type="text" id="whatsapp-request-transport" name="whatsapp" value="<?php echo $result['whatsapp'];?>" disabled/>
                     </div>
                     <div class="group-add-request-transport">
-                        <label for="telefone-fixo-request-transport">Telefone Fixo</label>
+                        <label for="telefone-fixo-request-transport">Telefone</label>
                         <input type="text" id="telefone-fixo-request-transport" name="telefone-fixo" value="<?php echo $result['telefone_fixo'];?>" disabled/>
                     </div>
                 </div>
