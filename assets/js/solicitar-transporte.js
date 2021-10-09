@@ -510,21 +510,23 @@ function getUserMeta(id) {
     data: { id },
     async: false,
     success: function (response) {
-      $('#endereco-user-buscar .cep').val(response.user_endereco_cep).prop('disabled', true);
-      $('#endereco-user-buscar .cidade').val(response.user_endereco_cidade).prop('disabled', true);
-      $('#endereco-user-buscar .endereco').val(response.user_endereco_rua).prop('disabled', true);
-      $('#endereco-user-buscar .numero').val(response.user_endereco_numero).prop('disabled', true);
-      $('#endereco-user-buscar .bairro').val(response.user_endereco_bairro).prop('disabled', true);
-      $('#endereco-user-buscar').find(`.estado option[value=${response.user_endereco_estado}]`).attr('selected', 'selected');
-      $('#endereco-user-buscar .estado').prop('disabled', true);
+      const parent = pessoaFisica ? '#pessoa_fisica_wrapper' : '#pessoa_juridica_wrapper';
+
+      $(`${parent} .endereco-user-buscar .cep`).val(response.user_endereco_cep).prop('disabled', true);
+      $(`${parent} .endereco-user-buscar .cidade`).val(response.user_endereco_cidade).prop('disabled', true);
+      $(`${parent} .endereco-user-buscar .endereco`).val(response.user_endereco_rua).prop('disabled', true);
+      $(`${parent} .endereco-user-buscar .numero`).val(response.user_endereco_numero).prop('disabled', true);
+      $(`${parent} .endereco-user-buscar .bairro`).val(response.user_endereco_bairro).prop('disabled', true);
+      $(`${parent} .endereco-user-buscar`).find(`.estado option[value=${response.user_endereco_estado}]`).attr('selected', 'selected');
+      $(`${parent} .endereco-user-buscar .estado`).prop('disabled', true);
     },
     fail: function (response) {
-      $('#endereco-user-buscar .cep').val('').prop('disabled', false);
-      $('#endereco-user-buscar .cidade').val('').prop('disabled', false);
-      $('#endereco-user-buscar .endereco').val('').prop('disabled', false);
-      $('#endereco-user-buscar .numero').val('').prop('disabled', false);
-      $('#endereco-user-buscar .bairro').val('').prop('disabled', false);
-      $('#endereco-user-buscar .estado').prop('disabled', false);
+      $(`${parent} .endereco-user-buscar .cep`).val('').prop('disabled', false);
+      $(`${parent} .endereco-user-buscar .cidade`).val('').prop('disabled', false);
+      $(`${parent} .endereco-user-buscar .endereco`).val('').prop('disabled', false);
+      $(`${parent} .endereco-user-buscar .numero`).val('').prop('disabled', false);
+      $(`${parent} .endereco-user-buscar .bairro`).val('').prop('disabled', false);
+      $(`${parent} .endereco-user-buscar .estado`).prop('disabled', false);
 
       return []
     },

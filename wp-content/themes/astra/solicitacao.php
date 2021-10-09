@@ -232,7 +232,7 @@ function destino() {
 function endereco() { ?>
     <div class='endereco-user section-data'>
         <p class='title-section'>Dados de Endereço</p>
-        <div id="endereco-user-buscar">
+        <div class="endereco-user-buscar">
             <div class='group-fields'>
                 <input type='tel' class='input-field cep' name='endereco-user-cep' placeholder='CEP' required />
                 <select type='text' class='input-field estado' name='endereco-user-estado' placeholder='Estado' required>
