@@ -532,13 +532,14 @@
         $html = "<div id='email-data'class='content-email-data'>";
         $html .= $isOrcamento ? "<h2>Dados da solicitação de orçamento</h2>" : "<h2>Dados da solicitação de transporte</h2>";
         $html .= "<div class='content-email'>
-                <div>
-                    <H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Dados Pessoais</H3>";
+                <div>";
                 if(!empty($data['cpf'])){
+                    $html .= "<H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Dados Pessoais</H3>";
                     $html .= "<p><b>Nome: </b> ". mb_strtoupper($data['nome']) ."</p>";
                     $html .= !$isOrcamento ? "<p><b>CPF: </b> ". mb_strtoupper($data['cpf']) ."</p>
-                        <p><b>RG: </b> ". mb_strtoupper($data['rg']) ."</p>" : ""; 
+                    <p><b>RG: </b> ". mb_strtoupper($data['rg']) ."</p>" : ""; 
                 }else {
+                    $html .= "<H3 style='background: #007cba; padding: 15px; color: #FFF;border-radius: 2px;text-align: center;'>Dados da Empresa</H3>";
                     $html .= !$isOrcamento ? "<p><b>CNPJ: </b> ". mb_strtoupper($data['cnpj']) ."</p>
                         <p><b>Inscrição Estadual: </b> ". mb_strtoupper($data['inscricao_estadual']) ."</p>
                         <p><b>Razão Social: </b> ". mb_strtoupper($data['razao_social']) ."</p>
