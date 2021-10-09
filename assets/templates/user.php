@@ -513,8 +513,7 @@
                 if(isset($value["meta_key"]) && $value["meta_key"] === "user_contato_whatsapp") $aux['whatsapp'] = $value['meta_value'];
                 if(!empty($value["email"])) $aux['email'] = $value['email'];
                 if(isset($value["meta_key"]) && $value["meta_key"] === "user_contato_telefone_fixo") $aux['telefone_fixo'] = $value['meta_value'];
-                if(isset($value["meta_key"]) && $value["meta_key"] === "user_dados_pessoais_rg") $aux['rg'] = $value['meta_value'];
-                if(isset($value["meta_key"]) && $value["meta_key"] === "user_dados_pessoais_rg") $aux['rg'] = $value['meta_value'];
+                if(isset($value["meta_key"]) && $value["meta_key"] === "user_dados_pessoais_razao_social") $aux['razao_social'] = $value['meta_value'];
                 if(isset($value["meta_key"]) && $value["meta_key"] === "user_dados_pessoais_rg") $aux['rg'] = $value['meta_value'];
             }
             $modelVar = array(
@@ -523,7 +522,9 @@
                 'rg' => $aux['rg'] ? $aux['rg'] : $data['rg'],
                 'nome' => $aux['nome'] ? $aux['nome'] : $data['nome'],
                 'email' => $aux['email'] ? $aux['email'] : $data['email'], 
-                'whatsapp' => $aux['whatsapp'] ? $aux['whatsapp'] : $data['whatsapp'], 
+                'whatsapp' => $aux['whatsapp'] ? $aux['whatsapp'] : $data['whatsapp'],
+                'razao_social' => $aux['razao_social'] ? $aux['razao_social'] : $data['razao_social'],
+                'inscricao_estadual' => $aux['inscricao_estadual'] ? $aux['inscricao_estadual'] : $data['inscricao_estadual'],
                 'telefone_fixo' => $aux['telefone_fixo'] ? $aux['telefone_fixo'] : $data['telefone_fixo'],
             ); 
             $data = array_merge($data, $modelVar);

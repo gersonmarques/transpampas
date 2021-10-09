@@ -81,6 +81,8 @@ class Request_transport_html{
                                 $user_data = get_user_by('id', $val->id_user);
                                 $pf = $val->nome ? $val->nome : $dataUsers['nome'];
                                 $name = empty($val->cpf) ? $val->razao_social : $pf;
+
+                                $name = (empty($name) && !empty($val->id_user) ) ? $dataUsers['nome'] : $name;
                             ?>
                             <tr class="row-list" data-id="<?php echo $val->id?>" style="cursor:pointer">
                                 <td><input type="checkbox" name="checkbox-actions" class="checkbox-actions" value="<?php echo $val->id?>"></td>

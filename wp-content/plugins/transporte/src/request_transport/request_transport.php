@@ -125,6 +125,7 @@ class RequestTransport {
                 'rg' => 'user_dados_pessoais_rg',
                 'data_nasc_responsavel' => 'user_dados_pessoais_data_de_nascimento',
                 'inscricao_estadual' => 'user_dados_pessoais_ie',
+                'razao_social' => 'user_dados_pessoais_razao_social',
                 'whatsapp' => 'user_contato_whatsapp',
                 'telefone_fixo' =>'user_contato_telefone_fixo',
                 'nome' => 'first_name'
