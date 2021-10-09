@@ -180,6 +180,7 @@
             
             $layoutEmail = layoutEmail($request_transport, $request);
             $nome = empty($request_transport['nome']) ? $request_transport['nome_responsavel'] : $request_transport['nome'];
+            $nome = !empty($nome) ? $nome : get_user_meta($request_transport['id_user'], 'first_name', true);
             sendMail($layoutEmail, $nome);
 
             return array(
