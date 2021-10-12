@@ -85,9 +85,12 @@ $(document).ready(function () {
   $(document).on('change', '#origem-levar select[name="origem-estado"], #destino-retirar select[name="destino-estado"]', function () {
     const cidade = $(this).siblings('.cidade')
     cidade.empty().append(new Option('Cidade', ''))
-    const cities = dataCourtyards.filter(item => item.state === this.value)
+    const citiesArr = dataCourtyards.filter(item => item.state === this.value)
+    let cities = citiesArr.map((el, i) => el.city)
+    cities = cities.filter((city,i) => cities.indexOf(city) === i)
+
     cities.forEach(element => {
-      cidade.append(new Option(element.city, element.city))
+      cidade.append(new Option(element, element))
     });
 
     if (cities.length > 0) {

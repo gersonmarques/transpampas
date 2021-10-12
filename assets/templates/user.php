@@ -544,7 +544,8 @@
                     $html .= !$isOrcamento ? "<p><b>CNPJ: </b> ". mb_strtoupper($data['cnpj']) ."</p>
                         <p><b>Inscrição Estadual: </b> ". mb_strtoupper($data['inscricao_estadual']) ."</p>
                         <p><b>Razão Social: </b> ". mb_strtoupper($data['razao_social']) ."</p>
-                        <p><b>Nome Responsável: </b> ". (empty($data['nome_responsavel']) ? mb_strtoupper($data['nome']) : mb_strtoupper($data['nome_responsavel'])) ."</p>" : "";
+                        <p><b>Nome Responsável: </b> ". (empty($data['nome_responsavel']) ? mb_strtoupper($data['nome']) : mb_strtoupper($data['nome_responsavel'])) ."</p>" 
+                        : "<p><b>Nome: </b> ". mb_strtoupper($data['nome']) ."</p>";
                 }
                 $html .= "<p><b>E-Mail: </b> ". $data['email'] ."</p>
                     <p><b>Whatsapp: </b> ". mb_strtoupper($data['whatsapp']) ."</p>
