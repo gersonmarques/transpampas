@@ -1,5 +1,15 @@
 # Release Notes
 
+## 11/10/2021
+    * Corrigido o problema de não aparecer alguns dados no email do orçamento
+    * Corrigido a duplicidade do campo da cidade
+
+## 09/10/2021
+    * Corrigido o problema de não aparecer alguns dados no email da solicitação de transporte
+    * Corrigido a duplicidade do campo da cidade
+    * Alterar nome da section dos dados pessoais no email
+    * Ajustar label do telefone no form e no email
+    
 ## 25/08/2021
     * Corrigido o problema de não aparecer alguns dados no email
     * Iniciando os formulários com o option `estado` vindo selecionado
