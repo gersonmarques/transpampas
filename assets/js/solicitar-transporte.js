@@ -399,7 +399,7 @@ function getUserInfo(field, iscpf) {
           $('.email').val(item.email);
           $('.nome').prop('disabled', true);
           $('.email').prop('disabled', true);
-          id = item.id;
+          id = id || item.id;
         });
         getUserMeta(id);
       }

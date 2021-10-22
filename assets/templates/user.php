@@ -181,7 +181,10 @@
             $layoutEmail = layoutEmail($request_transport, $request);
             $nome = empty($request_transport['nome']) ? $request_transport['nome_responsavel'] : $request_transport['nome'];
             $nome = !empty($nome) ? $nome : get_user_meta($request_transport['id_user'], 'first_name', true);
-            sendMail($layoutEmail, $nome);
+            $userInfo = empty($request_transport['email']) ? get_userdata($request_transport['id_user']) : null;
+            $email = !empty($request_transport['email']) ? $request_transport['email'] : $userInfo->user_email;
+
+            sendMail($layoutEmail, $nome, $email);
 
             return array(
                 'status' => true,
@@ -598,7 +601,7 @@
     return $html;    
 }
 
-    function sendMail($body , $nome) {
+    function sendMail($body , $nome, $email) {
         require_once ABSPATH . WPINC . '/PHPMailer/PHPMailer.php';
         require_once ABSPATH . WPINC . '/PHPMailer/SMTP.php';
         require_once ABSPATH . WPINC . '/PHPMailer/Exception.php';
@@ -620,7 +623,8 @@
         $mailer->Username   = htmlspecialchars_decode(get_option('mailserver_login'));                //SMTP username
         $mailer->Password   = htmlspecialchars_decode(get_option('mailserver_pass'));
         
-        $mailer->setFrom(  htmlspecialchars_decode(get_option('mailserver_login')), 'Contato Transpampas');
+        $mailer->addReplyTo(htmlspecialchars_decode($email), $nome);
+        $mailer->setFrom(htmlspecialchars_decode(get_option('mailserver_login')), 'Contato Transpampas');
         $mailer->isHTML(true); 
         $mailer->Subject = $subject;
         $mailer->Body    = $body;       

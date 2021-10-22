@@ -71,6 +71,9 @@ class Request_transport_html{
                             foreach($result as $key => $val):
                                 if(!empty($val->id_user) ) {
                                     $dataUsers = $request_transport->getUserMeta($val->id_user);
+                                    $first_name = get_user_meta($val->id_user, 'first_name', true);
+                                    $last_name = get_user_meta($val->id_user, 'last_name', true); 
+                                    $dataUsers['fullname'] = $first_name . ' ' . $last_name;
                                 }
                                 $colCPFOrCNPJ = "";
                                 if(!empty($val->cpf) || !empty($val->cnpj) ){
@@ -79,10 +82,10 @@ class Request_transport_html{
                                     $colCPFOrCNPJ = empty($dataUsers['cpf']) ? $dataUsers['cnpj'] : $dataUsers['cpf'];
                                 }
                                 $user_data = get_user_by('id', $val->id_user);
-                                $pf = $val->nome ? $val->nome : $dataUsers['nome'];
+                                $pf = $val->nome ? $val->nome : $dataUsers['fullname'];
                                 $name = empty($val->cpf) ? $val->razao_social : $pf;
 
-                                $name = (empty($name) && !empty($val->id_user) ) ? $dataUsers['nome'] : $name;
+                                $name = (empty($name) && !empty($val->id_user) ) ? $dataUsers['fullname'] : $name;
                             ?>
                             <tr class="row-list" data-id="<?php echo $val->id?>" style="cursor:pointer">
                                 <td><input type="checkbox" name="checkbox-actions" class="checkbox-actions" value="<?php echo $val->id?>"></td>
@@ -112,11 +115,15 @@ class Request_transport_html{
         if( !empty($result['id_user']) ) {
             $dataUsers = $request_transport->getUserMeta($result['id_user']);
             $result = array_merge($result, $dataUsers);
+            $first_name = get_user_meta($result['id_user'], 'first_name', true);
+            $last_name = get_user_meta($result['id_user'], 'last_name', true); 
+            $result['fullname'] = $first_name . ' ' . $last_name;
         }
         $cnh = !empty($result['rg_cnh']) ? explode("/", $result['rg_cnh']) : [];
         $crlv = !empty($result['crlv']) ? explode("/", $result['crlv']) : [];
         $cnh = end($cnh);
         $crlv = end($crlv);
+        $name = empty($result['fullname']) ? $result['nome'] : $result['fullname'];
 
     ?>
         <div id="update-request-transport">
@@ -141,7 +148,7 @@ class Request_transport_html{
                     <?php if(!empty($result['cpf'])):?>
                         <div class="group-add-request-transport">
                             <label for="nome-request-transport">Nome</label>
-                            <input type="text" id="nome-request-transport" name="nome" value="<?php echo $result['nome'];?>" disabled/>
+                            <input type="text" id="nome-request-transport" name="nome" value="<?php echo $name;?>" disabled/>
                         </div>
                         <div class="group-add-request-transport">
                             <label for="cpf-request-transport">CPF</label>
@@ -345,7 +352,7 @@ class Request_transport_html{
                 <div class="section-data">
                     <h3>Observação</h3>
                     <div class="group-add-request-transport" style="grid-column: 1 / 3">
-                        <label for="observacao">Obeservacão</label>
+                        <label for="observacao">Observação</label>
                         <textarea id="observacao" name="observacao" rows='6'><?php echo $result['observacao'];?></textarea>
                     </div>
                 </div>

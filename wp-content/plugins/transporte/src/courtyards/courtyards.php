@@ -142,8 +142,11 @@ class Courtyards{
             return false;
         }
 
+        $notNullArr = array('cep', 'neighborhood', 'number' );
+
         foreach( $fields as $key => $value ){
-            if(empty($value))
+
+            if(empty($value) && !in_array($key, $notNullArr))
                 return false;
             if(is_array($value)){
                 foreach($value as $k => $v){

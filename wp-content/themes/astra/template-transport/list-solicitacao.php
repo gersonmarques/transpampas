@@ -76,11 +76,15 @@ function update(){
     if( !empty($result['id_user']) ) {
         $dataUsers = $request_transport->getUserMeta($result['id_user']);
         $result = array_merge($result, $dataUsers);
+        $first_name = get_user_meta($result['id_user'], 'first_name', true);
+        $last_name = get_user_meta($result['id_user'], 'last_name', true); 
+        $result['fullname'] = $first_name . ' ' . $last_name;
     }
     $cnh = !empty($result['rg_cnh']) ? explode("/", $result['rg_cnh']) : [];
     $crlv = !empty($result['crlv']) ? explode("/", $result['crlv']) : [];
     $cnh = end($cnh);
     $crlv = end($crlv);
+    $name = empty($result['fullname']) ? $result['nome'] : $result['fullname'];
 
     echo "";
 ?>
@@ -99,11 +103,18 @@ function update(){
                    <option value="3" <?php echo $result['status'] === "3" ? 'selected' : '' ;?>>Fechado</option>
                 </select>
             </div>
+            <?php if(!empty($result['vistoria'])):?>
+                <div class="group-add-request-transport group-vistoria">
+                    <a class="btn-vistoria" href="<?= $result['vistoria']?>" target="_blank">
+                        <input type="button" class="btn button button-primary" value="Vistoria"/>
+                    </a>
+                </div>
+            <?php endif; ?>
             <div class="section-data">
                 <h3 style="background-color: #e94442">Dados pessoais</h3>
                 <div class="group-add-request-transport">
                     <label for="nome-request-transport">Nome</label>
-                    <input type="text" id="nome-request-transport" name="nome" value="<?php echo $result['nome'];?>" disabled/>
+                    <input type="text" id="nome-request-transport" name="nome" value="<?php echo  $name;?>" disabled/>
                 </div>
                 <div class="group-add-request-transport">
                     <label for="cpf-request-transport">CPF</label>
@@ -139,7 +150,7 @@ function update(){
                 </div>
                 <div class="group-add-request-transport">
                     <label for="nome-responsavel-request-transport">Nome Responsável</label>
-                    <input type="text" id="nome-responsavel-request-transport" name="nome-responsavel" value="<?php echo empty($result['nome']) ? $result['nome_responsavel'] : $result['nome'];?>" disabled/>
+                    <input type="text" id="nome-responsavel-request-transport" name="nome-responsavel" value="<?php echo empty($result['nome']) ? $result['nome_responsavel'] :  $name;?>" disabled/>
                 </div>
             </div>
             <div class="section-data">
@@ -212,13 +223,6 @@ function update(){
                     <label class="crlv_label label_input" disabled style="opacity: 0.8"><?php echo !empty($result['crlv']) ?  $crlv :'Cópia/Foto legível de CRLV (.pdf .jpg .png)'?></label>
                     <a href="<?php echo home_url() . '/' . $result['crlv']; ?>" target="_blank"><span class="dashicons dashicons-visibility"></span></a>
                 </div>
-                <?php if(!empty($result['vistoria'])):?>
-                    <div class="group-add-request-transport group-vistoria">
-                        <a class="btn-vistoria" href="<?= $result['vistoria']?>" target="_blank">
-                            <input type="button" class="btn button button-primary" value="Vistoria"/>
-                        </a>
-                    </div>
-                <?php endif; ?>
             </div>
             <div class="section-data">
                 <h3 style="background-color: #e94442">Origem</h3>
@@ -301,12 +305,12 @@ function update(){
             <div class="section-data">
                 <h3 style="background-color: #e94442">Observação</h3>
                 <div class="group-add-request-transport" style="grid-column: 1 / 3">
-                    <label for="observacao">Obeservacão</label>
-                    <textarea id="observacao" name="observacao" rows='6'><?php echo $result['observacao'];?></textarea>
+                    <label for="observacao">Observação</label>
+                    <textarea id="observacao" name="observacao" rows='6' disabled><?php echo $result['observacao'];?></textarea>
                 </div>
             </div>
             <input type="hidden" id="url_site" value="<?= get_site_url();?>" />
-            <input type="button" id="input_update" class="button button-primary" value="Atualizar"/>
+            <!-- <input type="button" id="input_update" class="button button-primary" value="Atualizar"/> -->
             <div class="loader"></div>
         </form>
         <div class="loading">
