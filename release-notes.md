@@ -1,5 +1,12 @@
 # Release Notes
 
+# 21/10/2021
+    * No email das solicitações, colocar repply-to para o email do cliente
+    * Na lista de solicitações, mostrar nome completo (sobrenome)
+    * Minhas solicitações: deixar campo observação somente leitura e remover bt de atualizar
+    * Minhas solicitações: link vistoria não aparece para cliente
+    * Remover obrigatoriedade do cadastro dos pátios (bairro, número, cep)
+
 ## 11/10/2021
     * Corrigido o problema de não aparecer alguns dados no email do orçamento
     * Corrigido a duplicidade do campo da cidade
